@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --breakpoint-min-mobile: 450px;
+
+  /* White and Black */
+  --color-white000: #ffffff;
+  --color-black000: #191d1f;
+
+  /* Gray Scale */
+  --color-gray-bg: #f8f9fc;
+  --color-gray-0: #edf0f3;
+  --color-gray-1: #e2e6ea;
+  --color-gray-2: #ced5db;
+  --color-gray-3: #9eaab5;
+  --color-gray-4: #797f85;
+  --color-gray-bk: #0d1216;
+  --color-gray-4: #797f85;
+  --color-gray-gradient: linear-gradient(
+    0deg,
+    #0b111a 60%,
+    rgba(14, 47, 47, 0) 100%
+  );
+
+  /* Point Colors */
+  --color-point-000: #e2f4e6;
+  --color-point-200: #97f597;
+  --color-point-300: #01df82;
+  --color-point-400: #19b268;
+  --color-point-450: #14975d;
+  --color-point-500: #014538;
+  --color-gngra: linear-gradient(180deg, #13975c 25%, #014538 100%);
+
+  --color-sub: #fb702f;
+  --color-errorpoint: #ff4a4a;
+
+  /* Weather Colors */
+  --color-weather-rain: linear-gradient(
+    180deg,
+    #3675d7 27.18%,
+    #25cdf4 61.86%,
+    #7cdee9 75.64%,
+    #67ebf6 85.42%
+  );
+  --color-weather-sun: linear-gradient(204deg, #ffd88b 12.36%, #f70 91.41%);
+  --color-weather-cloud: linear-gradient(
+    114deg,
+    rgba(146, 181, 218, 0.56) 16.35%,
+    rgba(201, 218, 237, 0.28) 75.91%,
+    rgba(255, 255, 255, 0) 90.8%
+  );
+  --color-weather-or-01: #ffe7d2;
+  --color-weather-or-02: #f45c0a;
+  --color-weather-orgra: linear-gradient(180deg, #f70 40%, #ffd88b 100%);
+  --color-weather-bl-01: #deeeff;
+  --color-weather-bl-02: #3675d7;
+  --color-weather-blgra: linear-gradient(180deg, #3675d7 34.2%, #67ebf6 85.42%);
+  --color-weather-gngra-2: linear-gradient(180deg, #01df82 40%, #98e846 100%);
+}

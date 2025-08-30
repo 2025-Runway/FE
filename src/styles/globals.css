@@ -1,5 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './theme.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -115,8 +116,17 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: var(--font-pretendard);
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+@layer components {
+  .mobile-area {
+    @apply mx-auto min-w-[320px] max-w-[500px] w-full;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
   }
 }
