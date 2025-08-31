@@ -1,3 +1,4 @@
+import { CourseSurrondInfo } from '../../home/_components/course-surrond-info';
 import { PlacePickSheet } from './place-pick-sheet';
 
 export function TravelPlaceContent() {
@@ -11,7 +12,7 @@ export function TravelPlaceContent() {
           가고 싶은 여행지를 설정하고, <br /> 런웨이 코스를 살펴보세요.
         </p>
       </div>
-      <PlacePickSheet />
+      <CourseSurrondInfo />
     </div>
   );
 }
