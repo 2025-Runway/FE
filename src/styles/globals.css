@@ -129,4 +129,48 @@
   .flex-center {
     @apply flex items-center justify-center;
   }
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  .custom-scrollbar {
+    /* 스크롤바 전체 너비 */
+    scrollbar-width: 2px;
+    scrollbar-color: var(--color-point-400) var(--color-point-000);
+    scrollbar-gutter: stable;
+    border-radius: 8px;
+  }
+
+  /* 웹킷 브라우저용 (Chrome, Safari, Edge) */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px; /* 세로 스크롤바 너비 */
+    height: 8px; /* 가로 스크롤바 높이 */
+    scrollbar-gutter: stable;
+    border-radius: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--color-point-000); /* 트랙 색상 */
+    scrollbar-gutter: stable;
+    border-radius: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-point-400); /* 썸 색상 */
+    border: 1px solid var(--color-point-000); /* 썸 테두리 */
+    scrollbar-gutter: stable;
+    border-radius: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-point-400); /* 호버시 색상 */
+    scrollbar-gutter: stable;
+    border-radius: 8px;
+  }
 }

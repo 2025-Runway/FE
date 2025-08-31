@@ -69,7 +69,7 @@ export default function NavigationBar() {
 
   return (
     <nav className='fixed bottom-0 left-0 right-0 bg-gray-bg border-t border-gray-1 mobile-area'>
-      <div className='px-5 grid grid-cols-5 gap-9 h-16 pt-1 pb-2'>
+      <div className='px-5 grid grid-cols-5 h-16 pt-1 pb-2'>
         {navItems.map(item => {
           const active = isActive(item.href);
 

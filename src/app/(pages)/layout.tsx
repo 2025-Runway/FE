@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import NavigationBar from '@/components/navigation-bar';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Runway',
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className='select-none antialiased mobile-area h-screen bg-gray-1'>
         <main className='pb-16 w-full h-full bg-gray-bg'>
           {children}
+          <Toaster />
           <NavigationBar />
         </main>
       </body>
