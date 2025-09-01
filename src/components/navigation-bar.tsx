@@ -13,6 +13,11 @@ import SaveActive from '@/public/svg/navigation/save-active.svg';
 import SaveInactive from '@/public/svg/navigation/save-inactive.svg';
 import MyPageActive from '@/public/svg/navigation/mypage-active.svg';
 import MyPageInactive from '@/public/svg/navigation/mypage-inactive.svg';
+import HeartActive from '@/public/svg/home/heart-black.svg';
+import HeartInactive from '@/public/svg/home/heart-blank.svg';
+import { CourseSurrondInfo } from '@/app/(pages)/course/_components/course-surrond-info';
+import React from 'react';
+import { toast } from 'sonner';
 
 interface NavItem {
   href: string;
@@ -62,10 +67,31 @@ const navItems: NavItem[] = [
 
 export default function NavigationBar() {
   const pathname = usePathname();
+  const [isSaveActive, setIsSaveActive] = React.useState(false);
 
   const isActive = (href: string) => {
     return pathname.startsWith(href);
   };
+  const isCourseDetail = pathname.startsWith('/course');
+
+  const handleSaveClick = () => {
+    setIsSaveActive(!isSaveActive);
+    toast.success('찜 완료');
+  };
+  if (isCourseDetail) {
+    return (
+      <nav className='fixed bottom-0 left-0 right-0 px-4 pt-5 pb-3 h-20 bg-gray-bg border-t border-gray-1 mobile-area flex items-center gap-2'>
+        <span
+          className='px-2.5 py-1 flex-col-center gap-1'
+          onClick={handleSaveClick}
+        >
+          {isSaveActive ? <HeartActive /> : <HeartInactive />}
+          <span className='text-[10px] leading-3 text-gray-bk'>찜</span>
+        </span>
+        <CourseSurrondInfo />
+      </nav>
+    );
+  }
 
   return (
     <nav className='fixed bottom-0 left-0 right-0 bg-gray-bg border-t border-gray-1 mobile-area'>
