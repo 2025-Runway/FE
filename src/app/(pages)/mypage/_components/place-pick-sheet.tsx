@@ -11,7 +11,11 @@ import {
 import { cn } from '@/utils/cn';
 import { XIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { KOREA_REGIONS } from '../_constants/region.constant';
+import {
+  KOREA_REGIONS,
+  Place,
+  ProvinceKey,
+} from '../_constants/region.constant';
 import { toast } from 'sonner';
 
 const REGION_LIST = [
@@ -32,14 +36,14 @@ const REGION_LIST = [
   '제주',
   '충남',
   '충북',
-];
+] as ProvinceKey[];
 
 export function PlacePickSheet() {
-  const [isActive, setIsActive] = useState('강원');
-  const [isPickPlace, setIsPickPlace] = useState<string[]>([]);
+  const [isActive, setIsActive] = useState<ProvinceKey>('강원');
+  const [isPickPlace, setIsPickPlace] = useState<Place[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const handleRegionClick = (item: string) => {
+  const handleRegionClick = (item: ProvinceKey) => {
     setIsActive(item);
     // 스크롤을 맨 위로 이동
     if (scrollRef.current) {
@@ -47,7 +51,7 @@ export function PlacePickSheet() {
     }
   };
 
-  const handlePlaceClick = (item: string) => {
+  const handlePlaceClick = (item: Place) => {
     if (isPickPlace.includes(item)) {
       setIsPickPlace(isPickPlace.filter(place => place !== item));
     } else {
@@ -97,7 +101,7 @@ export function PlacePickSheet() {
         </SheetHeader>
 
         <div className='flex-shrink-0 pl-6 pt-11 pb-7.5 w-full h-auto flex flex-col itmes-end gap-3.5 border-b-8 border-gray-0'>
-          <h1 className='text-[24px] fonr-medium text-gray-bk leading-[33.6px]'>
+          <h1 className='text-[24px] font-extralight-medium text-gray-bk leading-[33.6px]'>
             여행, 어디로 떠나시나요?
           </h1>
           <div className='pb-3 flex items-center gap-2 overflow-x-auto custom-scrollbar'>
@@ -105,11 +109,11 @@ export function PlacePickSheet() {
               <>
                 {isPickPlace.map(item => (
                   <span
-                    key={item}
+                    key={item.name}
                     className='flex-shrink-0 px-4 py-2 w-fit h-10 bg-point-000 border-2 border-point-400 rounded-[20px] text-[14px] font-bold text-point-400 leading-[19.6px]'
                     onClick={() => handlePlaceClick(item)}
                   >
-                    {item}
+                    {item.name}
                   </span>
                 ))}
               </>
@@ -144,15 +148,15 @@ export function PlacePickSheet() {
               {isActive} 전체
             </h4>
 
-            {KOREA_REGIONS[isActive as keyof typeof KOREA_REGIONS].map(item => (
+            {KOREA_REGIONS[isActive].map(item => (
               <span
                 key={item.name}
                 className={cn(
                   'w-fit h-auto px-3 py-1 text-[16px] font-medium text-gray-bk leading-[22.4px] border border-transparent rounded-full bg-transparent transition-all duration-300 cursor-pointer',
-                  isPickPlace.includes(item.name) &&
+                  isPickPlace.includes(item) &&
                     '  border-point-400 bg-point-000',
                 )}
-                onClick={() => handlePlaceClick(item.name)}
+                onClick={() => handlePlaceClick(item)}
               >
                 {item.name}
               </span>
