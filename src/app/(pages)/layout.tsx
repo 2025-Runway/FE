@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import NavigationBar from '@/components/navigation-bar';
 import { Toaster } from 'sonner';
-
 export const metadata: Metadata = {
   title: 'Runway',
   description: 'Runway',
