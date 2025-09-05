@@ -1,3 +1,9 @@
+import { HomeHeader } from './_components';
+
 export default function HomePage() {
-  return <div>HomePage</div>;
+  return (
+    <main className='w-full h-full flex flex-col'>
+      <HomeHeader />
+    </main>
+  );
 }
