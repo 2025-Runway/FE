@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --font-pretendard: 'Pretendard', sans-serif;
+  --font-pretendard-thin: 'Pretendard-Thin', sans-serif;
+  --font-pretendard-extra-light: 'Pretendard-ExtraLight', sans-serif;
+  --font-pretendard-light: 'Pretendard-Light', sans-serif;
+  --font-pretendard-regular: 'Pretendard-Regular', sans-serif;
+  --font-pretendard-medium: 'Pretendard-Medium', sans-serif;
+  --font-pretendard-semi-bold: 'Pretendard-SemiBold', sans-serif;
+  --font-pretendard-bold: 'Pretendard-Bold', sans-serif;
+  --font-pretendard-extra-bold: 'Pretendard-ExtraBold', sans-serif;
+  --font-pretendard-very-bold: 'Pretendard-VeryBold', sans-serif;
+
+  --text-heading1: 24px;
+  --text-heading1-font-weight: 600;
+  --text-heading1-line-height: 38.4px;
+  --text-heading1-font-family: var(--font-pretendard-semi-bold);
+
+  --text-heading2: 48px;
+  --text-heading2-font-weight: 700;
+  --text-heading2-line-height: 67.2px;
+  --text-heading2-font-family: var(--font-pretendard-bold);
+
+  --text-title1: 20px;
+  --text-title1-font-weight: 700;
+  --text-title1-line-height: 32px;
+  --text-title1-font-family: var(--font-pretendard-bold);
+
+  --text-title2: 18px;
+  --text-title2-font-weight: 700;
+  --text-title2-line-height: 25.2px;
+  --text-title2-font-family: var(--font-pretendard-bold);
+
+  --text-title3: 16px;
+  --text-title3-font-weight: 700;
+  --text-title3-line-height: 22.4px;
+  --text-title3-font-family: var(--font-pretendard-bold);
+
+  --text-title4: 16px;
+  --text-title4-font-weight: 800;
+  --text-title4-line-height: 22.4px;
+  --text-title4-font-family: var(--font-pretendard-bold);
+
+  --text-body1: 18px;
+  --text-body1-font-weight: 500;
+  --text-body1-line-height: 25.2px;
+  --text-body1-font-family: var(--font-pretendard-medium);
+
+  --text-body2: 16px;
+  --text-body2-font-weight: 400;
+  --text-body2-line-height: 22.4px;
+  --text-body2-font-family: var(--font-pretendard-regular);
+
+  --text-body3: 14px;
+  --text-body3-font-weight: 700;
+  --text-body3-line-height: 19.6px;
+  --text-body3-font-family: var(--font-pretendard-bold);
+
+  --text-body4: 14px;
+  --text-body4-font-weight: 300;
+  --text-body4-line-height: 19.6px;
+  --text-body4-font-family: var(--font-pretendard-light);
+
+  --text-body5: 14px;
+  --text-body5-font-weight: 400;
+  --text-body5-line-height: 22.4px;
+  --text-body5-font-family: var(--font-pretendard-regular);
+
+  --text-caption1: 14px;
+  --text-caption1-font-weight: 700;
+  --text-caption1-line-height: 16.8px;
+  --text-caption1-font-family: var(--font-pretendard-bold);
+
+  --text-caption2: 12px;
+  --text-caption2-font-weight: 300;
+  --text-caption2-line-height: 14.4px;
+  --text-caption2-font-family: var(--font-pretendard-light);
+
+  --text-caption2: 12px;
+  --text-caption2-font-weight: 300;
+  --text-caption2-line-height: 14.4px;
+  --text-caption2-font-family: var(--font-pretendard-light);
+
+  --text-caption3: 10px;
+  --text-caption3-font-weight: 400;
+  --text-caption3-line-height: 12px;
+  --text-caption3-font-family: var(--font-pretendard-regular);
+}
+
+@layer utilities {
+  .text-heading1 {
+    font-family: var(--font-pretendard-semi-bold);
+    font-size: var(--text-heading1);
+    font-weight: var(--text-heading1-font-weight);
+    line-height: var(--text-heading1-line-height);
+  }
+  .text-heading2 {
+    font-family: var(--font-pretendard-bold);
+    font-size: var(--text-heading2);
+    font-weight: var(--text-heading2-font-weight);
+    line-height: var(--text-heading2-line-height);
+  }
+  .text-title1 {
+    font-family: var(--font-pretendard-bold);
+    font-size: var(--text-title1);
+    font-weight: var(--text-title1-font-weight);
+    line-height: var(--text-title1-line-height);
+  }
+  .text-title2 {
+    font-family: var(--font-pretendard-bold);
+    font-size: var(--text-title2);
+    font-weight: var(--text-title2-font-weight);
+    line-height: var(--text-title2-line-height);
+  }
+  .text-title3 {
+    font-family: var(--font-pretendard-bold);
+    font-size: var(--text-title3);
+    font-weight: var(--text-title3-font-weight);
+    line-height: var(--text-title3-line-height);
+  }
+  .text-title4 {
+    font-family: var(--font-pretendard-bold);
+    font-size: var(--text-title4);
+    font-weight: var(--text-title4-font-weight);
+    line-height: var(--text-title4-line-height);
+  }
+  .text-body1 {
+    font-family: var(--font-pretendard-medium);
+    font-size: var(--text-body1);
+    font-weight: var(--text-body1-font-weight);
+    line-height: var(--text-body1-line-height);
+  }
+  .text-body2 {
+    font-family: var(--font-pretendard-regular);
+    font-size: var(--text-body2);
+    font-weight: var(--text-body2-font-weight);
+    line-height: var(--text-body2-line-height);
+  }
+  .text-body3 {
+    font-family: var(--font-pretendard-bold);
+    font-size: var(--text-body3);
+    font-weight: var(--text-body3-font-weight);
+    line-height: var(--text-body3-line-height);
+  }
+  .text-body4 {
+    font-family: var(--font-pretendard-light);
+    font-size: var(--text-body4);
+    font-weight: var(--text-body4-font-weight);
+    line-height: var(--text-body4-line-height);
+  }
+  .text-body5 {
+    font-family: var(--font-pretendard-regular);
+    font-size: var(--text-body5);
+    font-weight: var(--text-body5-font-weight);
+    line-height: var(--text-body5-line-height);
+  }
+  .text-caption1 {
+    font-family: var(--font-pretendard-bold);
+    font-size: var(--text-caption1);
+    font-weight: var(--text-caption1-font-weight);
+    line-height: var(--text-caption1-line-height);
+  }
+  .text-caption2 {
+    font-family: var(--font-pretendard-light);
+    font-size: var(--text-caption2);
+    font-weight: var(--text-caption2-font-weight);
+    line-height: var(--text-caption2-line-height);
+  }
+  .text-caption3 {
+    font-family: var(--font-pretendard-regular);
+    font-size: var(--text-caption3);
+    font-weight: var(--text-caption3-font-weight);
+    line-height: var(--text-caption3-line-height);
+  }
+}
