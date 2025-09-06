@@ -29,8 +29,8 @@ export default function RootLayout({
           content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
         />
       </head>
-      <body className='select-none antialiased mobile-area h-screen bg-gray-1'>
-        <main className='pb-16 w-full h-full bg-gray-bg'>
+      <body className='mobile-area bg-gray-bg h-screen antialiased select-none'>
+        <main className='bg-gray-bg h-full w-full pb-16'>
           {children}
           <Toaster />
           <NavigationBar />
