@@ -11,7 +11,7 @@ export default function InfoModal({ isOpen, onClose }: InfoModalProps) {
   return (
     <div className='absolute top-8 left-0 z-50 pr-4'>
       <div
-        className='rounded-[20px] bg-white px-[10px] py-4'
+        className='rounded-[20px] bg-white px-[20px] py-4'
         style={{ boxShadow: '0 4px 12px 0 rgba(0, 0, 0, 0.20)' }}
       >
         <div className='flex gap-2'>
