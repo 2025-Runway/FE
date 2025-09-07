@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import CourseCard from './course-card';
+import { CourseCard } from './course-card';
 import { Info } from 'lucide-react';
-import InfoModal from './info-modal';
-import CourseSkeleton from './course-skeleton';
+import { InfoModal } from './info-modal';
+import { CourseSkeleton } from './course-skeleton';
 
 interface Course {
   id: number;
@@ -16,7 +16,7 @@ interface PopularCourseProps {
   isLoading: boolean;
 }
 
-export default function AICourse({ courses, isLoading }: PopularCourseProps) {
+export function AICourse({ courses, isLoading }: PopularCourseProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (

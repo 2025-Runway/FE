@@ -1,6 +1,6 @@
 import { Search } from 'lucide-react';
 
-export default function HomeSearch() {
+export function HomeSearch() {
   return (
     <div className='relative flex w-full gap-3'>
       {/**

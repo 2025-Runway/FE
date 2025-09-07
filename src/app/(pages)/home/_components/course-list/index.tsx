@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import CourseTabs from './course-tabs';
-import PopularCourse from './popular-course';
-import AICourse from './ai-course';
-import EmptyDestination from './empty-destination';
+import { CourseTabs } from './course-tabs';
+import { PopularCourse } from './popular-course';
+import { AICourse } from './ai-course';
+import { EmptyDestination } from './empty-destination';
 
 const POPULAR_COURSES = {
   nationwide: [
@@ -80,7 +80,7 @@ const AI_RECOMMENDED_COURSES = {
   ],
 };
 
-export default function CourseSection() {
+export function CourseSection() {
   const [activeTab, setActiveTab] = useState<'nationwide' | 'destinations'>(
     'nationwide',
   );

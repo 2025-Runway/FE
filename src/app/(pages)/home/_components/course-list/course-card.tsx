@@ -6,7 +6,7 @@ interface CourseCardProps {
   imageUrl: string;
 }
 
-export default function CourseCard({
+export function CourseCard({
   title,
   location,
   imageUrl,

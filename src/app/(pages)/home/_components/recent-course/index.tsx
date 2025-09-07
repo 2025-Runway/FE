@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function RecentCourse() {
+export function RecentCourse() {
   return (
     <section className='flex flex-col gap-3 px-5'>
       <h2 className='text-gray-bk text-[18px] font-bold'>최근 본 코스</h2>
