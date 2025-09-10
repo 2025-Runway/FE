@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 import { WeatherNowData } from '@/interfaces/weather.types';
 import LocationIcon from '@/public/svg/weather/location.svg';
 import { WeatherIcon } from './weather-icon';
