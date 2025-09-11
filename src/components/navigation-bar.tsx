@@ -66,6 +66,9 @@ export default function NavigationBar() {
   const isActive = (href: string) => {
     return pathname.startsWith(href);
   };
+  if (pathname === '/login') {
+    return null;
+  }
 
   return (
     <nav className='fixed bottom-0 left-0 right-0 bg-gray-bg border-t border-gray-1 mobile-area'>
