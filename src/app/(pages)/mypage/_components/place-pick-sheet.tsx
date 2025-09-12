@@ -40,7 +40,7 @@ const REGION_LIST = [
 
 export function PlacePickSheet() {
   const [isActive, setIsActive] = useState<ProvinceKey>('강원');
-  const [isPickPlace, setIsPickPlace] = useState<Place[]>([]);
+  const [isPickPlace, setIsPickPlace] = useState<Place | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleRegionClick = (item: ProvinceKey) => {
@@ -52,22 +52,22 @@ export function PlacePickSheet() {
   };
 
   const handlePlaceClick = (item: Place) => {
-    if (isPickPlace.includes(item)) {
-      setIsPickPlace(isPickPlace.filter(place => place !== item));
+    if (isPickPlace === item) {
+      setIsPickPlace(null);
     } else {
-      setIsPickPlace([...isPickPlace, item]);
+      setIsPickPlace(item);
     }
   };
 
   const handlePlaceSubmit = (e: React.MouseEvent<HTMLSpanElement>) => {
-    if (isPickPlace.length === 0) {
+    if (isPickPlace === null) {
       toast.error('여행지를 선택해주세요.');
       e.preventDefault();
       e.stopPropagation();
       return;
     }
     toast.success('여행지 설정이 완료되었습니다.');
-    setIsPickPlace([]);
+    setIsPickPlace(null);
   };
 
   return (
@@ -105,18 +105,13 @@ export function PlacePickSheet() {
             여행, 어디로 떠나시나요?
           </h1>
           <div className='pb-3 flex items-center gap-2 overflow-x-auto custom-scrollbar'>
-            {isPickPlace.length !== 0 ? (
-              <>
-                {isPickPlace.map(item => (
-                  <span
-                    key={item.name}
-                    className='flex-shrink-0 px-4 py-2 w-fit h-10 bg-point-000 border-2 border-point-400 rounded-[20px] text-[14px] font-bold text-point-400 leading-[19.6px]'
-                    onClick={() => handlePlaceClick(item)}
-                  >
-                    {item.name}
-                  </span>
-                ))}
-              </>
+            {isPickPlace !== null ? (
+              <span
+                className='flex-shrink-0 px-4 py-2 w-fit h-10 bg-point-000 border-2 border-point-400 rounded-[20px] text-[14px] font-bold text-point-400 leading-[19.6px]'
+                onClick={() => handlePlaceClick(isPickPlace)}
+              >
+                {isPickPlace.name}
+              </span>
             ) : (
               <div className='py-2 w-fit h-10 text-[14px] font-medium text-point-400 leading-[19.6px]'>
                 선택된 여행지가 없습니다.
@@ -153,8 +148,8 @@ export function PlacePickSheet() {
                 key={item.name}
                 className={cn(
                   'w-fit h-auto px-3 py-1 text-[16px] font-medium text-gray-bk leading-[22.4px] border border-transparent rounded-full bg-transparent transition-all duration-300 cursor-pointer',
-                  isPickPlace.includes(item) &&
-                    '  border-point-400 bg-point-000',
+                  isPickPlace === item &&
+                    'text-point-400  border-point-400 bg-point-000',
                 )}
                 onClick={() => handlePlaceClick(item)}
               >
