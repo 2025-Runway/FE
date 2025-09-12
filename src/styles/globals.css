@@ -46,6 +46,7 @@
 }
 
 :root {
+  --font-pretendard: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -204,6 +205,23 @@
   }
   .flex-col-center {
     @apply flex flex-col items-center justify-center;
+  }
+  .kakao-btn {
+    @apply w-full bg-[#FEE500] hover:bg-[#fdef94] active:bg-[#F5D800] 
+    text-[#3C1E1E] font-semibold py-4 px-6 rounded-[6px] 
+    flex items-center justify-center space-x-3
+    transition-all duration-200 ease-in-out
+    disabled:opacity-70 disabled:cursor-not-allowed
+    shadow-lg hover:shadow-xl
+    border border-[#FEE500];
+  }
+  .kakao-btn-text {
+    color: var(--kakao-text, rgba(0, 0, 0, 0.85));
+    font-family: 'Apple SD Gothic Neo';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%; /* 22.5px */
   }
   .scrollbar-hide {
     -ms-overflow-style: none; /* IE and Edge */

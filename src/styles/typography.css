@@ -58,9 +58,9 @@
   --text-body3-font-family: var(--font-pretendard-bold);
 
   --text-body4: 14px;
-  --text-body4-font-weight: 300;
+  --text-body4-font-weight: 400;
   --text-body4-line-height: 19.6px;
-  --text-body4-font-family: var(--font-pretendard-light);
+  --text-body4-font-family: var(--font-pretendard-regular);
 
   --text-body5: 14px;
   --text-body5-font-weight: 400;
@@ -73,14 +73,9 @@
   --text-caption1-font-family: var(--font-pretendard-bold);
 
   --text-caption2: 12px;
-  --text-caption2-font-weight: 300;
+  --text-caption2-font-weight: 400;
   --text-caption2-line-height: 14.4px;
-  --text-caption2-font-family: var(--font-pretendard-light);
-
-  --text-caption2: 12px;
-  --text-caption2-font-weight: 300;
-  --text-caption2-line-height: 14.4px;
-  --text-caption2-font-family: var(--font-pretendard-light);
+  --text-caption2-font-family: var(--font-pretendard-regular);
 
   --text-caption3: 10px;
   --text-caption3-font-weight: 400;
