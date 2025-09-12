@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import NavigationBar from '@/components/navigation-bar';
 import { Toaster } from 'sonner';
+import { GlobalProvider } from '@/components/provider/global-provider';
 
 export const metadata: Metadata = {
   title: 'Runway',
@@ -16,13 +17,6 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <head>
-        {/* Pretendard 웹폰트 CDN 설정 */}
-        <link
-          rel='stylesheet'
-          as='style'
-          href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css'
-          crossOrigin='anonymous'
-        />
         {/* viewport 설정 */}
         <meta
           name='viewport'
@@ -30,11 +24,12 @@ export default function RootLayout({
         />
       </head>
       <body className='select-none antialiased mobile-area h-screen bg-gray-1'>
-        <main className='pb-16 w-full h-full bg-gray-bg'>
-          {children}
-          <Toaster />
-          <NavigationBar />
-        </main>
+        <GlobalProvider>
+          <main className='pb-16 w-full h-full bg-gray-bg'>
+            {children}
+            <NavigationBar />
+          </main>
+        </GlobalProvider>
       </body>
     </html>
   );
