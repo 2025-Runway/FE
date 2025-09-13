@@ -1212,6 +1212,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.10.5":
+  version: 7.28.4
+  resolution: "@babel/runtime@npm:7.28.4"
+  checksum: 10c0/792ce7af9750fb9b93879cc9d1db175701c4689da890e6ced242ea0207c9da411ccf16dc04e689cc01158b28d7898c40d75598f4559109f761c12ce01e959bf7
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.27.1, @babel/template@npm:^7.27.2":
   version: 7.27.2
   resolution: "@babel/template@npm:7.27.2"
@@ -2403,6 +2410,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-devtools@npm:5.87.3":
+  version: 5.87.3
+  resolution: "@tanstack/query-devtools@npm:5.87.3"
+  checksum: 10c0/2e2e22e3866cd1cae5fa63362dd745965a6a73cc74397eb5ad44eb6e3066061776f7fe01b49e61a95117213e65f7d0d14aa6c55a665dda79b7a8c7c7aa2c56f5
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.87.3":
+  version: 5.87.3
+  resolution: "@tanstack/react-query-devtools@npm:5.87.3"
+  dependencies:
+    "@tanstack/query-devtools": "npm:5.87.3"
+  peerDependencies:
+    "@tanstack/react-query": ^5.87.1
+    react: ^18 || ^19
+  checksum: 10c0/a734a9936e3ede24fc1e14b2486da885f1d597133300499e9761259c6f01b139f4d0946ba5b7cedc9c7b9a68a67d112e4b3057896a253989f635473a8b27cd0e
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-query@npm:^5.83.0":
   version: 5.83.0
   resolution: "@tanstack/react-query@npm:5.83.0"
@@ -2755,6 +2781,36 @@ __metadata:
   version: 1.11.1
   resolution: "@unrs/resolver-binding-win32-x64-msvc@npm:1.11.1"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@vercel/analytics@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@vercel/analytics@npm:1.5.0"
+  peerDependencies:
+    "@remix-run/react": ^2
+    "@sveltejs/kit": ^1 || ^2
+    next: ">= 13"
+    react: ^18 || ^19 || ^19.0.0-rc
+    svelte: ">= 4"
+    vue: ^3
+    vue-router: ^4
+  peerDependenciesMeta:
+    "@remix-run/react":
+      optional: true
+    "@sveltejs/kit":
+      optional: true
+    next:
+      optional: true
+    react:
+      optional: true
+    svelte:
+      optional: true
+    vue:
+      optional: true
+    vue-router:
+      optional: true
+  checksum: 10c0/43d33ea83b32f5203fec21b7f43c399e398f0c37d2dd341d522969e0e6ee23fd652a2766a4203a3ce573f711beee5ee1ab7d36316f767a4901160e3e96ee31e5
   languageName: node
   linkType: hard
 
@@ -4080,9 +4136,11 @@ __metadata:
     "@svgr/webpack": "npm:^8.1.0"
     "@tailwindcss/postcss": "npm:^4"
     "@tanstack/react-query": "npm:^5.83.0"
+    "@tanstack/react-query-devtools": "npm:^5.87.3"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
+    "@vercel/analytics": "npm:^1.5.0"
     axios: "npm:^1.10.0"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
@@ -4090,7 +4148,7 @@ __metadata:
     eslint: "npm:^9"
     eslint-config-next: "npm:15.3.5"
     lucide-react: "npm:^0.525.0"
-    motion: "npm:^12.23.3"
+    motion: "npm:^12.23.12"
     next: "npm:15.3.5"
     next-themes: "npm:^0.4.6"
     nuqs: "npm:^2.4.3"
@@ -4098,6 +4156,7 @@ __metadata:
     prettier-plugin-tailwindcss: "npm:^0.6.14"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
+    react-query-devtools: "npm:^2.6.3"
     sonner: "npm:^2.0.7"
     tailwind-merge: "npm:^3.3.1"
     tailwindcss: "npm:^4"
@@ -4184,12 +4243,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.23.3":
-  version: 12.23.3
-  resolution: "framer-motion@npm:12.23.3"
+"framer-motion@npm:^12.23.12":
+  version: 12.23.12
+  resolution: "framer-motion@npm:12.23.12"
   dependencies:
-    motion-dom: "npm:^12.23.2"
-    motion-utils: "npm:^12.23.2"
+    motion-dom: "npm:^12.23.12"
+    motion-utils: "npm:^12.23.6"
     tslib: "npm:^2.4.0"
   peerDependencies:
     "@emotion/is-prop-valid": "*"
@@ -4202,7 +4261,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/597c00de515426476b8f3eab656736415fe56d41dbfa6f87db5dddf93a47e7fee9d193c3da5c58bd07f6f4f36107915479456db950ce865fb85753e44b66a81c
+  checksum: 10c0/40dfb57bf714075c4f6dd0bbe5b84dd11310114474ebf603846ef9b888ed475fa653271c1fd98ec57a6a1d0b781cdf8b3ebcd5e2c6a3620e934b46304ae0fd39
   languageName: node
   linkType: hard
 
@@ -5061,6 +5120,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"match-sorter@npm:^4.1.0":
+  version: 4.2.1
+  resolution: "match-sorter@npm:4.2.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.10.5"
+    remove-accents: "npm:0.4.2"
+  checksum: 10c0/07d91b93ae01d834621596c403d84b6bf2cabfaf7fc12070ad86461dfe051ef1c362dd9c752b14c6aab5c059e3e578f422070cacc45715b21d9bc2238df1b506
+  languageName: node
+  linkType: hard
+
 "math-intrinsics@npm:^1.1.0":
   version: 1.1.0
   resolution: "math-intrinsics@npm:1.1.0"
@@ -5172,27 +5241,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"motion-dom@npm:^12.23.2":
-  version: 12.23.2
-  resolution: "motion-dom@npm:12.23.2"
+"motion-dom@npm:^12.23.12":
+  version: 12.23.12
+  resolution: "motion-dom@npm:12.23.12"
   dependencies:
-    motion-utils: "npm:^12.23.2"
-  checksum: 10c0/91455a31c558ebd915b45a4157d14553733c432a208c2ab61c54e3d305f32793e559609e2cc2b2d4acaa712637ac067ca62e359d5c6d8b22022bfbff7c023ab8
+    motion-utils: "npm:^12.23.6"
+  checksum: 10c0/1b6a4b86c1aed5b5da7b8a5d1f8310ad169125235bdc1953b8c41cf9f4e2c460ee90bb48ffdae54daecb8db1d7006566ceb5f5c9ccdc82606d548c527cb2631e
   languageName: node
   linkType: hard
 
-"motion-utils@npm:^12.23.2":
-  version: 12.23.2
-  resolution: "motion-utils@npm:12.23.2"
-  checksum: 10c0/bb7479b780371acd43e3a18721deaa9e0324e6f672751310ee1a886e9fd46fe5f71e51510140dadcbd2f81100cd32b9614a2ff40ab2bb8d074d1fb321f6bdd89
+"motion-utils@npm:^12.23.6":
+  version: 12.23.6
+  resolution: "motion-utils@npm:12.23.6"
+  checksum: 10c0/c058e8ba6423b3baa63e985bcc669877ee7d9579d938f5348b4e60c5ea1b4b33dd7f4877434436a4a5807f3cf00370d3fd4079a6fdd6309c5c87aa62b311a897
   languageName: node
   linkType: hard
 
-"motion@npm:^12.23.3":
-  version: 12.23.3
-  resolution: "motion@npm:12.23.3"
+"motion@npm:^12.23.12":
+  version: 12.23.12
+  resolution: "motion@npm:12.23.12"
   dependencies:
-    framer-motion: "npm:^12.23.3"
+    framer-motion: "npm:^12.23.12"
     tslib: "npm:^2.4.0"
   peerDependencies:
     "@emotion/is-prop-valid": "*"
@@ -5205,7 +5274,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/81f0d7a22b3aeb9a128ce29ff13d2349fbe796eb7200470bdb95ed1ea08394e1f4d97ea8983c011001ea0fc072c726f4e1673c7194562980a152494afe663a02
+  checksum: 10c0/48137c82b4fc8e55e06031f17219b2eb4385f028e77717aa6b2e87238c1e42d4222fb4b59b6527ebb66f98ea5f1234edd17c15682985e690b8cf48a5f3e44e67
   languageName: node
   linkType: hard
 
@@ -5593,79 +5662,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.6.14":
-  version: 0.6.14
-  resolution: "prettier-plugin-tailwindcss@npm:0.6.14"
-  peerDependencies:
-    "@ianvs/prettier-plugin-sort-imports": "*"
-    "@prettier/plugin-hermes": "*"
-    "@prettier/plugin-oxc": "*"
-    "@prettier/plugin-pug": "*"
-    "@shopify/prettier-plugin-liquid": "*"
-    "@trivago/prettier-plugin-sort-imports": "*"
-    "@zackad/prettier-plugin-twig": "*"
-    prettier: ^3.0
-    prettier-plugin-astro: "*"
-    prettier-plugin-css-order: "*"
-    prettier-plugin-import-sort: "*"
-    prettier-plugin-jsdoc: "*"
-    prettier-plugin-marko: "*"
-    prettier-plugin-multiline-arrays: "*"
-    prettier-plugin-organize-attributes: "*"
-    prettier-plugin-organize-imports: "*"
-    prettier-plugin-sort-imports: "*"
-    prettier-plugin-style-order: "*"
-    prettier-plugin-svelte: "*"
-  peerDependenciesMeta:
-    "@ianvs/prettier-plugin-sort-imports":
-      optional: true
-    "@prettier/plugin-hermes":
-      optional: true
-    "@prettier/plugin-oxc":
-      optional: true
-    "@prettier/plugin-pug":
-      optional: true
-    "@shopify/prettier-plugin-liquid":
-      optional: true
-    "@trivago/prettier-plugin-sort-imports":
-      optional: true
-    "@zackad/prettier-plugin-twig":
-      optional: true
-    prettier-plugin-astro:
-      optional: true
-    prettier-plugin-css-order:
-      optional: true
-    prettier-plugin-import-sort:
-      optional: true
-    prettier-plugin-jsdoc:
-      optional: true
-    prettier-plugin-marko:
-      optional: true
-    prettier-plugin-multiline-arrays:
-      optional: true
-    prettier-plugin-organize-attributes:
-      optional: true
-    prettier-plugin-organize-imports:
-      optional: true
-    prettier-plugin-sort-imports:
-      optional: true
-    prettier-plugin-style-order:
-      optional: true
-    prettier-plugin-svelte:
-      optional: true
-  checksum: 10c0/1bf635be28b30b3f171a184497eecf512601d19328e402dd2eb1ede52aa57b4f5b605eae2929f4916de9ba22526f3d730d9afa90334db09d17c59f463f7b26d8
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^3.6.2":
-  version: 3.6.2
-  resolution: "prettier@npm:3.6.2"
-  bin:
-    prettier: bin/prettier.cjs
-  checksum: 10c0/488cb2f2b99ec13da1e50074912870217c11edaddedeadc649b1244c749d15ba94e846423d062e2c4c9ae683e2d65f754de28889ba06e697ac4f988d44f45812
-  languageName: node
-  linkType: hard
-
 "prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
@@ -5713,6 +5709,18 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10c0/33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
+  languageName: node
+  linkType: hard
+
+"react-query-devtools@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "react-query-devtools@npm:2.6.3"
+  dependencies:
+    match-sorter: "npm:^4.1.0"
+  peerDependencies:
+    react: ^16.6.3 || ^17.0.0
+    react-query: ^2.0.0
+  checksum: 10c0/c2875821a8e8cbbeec3eda1a9a0ad85ee2ea7a6b9fcc8855e1a60a491a635248d052e4d7b69f56aaee9609ec5821622fd884827b6f47709ad8e2194331f04b81
   languageName: node
   linkType: hard
 
@@ -5849,6 +5857,13 @@ __metadata:
   bin:
     regjsparser: bin/parser
   checksum: 10c0/99d3e4e10c8c7732eb7aa843b8da2fd8b647fe144d3711b480e4647dc3bff4b1e96691ccf17f3ace24aa866a50b064236177cb25e6e4fbbb18285d99edaed83b
+  languageName: node
+  linkType: hard
+
+"remove-accents@npm:0.4.2":
+  version: 0.4.2
+  resolution: "remove-accents@npm:0.4.2"
+  checksum: 10c0/5cbc00efa52df29ce947a0c572ff975b011f5f197ebe7b4f6e527de26aba534cba12d502e3040b72e46ad01de3d4f2d5ef57a6593c964965e43ddb60438da0f8
   languageName: node
   linkType: hard
 
