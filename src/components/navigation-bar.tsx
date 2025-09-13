@@ -7,8 +7,8 @@ import HomeActive from '@/public/svg/navigation/home-active.svg';
 import HomeInactive from '@/public/svg/navigation/home-inactive.svg';
 import WeatherActive from '@/public/svg/navigation/weather-active.svg';
 import WeatherInactive from '@/public/svg/navigation/weather-inactive.svg';
-import TravelActive from '@/public/svg/navigation/travel-active.svg';
-import TravelInactive from '@/public/svg/navigation/travel-inactive.svg';
+import ContestActive from '@/public/svg/navigation/contest-active.svg';
+import ContestInactive from '@/public/svg/navigation/contest-inactive.svg';
 import SaveActive from '@/public/svg/navigation/save-active.svg';
 import SaveInactive from '@/public/svg/navigation/save-inactive.svg';
 import MyPageActive from '@/public/svg/navigation/mypage-active.svg';
@@ -38,11 +38,11 @@ const navItems: NavItem[] = [
     key: 'weather',
   },
   {
-    href: '/travel',
-    activeIcon: <TravelActive />,
-    inactiveIcon: <TravelInactive />,
-    label: '여행기',
-    key: 'travel',
+    href: '/contest',
+    activeIcon: <ContestActive />,
+    inactiveIcon: <ContestInactive />,
+    label: '러닝 대회',
+    key: 'contest',
   },
   {
     href: '/save',
@@ -71,8 +71,8 @@ export default function NavigationBar() {
   }
 
   return (
-    <nav className='fixed bottom-0 left-0 right-0 bg-gray-bg border-t border-gray-1 mobile-area'>
-      <div className='px-5 grid grid-cols-5 h-16 pt-1 pb-2'>
+    <nav className='bg-gray-bg border-gray-1 mobile-area fixed right-0 bottom-0 left-0 border-t'>
+      <div className='grid h-16 grid-cols-5 px-5 pt-1 pb-2'>
         {navItems.map(item => {
           const active = isActive(item.href);
 
@@ -81,12 +81,12 @@ export default function NavigationBar() {
               key={item.key}
               href={item.href}
               className={cn(
-                'w-auto flex-center flex-col text-gray-3 text-[10px]',
+                'flex-center text-gray-3 w-auto flex-col text-[10px]',
                 active && 'text-gray-bk',
               )}
             >
               {/* 아이콘 영역 */}
-              <span className='pt-2 w-11 h-9 flex-center'>
+              <span className='flex-center h-9 w-11 pt-2'>
                 {active ? item.activeIcon : item.inactiveIcon}
               </span>
 
