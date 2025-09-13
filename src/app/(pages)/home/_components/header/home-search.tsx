@@ -1,4 +1,4 @@
-import { SearchSheet } from './search-sheet';
+import { SearchSheet } from '../search/search-sheet';
 
 export function HomeSearch() {
   return (
