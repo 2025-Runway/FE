@@ -1,5 +1,7 @@
+'use client';
 import { ContestCard } from './_components/contest-card';
 import { PageHeader } from '@/components/page-header';
+import { useRouter } from 'next/navigation';
 
 const CONTEST_DATA = [
   {
@@ -38,6 +40,12 @@ const CONTEST_DATA = [
 ];
 
 export default function ContestPage() {
+  const router = useRouter();
+
+  const handleContestClick = (id: string) => {
+    router.push(`/contest/${id}`);
+  };
+
   return (
     <div className='flex h-screen flex-col'>
       <PageHeader title='러닝 대회' />
@@ -49,14 +57,17 @@ export default function ContestPage() {
         {CONTEST_DATA.map(contest => (
           <ContestCard
             key={contest.id}
+            id={contest.id}
             date={contest.date}
             day={contest.day}
             title={contest.title}
             location={contest.location}
             distances={contest.distances}
+            onClick={handleContestClick}
           />
         ))}
       </div>
+
       <div className='h-25' />
     </div>
   );
