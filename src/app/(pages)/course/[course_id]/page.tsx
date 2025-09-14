@@ -12,14 +12,14 @@ interface CoursePageProps {
 }
 
 export default async function CoursePage({ params }: CoursePageProps) {
-  const { course_id } = await params;
+  const course_id = await params.course_id;
 
   const mockCourse = MOCK_COURSE_DATA;
 
   return (
     // scroll layout
-    <div className='pb-10 w-full h-full overflow-y-auto custom-scrollbar scroll-smooth bg-gray-bg'>
-      <div className='w-full h-auto flex flex-col '>
+    <div className='custom-scrollbar bg-gray-bg h-full w-full overflow-y-auto scroll-smooth pb-10'>
+      <div className='flex h-auto w-full flex-col'>
         <CourseImage imageUrl={mockCourse.crsImg ?? ''} />
         <CourseDetail course={mockCourse} />
         <CourseMap />
