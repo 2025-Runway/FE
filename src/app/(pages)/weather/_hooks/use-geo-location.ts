@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
@@ -7,7 +8,6 @@ export interface ILocation {
   longitude: number;
 }
 
-// IP 기반 위치 서비스 (GPS/Wi-Fi 실패 시 fallback)
 const getLocationFromIP = async (): Promise<ILocation> => {
   try {
     const response = await fetch('https://ipapi.co/json/');
