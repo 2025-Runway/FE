@@ -19,7 +19,7 @@ const weatherMockData = {
 
 export function WeatherSection() {
   const { data, isError } = useGeoLocation();
-  const { latitude, longitude } = data || { latitude: 0, longitude: 0 };
+  const { latitude, longitude } = data ?? { latitude: 0, longitude: 0 };
   const { location } = useWeatherTabQuery();
 
   // 위치 정보 -> api 요청 -> 날씨 보여주기
@@ -29,9 +29,9 @@ export function WeatherSection() {
   if (location === 'current_location') {
     if (latitude === 0 && longitude === 0) {
       return (
-        <div className='w-full h-full flex-col-center gap-4'>
-          <Loader2 className='size-12 text-point-400 rounded-full animate-spin' />
-          <p className='text-[14px] font-medium text-gray-4 leading-[19.6px]'>
+        <div className='flex-col-center h-full w-full gap-4'>
+          <Loader2 className='text-point-400 size-12 animate-spin rounded-full' />
+          <p className='text-gray-4 text-[14px] leading-[19.6px] font-medium'>
             위치 정보를 가져오는 중입니다.
           </p>
         </div>
@@ -39,9 +39,9 @@ export function WeatherSection() {
     }
     if (isError) {
       return (
-        <div className='w-full h-full flex-col-center gap-4'>
-          <MapPinOff className='size-12 text-point-400 rounded-full' />
-          <p className='text-[14px] font-medium text-gray-4 leading-[19.6px]'>
+        <div className='flex-col-center h-full w-full gap-4'>
+          <MapPinOff className='text-point-400 size-12 rounded-full' />
+          <p className='text-gray-4 text-[14px] leading-[19.6px] font-medium'>
             위치 정보를 가져오는데 실패했습니다.
           </p>
         </div>
@@ -57,8 +57,8 @@ export function WeatherSection() {
     }
   } else if (location === 'travel_location') {
     return (
-      <div className='w-full h-full flex-col-center gap-4'>
-        <p className='text-center text-body3 text-gray-4'>
+      <div className='flex-col-center h-full w-full gap-4'>
+        <p className='text-body3 text-gray-4 text-center'>
           여행지 설정이 필요합니다.
           <br /> 마이페이지에서 여행지 설정을 완료해주세요.
         </p>

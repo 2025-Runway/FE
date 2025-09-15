@@ -1,0 +1,37 @@
+{
+  "name": "Runway - 여행 코스 추천 서비스",
+  "short_name": "Runway",
+  "description": "여행 코스 추천 서비스",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffeeea",
+  "orientation": "portrait",
+  "categories": [
+    "travel",
+    "map",
+    "running",
+    "runway",
+    "run",
+    "trip",
+    "course",
+    "recommend"
+  ],
+  "lang": "ko-KR",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "/manifest.json"
+    }
+  ]
+}
