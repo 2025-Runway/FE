@@ -7,8 +7,8 @@ import HomeActive from '@/public/svg/navigation/home-active.svg';
 import HomeInactive from '@/public/svg/navigation/home-inactive.svg';
 import WeatherActive from '@/public/svg/navigation/weather-active.svg';
 import WeatherInactive from '@/public/svg/navigation/weather-inactive.svg';
-import TravelActive from '@/public/svg/navigation/travel-active.svg';
-import TravelInactive from '@/public/svg/navigation/travel-inactive.svg';
+import ContestActive from '@/public/svg/navigation/contest-active.svg';
+import ContestInactive from '@/public/svg/navigation/contest-inactive.svg';
 import SaveActive from '@/public/svg/navigation/save-active.svg';
 import SaveInactive from '@/public/svg/navigation/save-inactive.svg';
 import MyPageActive from '@/public/svg/navigation/mypage-active.svg';
@@ -43,11 +43,11 @@ const navItems: NavItem[] = [
     key: 'weather',
   },
   {
-    href: '/travel',
-    activeIcon: <TravelActive />,
-    inactiveIcon: <TravelInactive />,
-    label: '여행기',
-    key: 'travel',
+    href: '/contest',
+    activeIcon: <ContestActive />,
+    inactiveIcon: <ContestInactive />,
+    label: '러닝 대회',
+    key: 'contest',
   },
   {
     href: '/save',
