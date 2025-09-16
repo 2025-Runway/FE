@@ -6,13 +6,11 @@ import { CourseDescription } from '../_components/course-description';
 import { CourseRunwayPoint } from '../_components/course-runway-point';
 
 interface CoursePageProps {
-  params: {
-    course_id: Promise<string>;
-  };
+  params: Promise<{ course_id: string }>; // Promise로 변경!
 }
 
 export default async function CoursePage({ params }: CoursePageProps) {
-  const course_id = await params.course_id;
+  const { course_id } = await params;
 
   const mockCourse = MOCK_COURSE_DATA;
 
