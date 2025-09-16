@@ -1,8 +1,8 @@
 export const API_CONFIG = {
   baseURL: process.env.NEXT_PUBLIC_API_URL ?? '/api',
-  defaultHeaders: {
-    'Content-Type': 'application/json',
-  },
+  // defaultHeaders: {
+  //   'Content-Type': 'application/json',
+  // },
   // Query 전용 설정
   query: {
     defaultCache: 'force-cache' as RequestCache,

@@ -3,13 +3,10 @@
 import { useState, useEffect } from 'react';
 import GPXRouteMap from './gpx-parser-map';
 
-export function CourseMap() {
+export function CourseMap({ gpxUrl }: { gpxUrl: string }) {
   const [gpxContent, setGpxContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const gpxUrl =
-    'https://www.durunubi.kr/editImgUp.do?filePath=/data/koreamobility/course/summap/T_CRS_MNG0000005116.gpx';
 
   useEffect(() => {
     const fetchGpxContent = async () => {

@@ -62,7 +62,7 @@ export async function fetchMutation<T>(
   const config: RequestInit = {
     method,
     headers: {
-      ...API_CONFIG.defaultHeaders,
+      // ...API_CONFIG.defaultHeaders,
       ...restOptions.headers,
     },
     cache: API_CONFIG.mutation.defaultCache,

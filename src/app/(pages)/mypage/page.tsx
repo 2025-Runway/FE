@@ -1,4 +1,3 @@
-import { ProfileEditBtn } from './_components/profile-edit-btn';
 import { ProfileInfo } from './_components/profile-info';
 import { TravelPlaceContent } from './_components/travel-place-content';
 

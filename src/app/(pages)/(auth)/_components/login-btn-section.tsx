@@ -1,24 +1,43 @@
 'use client';
 
-import  KakaoLogo from "@/public/svg/login/kakao-logo.svg";
-import { useRouter } from "next/navigation";
+import { api } from '@/lib/api';
+import KakaoLogo from '@/public/svg/login/kakao-logo.svg';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export function LoginBtnSection() {
-    const router = useRouter();
+  const router = useRouter();
 
-    const handleKakaoLogin = () => {
-        const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&scope=profile_nickname`;
-        router.push(kakaoLoginUrl);
+  const handleKakaoLogin = () => {
+    const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code&scope=profile_nickname`;
+    router.push(kakaoLoginUrl);
+  };
+  const handleGuestLogin = async () => {
+    const result = await api.post<{ accessToken: string }>('/auth/test', {
+      data: {
+        email: 'test@run-way.site',
+      },
+    });
+    console.log(result);
+    if (result.data?.accessToken) {
+      localStorage.setItem('accessToken', result.data?.accessToken!);
+      localStorage.setItem('role', 'guest');
+      toast.success('게스트로 로그인 성공');
+      router.push('/home');
     }
+  };
   return (
-    <section className="px-10 z-50 w-full h-auto flex-col-center gap-2">
-      <button className="p-2.5 w-full h-auto text-body4 text-gray-0 underline-offset-2 underline hover:text-white000 cursor-pointer">
-        로그인 없이 둘러보기
+    <section className='flex-col-center z-50 h-auto w-full gap-2 px-10'>
+      <button
+        className='text-body4 text-gray-0 hover:text-white000 h-auto w-full cursor-pointer p-2.5 underline underline-offset-2'
+        onClick={handleGuestLogin}
+      >
+        게스트로 로그인하기
       </button>
       <button className='kakao-btn cursor-pointer' onClick={handleKakaoLogin}>
-          <KakaoLogo />
-          <span className='kakao-btn-text'>카카오로 시작하기</span>
-        </button>
+        <KakaoLogo />
+        <span className='kakao-btn-text'>카카오로 시작하기</span>
+      </button>
     </section>
   );
 }

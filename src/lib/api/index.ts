@@ -38,18 +38,17 @@ const requiresAuth = (endpoint: string): boolean => {
  */
 const getAuthToken = (): string | null => {
   // 서버 사이드에서는 토큰 없음
-  // if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined') return null;
 
-  // try {
-  //   // Zustand persist storage에서 직접 가져오기
-  //   const authStorage = localStorage.getItem('auth-storage');
-  //   if (authStorage) {
-  //     const parsed = JSON.parse(authStorage);
-  //     return parsed.state?.token || null;
-  //   }
-  // } catch (error) {
-  //   console.warn('토큰 가져오기 실패:', error);
-  // }
+  try {
+    // Zustand persist storage에서 직접 가져오기
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      return accessToken;
+    }
+  } catch (error) {
+    console.warn('토큰 가져오기 실패:', error);
+  }
 
   return null;
 };
