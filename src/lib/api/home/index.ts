@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/interfaces/api/response.types';
-import { CourseHistory, PopularCourse, WeatherInfo, UserInfo } from '@/interfaces/home/home.types';
+import { CourseHistory, PopularCourse, WeatherInfo, UserInfo, SearchResponse } from '@/interfaces/home/home.types';
 import { api } from '@/lib/api';
 
 /**
@@ -43,4 +43,11 @@ export const getWeatherInfo = async (lat: number, lon: number): Promise<
  */
 export const getUserInfo = async (): Promise<ApiResponse<UserInfo>> => {
   return await api.get('/mypage');
+};
+
+/**
+ * 검색 API
+ */
+export const searchCourses = async (query: string, page: number = 1): Promise<ApiResponse<SearchResponse>> => {
+  return await api.get(`/public/search?q=${encodeURIComponent(query)}&page=${page}`);
 };

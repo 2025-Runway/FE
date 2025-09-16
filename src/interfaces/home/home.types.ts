@@ -38,3 +38,44 @@ export interface UserInfo {
   destination: string;
   regionImageUrl: string;
 }
+
+/**
+ * 검색 결과 아이템 타입
+ */
+export interface SearchResult {
+  crsIdx: string;
+  crsName: string;
+  address: string;
+}
+
+/**
+ * 검색 응답 타입
+ */
+export interface SearchResponse {
+  content: SearchResult[];
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    offset: number;
+    unpaged: boolean;
+    paged: boolean;
+  };
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}

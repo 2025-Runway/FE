@@ -13,59 +13,53 @@ import {
 import { CourseDetailSheet } from './course-detail-sheet';
 import { SearchRecentList } from './search-recent-list';
 import { SearchResultList } from './search-result-list';
-import { Course } from '@/interfaces/course.types';
-
-const RECENT_SEARCHES: Course[] = [
-  {
-    id: 1,
-    title: '밀양강 자전거길',
-    location: '경남 밀양시',
-  },
-  {
-    id: 2,
-    title: '밀양강 자전거길',
-    location: '경남 밀양시',
-  },
-  {
-    id: 3,
-    title: '밀양강 자전거길',
-    location: '경남 밀양시',
-  },
-  {
-    id: 4,
-    title: '밀양강 자전거길',
-    location: '경남 밀양시',
-  },
-];
+import { SearchResult } from '@/interfaces/home/home.types';
+import { useSearch } from '../../_hooks/use-search';
+import { useRecentSearches } from '../../_hooks/use-recent-searches';
 
 export function SearchSheet() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<SearchResult | null>(
+    null,
+  );
   const [isDetailOpen, setIsDetailOpen] = useState(false);
-  const [recentSearches, setRecentSearches] = useState<Course[]>(RECENT_SEARCHES);
 
-  const handleCourseClick = (course: Course) => {
+  const { data: searchResponse, isLoading } = useSearch(searchQuery);
+  const searchResults = searchResponse?.data?.content || [];
+
+  /**
+   * 최근 검색어 관련 훅
+   */
+  const { recentSearches, addToRecentSearches, removeFromRecentSearches } =
+    useRecentSearches();
+
+  const handleCourseClick = (course: SearchResult) => {
+    addToRecentSearches(course);
     setSelectedCourse(course);
     setIsDetailOpen(true);
   };
 
-  const handleRemoveSearch = (id: number) => {
-    setRecentSearches(prev => prev.filter(search => search.id !== id));
+  const handleRemoveSearch = (crsIdx: string) => {
+    removeFromRecentSearches(crsIdx);
   };
 
-  const filteredResults = recentSearches.filter(
-    item => 
-      item.title.includes(searchQuery) || 
-      item.location.includes(searchQuery)
-  );
+  const handleSheetOpenChange = (open: boolean) => {
+    // Sheet가 열릴 때 검색어 초기화
+    if (open) {
+      setSearchQuery('');
+    }
+  };
+
+  const hasSearchQuery = searchQuery.trim().length > 0;
+  const displayResults = hasSearchQuery ? searchResults : recentSearches;
 
   return (
-    <Sheet>
+    <Sheet onOpenChange={handleSheetOpenChange}>
       <SheetTrigger className='flex w-full cursor-pointer items-center rounded-[24px] bg-white/40 px-4 py-[10px]'>
         <Search className='mr-2 size-6 text-white' />
         <span className='text-white000 text-[16px]'>Search</span>
       </SheetTrigger>
-      
+
       <SheetContent side='left' className='w-full p-0'>
         <SheetHeader className='p-0'>
           <SheetTitle className='sr-only'>검색</SheetTitle>
@@ -78,7 +72,7 @@ export function SearchSheet() {
               <input
                 type='text'
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={e => setSearchQuery(e.target.value)}
                 placeholder='Search'
                 className='text-gray-bk placeholder-gray-3 flex-1 bg-transparent text-[16px] outline-none'
                 autoFocus
@@ -89,14 +83,15 @@ export function SearchSheet() {
 
         <div className='p-5'>
           {!searchQuery ? (
-            <SearchRecentList 
+            <SearchRecentList
               searches={recentSearches}
               onRemoveSearch={handleRemoveSearch}
             />
           ) : (
-            <SearchResultList 
-              results={filteredResults}
+            <SearchResultList
+              results={displayResults}
               onCourseClick={handleCourseClick}
+              isLoading={isLoading && hasSearchQuery}
             />
           )}
         </div>
