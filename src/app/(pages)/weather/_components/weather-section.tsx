@@ -11,53 +11,38 @@ import {
   Weather,
   WeatherNowData,
 } from '@/interfaces/weather.types';
-import { LoadingSpinner } from '@/components/loading-spinner';
 import { Loader2, MapPinOff } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import { getCurrentWeather } from '@/lib/api/weather';
-const weatherMockData = {
-  location: '경기도 안양시 동안구',
-  temperature: 27.0,
-  weather: '구름많음' as Weather,
-  windSpeed: '1.5m/s',
-  fineDust: '보통' as FineDust,
-  uvIndex: '높음' as UvIndex,
-};
+import { useWeather } from '../_hooks/use-weather-data';
+import { useWeatherWeekly } from '../_hooks/use-weather-data';
 
 export function WeatherSection() {
   const { data, isError } = useGeoLocation();
   const { latitude, longitude } = data ?? { latitude: 0, longitude: 0 };
   const { location } = useWeatherTabQuery();
 
-  // 위치 정보 -> api 요청 -> 날씨 보여주기
-  // 위치 정보 에러 처리, api 요청 에러 처리
-  // 현재 여행지 정보 -> api 요청 -> 날씨 보여주기
+  // 현재 위치 날씨 정보
+  const { data: weatherData, loading, error } = useWeather(latitude, longitude);
 
-  // const { data: weatherData } = useQuery<WeatherNowData | null>({
-  //   queryKey: ['weather', latitude, longitude],
-  //   queryFn: async () => {
-  //     const response = await getCurrentWeather(
-  //       Number(latitude.toFixed(4)),
-  //       Number(longitude.toFixed(4)),
-  //     );
-  //     if (response.success) {
-  //       return response.data;
-  //     }
-  //     return null;
-  //   },
-  //   enabled: latitude !== 0 && longitude !== 0,
-  //   retry: false,
-  //   staleTime: 1000 * 60 * 5,
-  //   gcTime: 1000 * 60 * 5,
-  // });
+  // 현재 위치 주간 날씨 정보
+  const {
+    data: weatherWeeklyData,
+    loading: weatherWeeklyLoading,
+    error: weatherWeeklyError,
+  } = useWeatherWeekly(latitude, longitude);
 
   if (location === 'current_location') {
-    if (latitude === 0 && longitude === 0) {
+    if (
+      (latitude === 0 && longitude === 0) ||
+      loading ||
+      weatherWeeklyLoading
+    ) {
       return (
         <div className='flex-col-center h-full w-full gap-4'>
           <Loader2 className='text-point-400 size-12 animate-spin rounded-full' />
           <p className='text-gray-4 text-[14px] leading-[19.6px] font-medium'>
-            위치 정보를 가져오는 중입니다.
+            {loading || weatherWeeklyLoading
+              ? '날씨 정보를 가져오는 중입니다.'
+              : '위치 정보를 가져오는 중입니다.'}
           </p>
         </div>
       );
@@ -72,11 +57,20 @@ export function WeatherSection() {
         </div>
       );
     }
-    if (latitude !== 0 && longitude !== 0) {
+    if (error || weatherWeeklyError) {
+      return (
+        <div className='flex-col-center h-full w-full gap-4'>
+          <p className='text-gray-4 text-[14px] leading-[19.6px] font-medium'>
+            날씨 정보를 가져오는데 실패했습니다.
+          </p>
+        </div>
+      );
+    }
+    if (latitude !== 0 && longitude !== 0 && weatherData && weatherWeeklyData) {
       return (
         <>
-          <WeatherNow weatherData={weatherMockData} />
-          <WeatherWeeklyForecast data={MOCK_WEEKLY_WEATHER_DATA} />
+          <WeatherNow weatherData={weatherData} />
+          <WeatherWeeklyForecast data={weatherWeeklyData} />
         </>
       );
     }
