@@ -1,6 +1,6 @@
 import { ApiResponse } from '@/interfaces/api/response.types';
 import { api } from '..';
-import { Course } from '@/interfaces/course/course.type';
+import { Course } from '@/interfaces/course/course.types';
 import { CourseTourInfoData } from '@/interfaces/course/tour-info.types';
 
 /**
@@ -36,10 +36,15 @@ export function getCourseTourInfo(
 ): Promise<ApiResponse<CourseTourInfoData>> {
   if (contentType === '') {
     // 전체
-    return api.get(`/public/tourinfo/${course_id}?page=${page}`);
+    return api.get(`/public/tourinfo/${course_id}?page=${page}`, {
+      cache: 'force-cache',
+    });
   } else {
     return api.get(
       `/public/tourinfo/${course_id}?contentType=${contentType}&page=${page}`,
+      {
+        cache: 'force-cache',
+      },
     );
   }
 }

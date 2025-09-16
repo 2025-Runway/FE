@@ -1,4 +1,4 @@
-import { Course } from '@/interfaces/course/course.type';
+import { Course } from '@/interfaces/course/course.types';
 
 interface CourseDetailProps {
   course: Course;
@@ -28,10 +28,10 @@ export function CourseDetail({ course }: CourseDetailProps) {
     },
   ];
   return (
-    <div className='pb-9 w-full h-auto flex border-b-8 border-gray-0'>
-      <div className='px-5 pt-4 w-full h-auto flex flex-col gap-5'>
+    <div className='border-gray-0 flex h-auto w-full border-b-8 pb-9'>
+      <div className='flex h-auto w-full flex-col gap-5 px-5 pt-4'>
         <div className='flex flex-col items-start'>
-          <span className='flex items-center gap-2 text-caption2 text-gray-4'>
+          <span className='text-caption2 text-gray-4 flex items-center gap-2'>
             <span>{course.sigun}</span>
             <span>|</span>
             <span>{course.crsCycle}</span>
@@ -39,11 +39,11 @@ export function CourseDetail({ course }: CourseDetailProps) {
           <span className='text-gray-bk text-title1'>{course.crsKorNm}</span>
         </div>
 
-        <div className='w-full h-auto flex items-center gap-2'>
+        <div className='flex h-auto w-full items-center gap-2'>
           {courseDetail.map(item => (
             <span
               key={item.label}
-              className='flex-1 p-4 w-full h-auto flex-col-center rounded-[20px] bg-white000 backdrop-blur-[4px]'
+              className='flex-col-center bg-white000 h-auto w-full flex-1 rounded-[20px] p-4 backdrop-blur-[4px]'
             >
               <span className='text-body4 text-gray-bk'>{item.label}</span>
               <span className='text-title1 text-gray-bk font-bold'>

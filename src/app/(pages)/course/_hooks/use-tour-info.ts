@@ -24,7 +24,7 @@ export function useTourInfo(
       }
     };
 
-    fetchWeather();
+    void fetchWeather();
   }, [course_id, contentType, page]);
 
   return { data, loading, error };
