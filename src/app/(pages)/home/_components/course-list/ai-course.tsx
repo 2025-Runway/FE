@@ -3,20 +3,14 @@ import { CourseCard } from './course-card';
 import { Info } from 'lucide-react';
 import { InfoModal } from './info-modal';
 import { CourseSkeleton } from './course-skeleton';
+import { PopularCourse } from '@/interfaces/home/home.types';
 
-interface Course {
-  id: number;
-  title: string;
-  location: string;
-  imageUrl: string;
-}
-
-interface PopularCourseProps {
-  courses: Course[];
+interface AICourseProps {
+  courses: PopularCourse[];
   isLoading: boolean;
 }
 
-export function AICourse({ courses, isLoading }: PopularCourseProps) {
+export function AICourse({ courses, isLoading }: AICourseProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -37,10 +31,10 @@ export function AICourse({ courses, isLoading }: PopularCourseProps) {
         <div className='scrollbar-hide flex gap-3 overflow-x-auto'>
           {courses.map(course => (
             <CourseCard
-              key={course.id}
-              title={course.title}
-              location={course.location}
-              imageUrl={course.imageUrl}
+              key={course.crsIdx}
+              title={course.crsKorNm}
+              location={course.sigun}
+              imageUrl={course.crsImgUrl}
             />
           ))}
         </div>
