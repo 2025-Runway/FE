@@ -2,34 +2,36 @@
 
 import { LoadingSpinner } from '@/components/loading-spinner';
 import { api } from '@/lib/api';
-import { redirect, useSearchParams } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function KakaoCallbackPage() {
+export default function LoginKakaoPage() {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
   const [isLoading, setIsLoading] = useState(false);
-
-  console.log(code);
+  const router = useRouter();
 
   if (!code) {
     console.error('No authorization code received');
     redirect('/login?error=no_code');
   }
   const handleKakaoLogin = async (): Promise<string> => {
-    const result = await api.post<{ accessToken: string }>(
-      '/auth/kakao/login',
-      {
-        data: {
-          authorizationCode: code,
-        },
-      },
+    const result = await api.get<{ accessToken: string; nickname: string }>(
+      `/auth/login/kakao?code=${code}`,
     );
-    if (!result.success) {
-      console.error('Failed to set cookie:', result.message);
-      redirect('/login?error=cookie_failed');
+    if (result.data?.accessToken) {
+      await fetch('/api/cookie-set', {
+        method: 'POST',
+        body: JSON.stringify({
+          token: result.data?.accessToken,
+        }),
+      });
+      localStorage.setItem('nickname', result.data.nickname);
+      localStorage.setItem('accessToken', result.data.accessToken);
+      localStorage.setItem('role', 'user');
+      router.push('/home');
     }
-    return result.data?.accessToken!;
+    return result.data?.accessToken ?? '';
   };
   useEffect(() => {
     let isMounted = true;

@@ -27,3 +27,29 @@ export function getWeatherWeekly(
 ): Promise<ApiResponse<WeeklyWeatherData[]>> {
   return api.get(`/public/weather/weekly?lat=${latitude}&lon=${longitude}`);
 }
+
+/**
+ * 설정 여행지 기반 날씨 정보 조회 - 토큰O
+ * @param latitude 위도
+ * @param longitude 경도
+ * @returns 설정 여행지 날씨 정보
+ */
+export function getDestinationWeather(
+  latitude: number,
+  longitude: number,
+): Promise<ApiResponse<WeatherNowData>> {
+  return api.get(`/weather/details?lat=${latitude}&lon=${longitude}`);
+}
+
+/**
+ * 설정 여행지 기반 주간 날씨 정보 조회 - 토큰O
+ * @param latitude 위도
+ * @param longitude 경도
+ * @returns 설정 여행지 주간 날씨 정보
+ */
+export function getDestinationWeatherWeekly(
+  latitude: number,
+  longitude: number,
+): Promise<ApiResponse<WeeklyWeatherData[]>> {
+  return api.get(`/weather/weekly?lat=${latitude}&lon=${longitude}`);
+}

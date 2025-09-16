@@ -13,7 +13,7 @@ import {
 import { CourseDetailSheet } from './course-detail-sheet';
 import { SearchRecentList } from './search-recent-list';
 import { SearchResultList } from './search-result-list';
-import { Course } from '@/interfaces/course.types';
+import { Course } from '@/interfaces/course/course.types';
 
 const RECENT_SEARCHES: Course[] = [
   {
@@ -42,7 +42,8 @@ export function SearchSheet() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
-  const [recentSearches, setRecentSearches] = useState<Course[]>(RECENT_SEARCHES);
+  const [recentSearches, setRecentSearches] =
+    useState<Course[]>(RECENT_SEARCHES);
 
   const handleCourseClick = (course: Course) => {
     setSelectedCourse(course);
@@ -54,9 +55,8 @@ export function SearchSheet() {
   };
 
   const filteredResults = recentSearches.filter(
-    item => 
-      item.title.includes(searchQuery) || 
-      item.location.includes(searchQuery)
+    item =>
+      item.title.includes(searchQuery) || item.location.includes(searchQuery),
   );
 
   return (
@@ -65,7 +65,7 @@ export function SearchSheet() {
         <Search className='mr-2 size-6 text-white' />
         <span className='text-white000 text-[16px]'>Search</span>
       </SheetTrigger>
-      
+
       <SheetContent side='left' className='w-full p-0'>
         <SheetHeader className='p-0'>
           <SheetTitle className='sr-only'>검색</SheetTitle>
@@ -78,7 +78,7 @@ export function SearchSheet() {
               <input
                 type='text'
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={e => setSearchQuery(e.target.value)}
                 placeholder='Search'
                 className='text-gray-bk placeholder-gray-3 flex-1 bg-transparent text-[16px] outline-none'
                 autoFocus
@@ -89,12 +89,12 @@ export function SearchSheet() {
 
         <div className='p-5'>
           {!searchQuery ? (
-            <SearchRecentList 
+            <SearchRecentList
               searches={recentSearches}
               onRemoveSearch={handleRemoveSearch}
             />
           ) : (
-            <SearchResultList 
+            <SearchResultList
               results={filteredResults}
               onCourseClick={handleCourseClick}
             />

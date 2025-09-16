@@ -1,51 +1,80 @@
-import { useState, useEffect } from 'react';
-import { getCurrentWeather, getWeatherWeekly } from '@/lib/api/weather';
-import { WeatherNowData, WeeklyWeatherData } from '@/interfaces/weather.types';
+// use-weather-data.ts
+import { useQuery } from '@tanstack/react-query';
+import {
+  getCurrentWeather,
+  getDestinationWeather,
+  getWeatherWeekly,
+  getDestinationWeatherWeekly,
+} from '@/lib/api/weather';
 
-export function useWeather(lat: number, lng: number) {
-  const [data, setData] = useState<WeatherNowData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+export function useWeather(lat: number, lng: number, location: string) {
+  console.log('lat', lat);
+  console.log('lng', lng);
+  console.log('location', location);
+  return useQuery({
+    queryKey: ['weather', lat, lng],
+    queryFn: async () => {
+      const response = await getCurrentWeather(lat, lng);
 
-  useEffect(() => {
-    const fetchWeather = async () => {
-      setLoading(true);
-      try {
-        const response = await getCurrentWeather(lat, lng);
-        setData(response.data);
-      } catch (err) {
-        setError(err as Error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWeather();
-  }, [lat, lng]);
-
-  return { data, loading, error };
+      return response.data ?? null;
+    },
+    enabled: lat !== 0 && lng !== 0 && location === 'current_location', // 0일 때 요청 안 함
+    staleTime: 5 * 60 * 1000, // 5분간 fresh
+    gcTime: 10 * 60 * 1000, // 10분간 캐시 보관
+    retry: 1,
+    retryDelay: 1000,
+  });
 }
 
-export function useWeatherWeekly(lat: number, lng: number) {
-  const [data, setData] = useState<WeeklyWeatherData[] | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+export function useWeatherWeekly(lat: number, lng: number, location: string) {
+  return useQuery({
+    queryKey: ['weatherWeekly', lat, lng],
+    queryFn: async () => {
+      const response = await getWeatherWeekly(lat, lng);
+      return response.data ?? null;
+    },
+    enabled: lat !== 0 && lng !== 0 && location === 'current_location',
+    staleTime: 10 * 60 * 1000, // 주간 데이터는 10분
+    gcTime: 30 * 60 * 1000, // 30분간 캐시
+    retry: 1,
+    retryDelay: 1000,
+  });
+}
 
-  useEffect(() => {
-    const fetchWeather = async () => {
-      setLoading(true);
-      try {
-        const response = await getWeatherWeekly(lat, lng);
-        setData(response.data);
-      } catch (err) {
-        setError(err as Error);
-      } finally {
-        setLoading(false);
-      }
-    };
+export function useDestinationWeather(
+  lat: number,
+  lng: number,
+  location: string,
+) {
+  return useQuery({
+    queryKey: ['destinationWeather', lat, lng],
+    queryFn: async () => {
+      const response = await getDestinationWeather(lat, lng);
+      return response.data ?? null;
+    },
+    enabled: lat !== 0 && lng !== 0 && location === 'travel_location',
+    staleTime: 5 * 60 * 1000, // 5분간 fresh
+    gcTime: 10 * 60 * 1000, // 10분간 캐시
+    retry: 1,
+    retryDelay: 1000,
+  });
+}
 
-    fetchWeather();
-  }, [lat, lng]);
-
-  return { data, loading, error };
+export function useDestinationWeatherWeekly(
+  lat: number,
+  lng: number,
+  location: string,
+) {
+  return useQuery({
+    queryKey: ['destinationWeatherWeekly', lat, lng],
+    queryFn: async () => {
+      const response = await getDestinationWeatherWeekly(lat, lng);
+      return response.data ?? null;
+    },
+    enabled: lat !== 0 && lng !== 0 && location === 'travel_location',
+    staleTime: 10 * 60 * 1000, // 주간 데이터는 10분
+    gcTime: 30 * 60 * 1000, // 30분간 캐시
+    retry: 1,
+    retryDelay: 1000,
+  });
 }

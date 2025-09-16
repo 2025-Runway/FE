@@ -62,12 +62,9 @@ export async function fetchQuery<T>(
 
   try {
     const response = await fetch(url, config);
-    console.log(response);
     const responseData: ApiResponse<T> = await response.json();
     return responseData;
   } catch (error: unknown) {
-    console.error(`Query Error - ${endpoint}:`, error);
-
     if (error instanceof ApiError) {
       return {
         data: null as T,

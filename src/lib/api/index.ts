@@ -8,6 +8,7 @@ import { FetchOptions } from '@/interfaces/api/request.types';
 const PUBLIC_PATTERNS = [
   '/public/', // 모든 공개 API
   '/auth/test', // 테스트 로그인
+  '/auth/login/kakao', // 카카오 로그인
 ];
 
 /**
@@ -36,36 +37,46 @@ const requiresAuth = (endpoint: string): boolean => {
 /**
  * 토큰 가져오기 (Zustand 스토어 or 쿠키에서 -> 정해야 함.)
  */
-const getAuthToken = (): string | null => {
-  // 서버 사이드에서는 토큰 없음
-  if (typeof window === 'undefined') return null;
-
-  try {
-    // Zustand persist storage에서 직접 가져오기
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      return accessToken;
+/* eslint-disable @typescript-eslint/no-require-imports*/
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+const getAuthToken = async (): Promise<string | null> => {
+  // 서버 사이드에서는 쿠키에서 토큰 가져오기
+  if (typeof window === 'undefined') {
+    try {
+      const { cookies } = require('next/headers');
+      const cookieStore = await cookies();
+      const token = cookieStore.get('auth-token')?.value;
+      return token ?? null;
+    } catch (error) {
+      console.warn('서버에서 토큰 가져오기 실패:', error);
+      return null;
     }
-  } catch (error) {
-    console.warn('토큰 가져오기 실패:', error);
+  } else {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      return accessToken ?? null;
+    } catch (error) {
+      console.warn('토큰 가져오기 실패:', error);
+      return null;
+    }
   }
-
-  return null;
 };
 /**
  * 자동 인증 헤더 추가 함수
  */
-const addAuthHeaders = (
+const addAuthHeaders = async (
   endpoint: string,
   options: Omit<FetchOptions, 'method' | 'body'> | MutationOptions = {},
-): Omit<FetchOptions, 'method' | 'body'> | MutationOptions => {
+): Promise<Omit<FetchOptions, 'method' | 'body'> | MutationOptions> => {
   const needsAuth = requiresAuth(endpoint);
 
   if (!needsAuth) {
     return options;
   }
 
-  const token = getAuthToken();
+  const token = await getAuthToken();
 
   if (!token) {
     console.warn(`토큰이 필요한 API이지만 토큰이 없습니다: ${endpoint}`);
@@ -101,32 +112,32 @@ const addAuthHeaders = (
 
 export const api = {
   // Query 래퍼
-  get: <T>(
+  get: async <T>(
     endpoint: string,
     options?: Omit<FetchOptions, 'method' | 'body'>,
   ) => {
-    const enhancedOptions = addAuthHeaders(endpoint, options);
+    const enhancedOptions = await addAuthHeaders(endpoint, options);
     return fetchQuery<T>(endpoint, enhancedOptions);
   },
 
   // Mutation 래퍼들
-  post: <T>(endpoint: string, options?: MutationOptions) => {
-    const enhancedOptions = addAuthHeaders(endpoint, options);
+  post: async <T>(endpoint: string, options?: MutationOptions) => {
+    const enhancedOptions = await addAuthHeaders(endpoint, options);
     return fetchMutation<T>('POST', endpoint, enhancedOptions);
   },
 
-  patch: <T>(endpoint: string, options?: MutationOptions) => {
-    const enhancedOptions = addAuthHeaders(endpoint, options);
+  patch: async <T>(endpoint: string, options?: MutationOptions) => {
+    const enhancedOptions = await addAuthHeaders(endpoint, options);
     return fetchMutation<T>('PATCH', endpoint, enhancedOptions);
   },
 
-  put: <T>(endpoint: string, options?: MutationOptions) => {
-    const enhancedOptions = addAuthHeaders(endpoint, options);
+  put: async <T>(endpoint: string, options?: MutationOptions) => {
+    const enhancedOptions = await addAuthHeaders(endpoint, options);
     return fetchMutation<T>('PUT', endpoint, enhancedOptions);
   },
 
-  delete: <T>(endpoint: string, options?: MutationOptions) => {
-    const enhancedOptions = addAuthHeaders(endpoint, options);
+  delete: async <T>(endpoint: string, options?: MutationOptions) => {
+    const enhancedOptions = await addAuthHeaders(endpoint, options);
     return fetchMutation<T>('DELETE', endpoint, enhancedOptions);
   },
 };

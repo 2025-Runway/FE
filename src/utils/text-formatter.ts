@@ -6,7 +6,7 @@
  */
 export function formatDescriptionWithIndent(
   text: string,
-  indent: string = '  ',
+  indent = '  ',
 ): string[] {
   if (!text) return [];
   return text

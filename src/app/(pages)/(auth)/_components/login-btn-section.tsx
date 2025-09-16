@@ -18,11 +18,15 @@ export function LoginBtnSection() {
         email: 'test@run-way.site',
       },
     });
-    console.log(result);
     if (result.data?.accessToken) {
-      localStorage.setItem('accessToken', result.data?.accessToken!);
+      await fetch('/api/cookie-set', {
+        method: 'POST',
+        body: JSON.stringify({
+          token: result.data?.accessToken,
+        }),
+      });
+      localStorage.setItem('accessToken', result.data.accessToken);
       localStorage.setItem('role', 'guest');
-      toast.success('게스트로 로그인 성공');
       router.push('/home');
     }
   };

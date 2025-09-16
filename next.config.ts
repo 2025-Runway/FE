@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       'www.durunubi.kr',
+      'www.durunubi.kr:443',
+      'www.durunubi.kr:*',
       'tong.visitkorea.or.kr',
       'runway-bucket.s3.ap-northeast-2.amazonaws.com',
     ],
