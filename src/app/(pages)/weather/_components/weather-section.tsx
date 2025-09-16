@@ -5,9 +5,16 @@ import { useGeoLocation } from '../_hooks/use-geo-location';
 import { useWeatherTabQuery } from '../_hooks/weather-tab-query.hook';
 import { WeatherNow } from './weather-now';
 import { WeatherWeeklyForecast } from './weather-weekly-forecast';
-import { FineDust, UvIndex, Weather } from '@/interfaces/weather.types';
+import {
+  FineDust,
+  UvIndex,
+  Weather,
+  WeatherNowData,
+} from '@/interfaces/weather.types';
 import { LoadingSpinner } from '@/components/loading-spinner';
 import { Loader2, MapPinOff } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { getCurrentWeather } from '@/lib/api/weather';
 const weatherMockData = {
   location: '경기도 안양시 동안구',
   temperature: 27.0,
@@ -25,6 +32,24 @@ export function WeatherSection() {
   // 위치 정보 -> api 요청 -> 날씨 보여주기
   // 위치 정보 에러 처리, api 요청 에러 처리
   // 현재 여행지 정보 -> api 요청 -> 날씨 보여주기
+
+  // const { data: weatherData } = useQuery<WeatherNowData | null>({
+  //   queryKey: ['weather', latitude, longitude],
+  //   queryFn: async () => {
+  //     const response = await getCurrentWeather(
+  //       Number(latitude.toFixed(4)),
+  //       Number(longitude.toFixed(4)),
+  //     );
+  //     if (response.success) {
+  //       return response.data;
+  //     }
+  //     return null;
+  //   },
+  //   enabled: latitude !== 0 && longitude !== 0,
+  //   retry: false,
+  //   staleTime: 1000 * 60 * 5,
+  //   gcTime: 1000 * 60 * 5,
+  // });
 
   if (location === 'current_location') {
     if (latitude === 0 && longitude === 0) {
