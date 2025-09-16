@@ -1,6 +1,14 @@
 import { ApiResponse } from '@/interfaces/api/response.types';
-import { CourseHistory, PopularCourse, WeatherInfo, UserInfo, SearchResponse } from '@/interfaces/home/home.types';
+import {
+  CourseHistory,
+  PopularCourse,
+  WeatherInfo,
+  UserInfo,
+  SearchResponse,
+} from '@/interfaces/home/home.types';
 import { api } from '@/lib/api';
+import { fetchQuery } from '@/lib/api/fetch-query';
+import { cache } from 'react';
 
 /**
  * 최근 본 코스 가져오는 API
@@ -32,9 +40,10 @@ export const getRecommendedCourses = async (): Promise<
 /**
  * 날씨 정보 가져오는 API
  */
-export const getWeatherInfo = async (lat: number, lon: number): Promise<
-  ApiResponse<WeatherInfo>
-> => {
+export const getWeatherInfo = async (
+  lat: number,
+  lon: number,
+): Promise<ApiResponse<WeatherInfo>> => {
   return await api.get(`/public/weather?lat=${lat}&lon=${lon}`);
 };
 
@@ -48,6 +57,20 @@ export const getUserInfo = async (): Promise<ApiResponse<UserInfo>> => {
 /**
  * 검색 API
  */
-export const searchCourses = async (query: string, page: number = 1): Promise<ApiResponse<SearchResponse>> => {
-  return await api.get(`/public/search?q=${encodeURIComponent(query)}&page=${page}`);
+export const searchCourses = async (
+  query: string,
+  page: number = 1,
+): Promise<ApiResponse<SearchResponse>> => {
+  return await api.get(
+    `/public/search?q=${encodeURIComponent(query)}&page=${page}`,
+  );
 };
+
+/**
+ * 사용자 정보를 가져오는 캐시된 함수
+ */
+export const getUserDataCached = cache(
+  async (): Promise<ApiResponse<UserInfo>> => {
+    return await api.get('/mypage');
+  },
+);
