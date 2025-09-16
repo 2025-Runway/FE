@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/interfaces/api/response.types';
-import { CourseHistory, PopularCourse, WeatherInfo } from '@/interfaces/home/home.types';
+import { CourseHistory, PopularCourse, WeatherInfo, UserInfo } from '@/interfaces/home/home.types';
 import { api } from '@/lib/api';
 
 /**
@@ -36,4 +36,11 @@ export const getWeatherInfo = async (lat: number, lon: number): Promise<
   ApiResponse<WeatherInfo>
 > => {
   return await api.get(`/public/weather?lat=${lat}&lon=${lon}`);
+};
+
+/**
+ * 사용자 정보 가져오는 API
+ */
+export const getUserInfo = async (): Promise<ApiResponse<UserInfo>> => {
+  return await api.get('/mypage');
 };

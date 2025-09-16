@@ -28,3 +28,13 @@ export interface WeatherInfo {
   condition: string;
   airQuality: string;
 }
+
+/**
+ * 사용자 정보 타입
+ */
+export interface UserInfo {
+  nickname: string;
+  profileImageUrl: string | null;
+  destination: string;
+  regionImageUrl: string;
+}
