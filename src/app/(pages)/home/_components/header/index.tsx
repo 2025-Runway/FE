@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import HomeSearch from './home-search';
-import IntroText from './intro-text';
-import WeatherSummary from './weather-summary';
+import { HomeSearch } from './home-search';
+import { IntroText } from './intro-text';
+import { WeatherSummary } from './weather-summary';
 
-export default function HomeHeader() {
+export function HomeHeader() {
   return (
     <header className='relative flex h-[366px] w-full justify-between px-5'>
       <Image

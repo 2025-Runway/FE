@@ -1,3 +1,3 @@
-export { default as HomeHeader } from './header';
-export { default as RecentCourse } from './recent-course';
-export { default as CourseSection } from './course-list';
+export { HomeHeader } from './header';
+export { RecentCourse } from './recent-course';
+export { CourseSection } from './course-list';

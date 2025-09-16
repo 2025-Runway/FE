@@ -1,4 +1,4 @@
-export default function IntroText() {
+export function IntroText() {
   const USERNAME = '민지';
   return (
     <section>

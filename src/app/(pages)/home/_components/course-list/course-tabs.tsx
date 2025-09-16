@@ -8,7 +8,7 @@ const tabs = [
   { id: 'destinations' as const, label: '여행지 보기' },
 ];
 
-export default function CourseTabs({
+export function CourseTabs({
   activeTab,
   onTabChange,
 }: CourseTabsProps) {

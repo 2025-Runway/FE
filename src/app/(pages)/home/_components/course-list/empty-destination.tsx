@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 
-export default function EmptyDestination() {
+export function EmptyDestination() {
   const router = useRouter();
 
   const handleClick = () => {

@@ -1,4 +1,4 @@
-export default function CourseSkeleton() {
+export function CourseSkeleton() {
   return (
     <div className='flex gap-3 overflow-x-auto scrollbar-hide'>
       {Array.from({ length: 3 }).map((_, index) => (

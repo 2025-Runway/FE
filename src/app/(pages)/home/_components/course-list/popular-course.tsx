@@ -1,5 +1,5 @@
-import CourseCard from './course-card';
-import CourseSkeleton from './course-skeleton';
+import { CourseCard } from './course-card';
+import { CourseSkeleton } from './course-skeleton';
 
 interface Course {
   id: number;
@@ -13,7 +13,7 @@ interface PopularCourseProps {
   isLoading: boolean;
 }
 
-export default function PopularCourse({
+export function PopularCourse({
   courses,
   isLoading,
 }: PopularCourseProps) {

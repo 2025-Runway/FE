@@ -5,7 +5,7 @@ interface InfoModalProps {
   onClose: () => void;
 }
 
-export default function InfoModal({ isOpen, onClose }: InfoModalProps) {
+export function InfoModal({ isOpen, onClose }: InfoModalProps) {
   if (!isOpen) return null;
   const AI_TEXT = `사용자의 취근 코스를 바탕으로 난이도, 시간, 코스 길이 등을 분석해 AI가 추천한 코스입니다.`;
   return (

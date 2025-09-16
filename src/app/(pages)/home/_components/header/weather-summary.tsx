@@ -1,4 +1,4 @@
-export default function WeatherSummary() {
+export function WeatherSummary() {
   return (
     <div className='flex w-full gap-3'>
       <div className='flex flex-1 flex-col items-center justify-center rounded-[20px] bg-white/20 px-4 pt-4 pb-3 backdrop-blur-xs'>
