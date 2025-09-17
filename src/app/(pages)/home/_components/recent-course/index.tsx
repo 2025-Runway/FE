@@ -1,11 +1,19 @@
 'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useCourseHistory } from '../../_hooks/use-course-history';
 import { RecentCourseSkeleton } from './recent-course-skeleton';
 
 export function RecentCourse() {
+  const router = useRouter();
   const { data: courseHistoryResponse, isLoading } = useCourseHistory();
   const courseHistory = courseHistoryResponse?.data;
+
+  const handleClick = () => {
+    if (courseHistory?.crsIdx) {
+      router.push(`/course/${courseHistory.crsIdx}`);
+    }
+  };
 
   if (isLoading) {
     return <RecentCourseSkeleton />;
@@ -26,7 +34,10 @@ export function RecentCourse() {
     <section className='flex flex-col gap-3 px-5'>
       <h2 className='text-gray-bk text-[18px] font-bold'>최근 본 코스</h2>
 
-      <div className='relative h-[140px] w-full overflow-hidden rounded-[20px]'>
+      <div
+        className='relative h-[140px] w-full overflow-hidden rounded-[20px] cursor-pointer transition-transform hover:scale-[1.02]'
+        onClick={handleClick}
+      >
         <Image
           src={courseHistory.crsImgUrl || '/img/home/home.png'}
           alt='최근 본 코스 배경 이미지'
