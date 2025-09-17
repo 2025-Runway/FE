@@ -13,9 +13,9 @@ export function ContestDate({ date, day, className }: ContestDateProps) {
       <span
         className={clsx(
           'text-title3',
-          day === '토요일'
+          day === '토'
             ? 'text-weather-bl-02'
-            : day === '일요일'
+            : day === '일'
               ? 'text-weather-or-02'
               : 'text-gray-4',
         )}
