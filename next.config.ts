@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
       'tong.visitkorea.or.kr',
       'runway-bucket.s3.ap-northeast-2.amazonaws.com',
     ],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'img1.kakaocdn.net',
+        pathname: '/**',
+      },
+    ],
   },
   /* config options here */
   webpack(config) {
