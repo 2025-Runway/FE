@@ -1,4 +1,5 @@
 import { cn } from '@/utils/cn';
+import { sortDistances } from '../_utils/sort-distances';
 import { DistanceBadge } from './distance-badge';
 import { ContestDate } from './contest-date';
 import { ContestLocation } from './contest-location';
@@ -42,7 +43,7 @@ export function ContestCard({
           <ContestLocation location={location} />
 
           <div className='mt-2 flex gap-2'>
-            {distances.map((distance, index) => (
+            {sortDistances(distances).map((distance, index) => (
               <DistanceBadge key={index} distance={distance} />
             ))}
           </div>

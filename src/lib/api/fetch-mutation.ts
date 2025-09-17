@@ -25,6 +25,10 @@ async function fetchWithTimeout(
   try {
     const response = await fetch(url, {
       ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
       signal: controller.signal,
     });
     return response;
@@ -62,7 +66,8 @@ export async function fetchMutation<T>(
   const config: RequestInit = {
     method,
     headers: {
-      ...API_CONFIG.defaultHeaders,
+      'Content-Type': 'application/json',
+      // ...API_CONFIG.defaultHeaders,
       ...restOptions.headers,
     },
     cache: API_CONFIG.mutation.defaultCache,

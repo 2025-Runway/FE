@@ -1,4 +1,4 @@
-import { Course, CourseApiResponse } from '@/interfaces/course/course.type';
+import { Course, CourseApiResponse } from '@/interfaces/course/course.types';
 
 // API 응답 구조에 맞는 남파랑길 1코스 목데이터
 export const MOCK_COURSE_DATA: Course = {

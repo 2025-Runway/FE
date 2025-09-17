@@ -57,34 +57,38 @@ export function WeatherWeeklyCard({
         return <WeatherSmallHazyIcon />;
       case '흐림+비':
         return <WeatherSmallRainIcon />;
+      case '흐리고 비':
+        return <WeatherSmallRainIcon />;
       case '흐림+눈':
         return <WeatherSmallSnowIcon />;
+      case '흐림+소나기':
+        return <WeatherSmallRainIcon />;
       default:
         return null;
     }
   };
 
   return (
-    <div className='p-4 flex items-center justify-around gap-1'>
+    <div className='flex items-center justify-around gap-1 p-4'>
       {/* 날씨 아이콘 */}
-      <span className='flex-shrink-0 size-18 flex-center'>
+      <span className='flex-center size-18 flex-shrink-0'>
         {getWeatherIcon(data.weatherAm)}
       </span>
 
       {/* 날짜와 온도 */}
-      <div className='flex-shrink-0 flex-col-center'>
+      <div className='flex-col-center flex-shrink-0'>
         <div className='text-body4 text-gray-4'>
           {formatDate(data.date, type, index)}
         </div>
-        <div className='flex-center gap-1 text-title1'>
-          <span className=' text-weather-bl-02'>{data.tempMin}°</span>
+        <div className='flex-center text-title1 gap-1'>
+          <span className='text-weather-bl-02'>{data.tempMin}°</span>
           <span className='text-gray-4'>/</span>
-          <span className=' text-errorpoint'>{data.tempMax}°</span>
+          <span className='text-errorpoint'>{data.tempMax}°</span>
         </div>
       </div>
 
       {/* 대기질 */}
-      <div className='flex-shrink-0 flex-col-center'>
+      <div className='flex-col-center flex-shrink-0'>
         <div className='text-caption2 text-gray-4'>대기</div>
         <div className='text-title3 text-gray-bk'>매우 좋음</div>
       </div>
@@ -92,7 +96,7 @@ export function WeatherWeeklyCard({
       {/* 러닝 지수 */}
       <div
         className={clsx(
-          'flex-shrink-0 px-4 py-2.5 flex-col-center rounded-[12px]',
+          'flex-col-center flex-shrink-0 rounded-[12px] px-4 py-2.5',
           runningCondition.index === '좋음' &&
             'bg-weather-bl-01 text-weather-bl-02',
           runningCondition.index === '보통' && 'bg-point-000 text-point-400',

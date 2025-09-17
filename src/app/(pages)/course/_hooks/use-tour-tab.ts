@@ -12,10 +12,9 @@ import HotelIcon from '@/public/svg/course/hotel.svg';
 import HotelActiveIcon from '@/public/svg/course/hotel-active.svg';
 import FestivalIcon from '@/public/svg/course/festival.svg';
 import FestivalActiveIcon from '@/public/svg/course/festival-active.svg';
-import { useState } from 'react';
-import { cn } from '@/utils/cn';
+import { parseAsStringLiteral, useQueryState } from 'nuqs';
 
-const TAB_LIST = [
+export const TAB_LIST = [
   {
     icon: null,
     name: '전체',
@@ -38,7 +37,7 @@ const TAB_LIST = [
   {
     icon: FestivalIcon,
     activeIcon: FestivalActiveIcon,
-    name: '축제/공연/행사',
+    name: '행사/공연/축제',
   },
   {
     icon: LeportsIcon,
@@ -56,35 +55,12 @@ const TAB_LIST = [
     name: '쇼핑',
   },
 ];
-
-export function CourseSurrondTab() {
-  const [activeTab, setActiveTab] = useState(TAB_LIST[0]);
-  return (
-    <nav className='px-6 pt-3 pb-4 w-auto h-auto flex items-center justify-start gap-2 overflow-x-auto scrollbar-hide'>
-      {TAB_LIST.map(item => (
-        <span
-          key={item.name}
-          className={cn(
-            'flex-shrink-0 px-4 py-2 w-auto h-auto flex items-center gap-2 rounded-[20px] border-2 border-gray-3 transition-all duration-300',
-            activeTab.name === item.name && 'bg-point-000 border-point-400 ',
-          )}
-          onClick={() => setActiveTab(item)}
-        >
-          {!item.icon ? null : activeTab.name === item.name ? (
-            <item.activeIcon />
-          ) : (
-            <item.icon />
-          )}
-          <span
-            className={cn(
-              'text-[14px] font-medium text-gray-3 leading-[19.6px]',
-              activeTab.name === item.name && 'text-point-400 font-bold',
-            )}
-          >
-            {item.name}
-          </span>
-        </span>
-      ))}
-    </nav>
+export const useTourTab = () => {
+  const [activeTab, setActiveTab] = useQueryState(
+    'activeTab',
+    parseAsStringLiteral(TAB_LIST.map(item => item.name)).withDefault(
+      TAB_LIST[0].name,
+    ),
   );
-}
+  return { activeTab, setActiveTab };
+};
