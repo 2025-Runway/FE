@@ -1,54 +1,71 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useState, use } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { cn } from '@/utils/cn';
 import { ContestInfo } from './_components/contest-info';
 import { ContestDetails } from './_components/contest-details';
 import { RecommendedCourses } from './_components/recommended-courses';
-
-const CONTEST_DETAIL = {
-  id: '1',
-  date: '09. 07.',
-  day: '토요일',
-  title: 'RUN SEOUL RUN',
-  location: '서울, 시청 광장',
-  distances: ['5km', '10km'],
-  period: '2025. 09. 01 - 2025. 09. 07',
-  organizer: '이데일리M',
-  fees: [
-    { distance: '5km', price: 79000, label: '(하프)' },
-    { distance: '10km', price: 59000, label: '(10km)' },
-  ],
-};
-
-const RECOMMENDED_COURSES = [
-  {
-    id: '1',
-    title: '망양강 자전거길',
-    location: '경남 말양시',
-    imageUrl: '/img/home/home.png',
-  },
-  {
-    id: '2',
-    title: '망양강 자전거길',
-    location: '경남 말양시',
-    imageUrl: '/img/home/home.png',
-  },
-  {
-    id: '3',
-    title: '망양강 자전거길',
-    location: '경남 말양시',
-    imageUrl: '/img/home/home.png',
-  },
-];
+import { getMarathonDetail } from '@/lib/api/contest';
+import { MarathonDetail } from '@/interfaces/contest/contest.types';
 
 interface ContestDetailPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{
+    id: string;
+  }>;
 }
 
 export default function ContestDetailPage({ params }: ContestDetailPageProps) {
   const router = useRouter();
+  const resolvedParams = use(params);
+  const [contestData, setContestData] = useState<MarathonDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchContestDetail = async () => {
+      try {
+        const response = await getMarathonDetail(resolvedParams.id);
+        setContestData(response.data);
+      } catch (error) {
+        console.error('Failed to fetch contest detail:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContestDetail();
+  }, [resolvedParams.id]);
+
+  if (loading) {
+    return (
+      <div className='flex h-screen flex-col bg-gray-50'>
+        <PageHeader
+          title='러닝 대회'
+          isLeftIcon
+          onClickLeftIcon={() => router.back()}
+        />
+        <div className='flex flex-1 items-center justify-center'>
+          <div>로딩 중...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!contestData) {
+    return (
+      <div className='flex h-screen flex-col bg-gray-50'>
+        <PageHeader
+          title='러닝 대회'
+          isLeftIcon
+          onClickLeftIcon={() => router.back()}
+        />
+        <div className='flex flex-1 items-center justify-center'>
+          <div>대회 정보를 찾을 수 없습니다.</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='flex h-screen flex-col bg-gray-50'>
@@ -62,30 +79,43 @@ export default function ContestDetailPage({ params }: ContestDetailPageProps) {
 
       <div className='flex-1 overflow-y-auto'>
         <ContestInfo
-          date={CONTEST_DETAIL.date}
-          day={CONTEST_DETAIL.day}
-          title={CONTEST_DETAIL.title}
-          location={CONTEST_DETAIL.location}
-          distances={CONTEST_DETAIL.distances}
+          date={`${contestData.month}. ${contestData.day}.`}
+          day={contestData.dayOfWeek}
+          title={contestData.title}
+          location={contestData.addr}
+          distances={contestData.prices.map(price => price.type)}
         />
 
         <ContestDetails
-          period={CONTEST_DETAIL.period}
-          organizer={CONTEST_DETAIL.organizer}
-          fees={CONTEST_DETAIL.fees}
+          organizer={contestData.host}
+          fees={contestData.prices.map(price => ({
+            distance: price.type,
+            price: price.price,
+            label: `(${price.type})`,
+          }))}
         />
 
         <div className='h-9' />
 
-        <RecommendedCourses courses={RECOMMENDED_COURSES} />
+        <RecommendedCourses
+          courses={contestData.courseInfos.map(course => ({
+            id: course.crsIdx,
+            title: course.crsKorNm,
+            location: course.sigun,
+            imageUrl: course.crsImgUrl,
+          }))}
+        />
 
         <div className='h-12' />
         <div
           className={cn('px-5 pt-5', {
-            'border-gray-1 border-t': RECOMMENDED_COURSES.length > 0,
+            'border-gray-1 border-t': contestData.courseInfos.length > 0,
           })}
         >
-          <button className='text-title2 bg-point-400 w-full rounded-[12px] py-3 text-white'>
+          <button
+            className='text-title2 bg-point-400 w-full rounded-[12px] py-3 text-white'
+            onClick={() => window.open(contestData.homepageUrl, '_blank')}
+          >
             홈페이지로 이동하기
           </button>
         </div>
