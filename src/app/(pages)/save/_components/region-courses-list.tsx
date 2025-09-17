@@ -17,6 +17,7 @@ function RegionSection({ region, courses }: RegionSectionProps) {
             title={course.crsKorNm}
             location={course.sigun}
             imageUrl={course.crsImgUrl}
+            crsIdx={course.crsIdx}
             className='h-50 w-44 flex-shrink-0'
           />
         ))}
