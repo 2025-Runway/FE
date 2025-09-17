@@ -5,102 +5,33 @@ import { CourseTabs } from './course-tabs';
 import { PopularCourse } from './popular-course';
 import { AICourse } from './ai-course';
 import { EmptyDestination } from './empty-destination';
-
-const POPULAR_COURSES = {
-  nationwide: [
-    {
-      id: 1,
-      title: '밀양강 자전거길',
-      location: '경남 밀양시',
-      imageUrl: '/img/home/home.png',
-    },
-    {
-      id: 2,
-      title: '밀양강 자전거길',
-      location: '경남 밀양시',
-      imageUrl: '/img/home/home.png',
-    },
-    {
-      id: 3,
-      title: '밀양강 자전거길',
-      location: '경남 밀양시',
-      imageUrl: '/img/home/home.png',
-    },
-  ],
-  destinations: [
-    {
-      id: 4,
-      title: '제주 올레길',
-      location: '제주도',
-      imageUrl: '/img/home/home.png',
-    },
-    {
-      id: 5,
-      title: '부산 해안길',
-      location: '부산광역시',
-      imageUrl: '/img/home/home.png',
-    },
-  ],
-};
-
-const AI_RECOMMENDED_COURSES = {
-  nationwide: [
-    {
-      id: 1,
-      title: '밀양강 자전거길',
-      location: '경남 밀양시',
-      imageUrl: '/img/home/home.png',
-    },
-    {
-      id: 2,
-      title: '밀양강 자전거길',
-      location: '경남 밀양시',
-      imageUrl: '/img/home/home.png',
-    },
-    {
-      id: 3,
-      title: '밀양강 자전거길',
-      location: '경남 밀양시',
-      imageUrl: '/img/home/home.png',
-    },
-  ],
-  destinations: [
-    {
-      id: 4,
-      title: '제주 올레길',
-      location: '제주도',
-      imageUrl: '/img/home/home.png',
-    },
-    {
-      id: 5,
-      title: '부산 해안길',
-      location: '부산광역시',
-      imageUrl: '/img/home/home.png',
-    },
-  ],
-};
+import { usePopularCourses } from '../../_hooks/use-popular-courses';
+import { useRecommendedCourses } from '../../_hooks/use-recommended-courses';
 
 export function CourseSection() {
   const [activeTab, setActiveTab] = useState<'nationwide' | 'destinations'>(
     'nationwide',
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const { data: popularCoursesResponse, isLoading: popularLoading } =
+    usePopularCourses(activeTab === 'nationwide');
 
+  const { data: recommendedCoursesResponse, isLoading: recommendedLoading } =
+    useRecommendedCourses(activeTab === 'nationwide');
+
+  const popularCourses = popularCoursesResponse?.data || [];
+  const recommendedCourses = recommendedCoursesResponse?.data || [];
   const hasDestination = false;
 
   const handleTabChange = (tab: 'nationwide' | 'destinations') => {
     if (tab === activeTab) return;
 
     setActiveTab(tab);
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
   };
 
-  const currentPopularCourses = POPULAR_COURSES[activeTab];
-  const currentAICourses = AI_RECOMMENDED_COURSES[activeTab];
+  const currentPopularCourses =
+    activeTab === 'nationwide' ? popularCourses : [];
+
+  const currentAICourses = activeTab === 'nationwide' ? recommendedCourses : [];
 
   return (
     <section>
@@ -116,13 +47,16 @@ export function CourseSection() {
           <div className='mt-8 pl-5'>
             <PopularCourse
               courses={currentPopularCourses}
-              isLoading={isLoading}
+              isLoading={popularLoading}
             />
           </div>
 
           {/* AI 추천 코스 */}
           <div className='mt-8 pl-5'>
-            <AICourse courses={currentAICourses} isLoading={isLoading} />
+            <AICourse
+              courses={currentAICourses}
+              isLoading={recommendedLoading}
+            />
           </div>
         </>
       )}

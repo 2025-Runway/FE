@@ -6,10 +6,10 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { Course } from '@/interfaces/course.types';
+import { SearchResult } from '@/interfaces/home/home.types';
 
 interface CourseDetailSheetProps {
-  course: Course;
+  course: SearchResult;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -29,7 +29,7 @@ export function CourseDetailSheet({
               <ChevronLeft className='text-gray-bk h-[52px]' />
             </SheetClose>
             <div className='flex flex-1 items-center'>
-              <span className='text-body1'>{course.title}</span>
+              <span className='text-body1'>{course.crsName}</span>
             </div>
           </div>
         </SheetHeader>

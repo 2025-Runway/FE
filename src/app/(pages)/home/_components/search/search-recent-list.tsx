@@ -1,9 +1,9 @@
-import { Course } from '@/interfaces/course.types';
+import { SearchResult } from '@/interfaces/home/home.types';
 import { SearchItem } from './search-item';
 
 interface SearchRecentListProps {
-  searches: Course[];
-  onRemoveSearch: (id: number) => void;
+  searches: SearchResult[];
+  onRemoveSearch: (crsIdx: string) => void;
 }
 
 export function SearchRecentList({ searches, onRemoveSearch }: SearchRecentListProps) {
@@ -14,7 +14,7 @@ export function SearchRecentList({ searches, onRemoveSearch }: SearchRecentListP
       <div className='flex flex-col'>
         {searches.map(item => (
           <SearchItem
-            key={item.id}
+            key={item.crsIdx}
             item={item}
             showRemoveButton
             onRemove={onRemoveSearch}

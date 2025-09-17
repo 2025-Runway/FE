@@ -1,4 +1,5 @@
 import { SearchSheet } from '../search/search-sheet';
+import { ProfileImage } from './profile-image';
 
 export function HomeSearch() {
   return (
@@ -11,7 +12,7 @@ export function HomeSearch() {
        * 프로필사진 영역
        */}
       <section>
-        <div className='bg-black000 h-11 w-11 rounded-full' />
+        <ProfileImage />
       </section>
     </div>
   );
