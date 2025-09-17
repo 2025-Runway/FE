@@ -89,7 +89,7 @@ export default function RootLayout({
         />
         <link rel='icon' href='/favicon.ico' />
       </head>
-      <body className='bg-gray-1 h-screen w-screen overflow-hidden antialiased'>
+      <body className='bg-gray-bg h-screen w-screen antialiased'>
         <GlobalProvider>
           <main className='bg-gray-bg mobile-area h-full pb-16'>
             {children}
