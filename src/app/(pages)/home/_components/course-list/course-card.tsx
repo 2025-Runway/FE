@@ -1,18 +1,30 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface CourseCardProps {
   title: string;
   location: string;
   imageUrl: string;
+  crsIdx: string;
 }
 
 export function CourseCard({
   title,
   location,
   imageUrl,
+  crsIdx,
 }: CourseCardProps) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/course/${crsIdx}`);
+  };
+
   return (
-    <div className='relative h-[196px] w-[168px] flex-shrink-0 overflow-hidden rounded-[20px]'>
+    <div
+      className='relative h-[196px] w-[168px] flex-shrink-0 overflow-hidden rounded-[20px] cursor-pointer transition-transform hover:scale-105'
+      onClick={handleClick}
+    >
       <Image
         src={imageUrl}
         alt={`${title} 코스 이미지`}

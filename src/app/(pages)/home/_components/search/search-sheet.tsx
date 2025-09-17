@@ -86,6 +86,7 @@ export function SearchSheet() {
             <SearchRecentList
               searches={recentSearches}
               onRemoveSearch={handleRemoveSearch}
+              onItemClick={handleCourseClick}
             />
           ) : (
             <SearchResultList

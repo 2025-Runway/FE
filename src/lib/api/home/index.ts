@@ -5,6 +5,7 @@ import {
   WeatherInfo,
   UserInfo,
   SearchResponse,
+  CourseDetail,
 } from '@/interfaces/home/home.types';
 import { api } from '@/lib/api';
 import { fetchQuery } from '@/lib/api/fetch-query';
@@ -74,3 +75,30 @@ export const getUserDataCached = cache(
     return await api.get('/mypage');
   },
 );
+
+/**
+ * 지역별 인기 코스 가져오는 API
+ */
+export const getPopularCoursesByRegion = async (region: string): Promise<
+  ApiResponse<PopularCourse[]>
+> => {
+  return await api.get(`/courses/popular/region?region=${encodeURIComponent(region)}`);
+};
+
+/**
+ * 지역별 AI 추천 코스 가져오는 API
+ */
+export const getRecommendedCoursesByRegion = async (region: string): Promise<
+  ApiResponse<PopularCourse[]>
+> => {
+  return await api.get(`/courses/recommendations/region?region=${encodeURIComponent(region)}`);
+};
+
+/**
+ * 코스 상세 정보 가져오는 API
+ */
+export const getCourseDetail = async (crsIdx: string): Promise<
+  ApiResponse<CourseDetail>
+> => {
+  return await api.get(`/public/search/${crsIdx}`);
+};

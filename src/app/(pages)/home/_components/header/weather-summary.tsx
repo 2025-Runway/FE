@@ -1,12 +1,21 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { useWeather } from '../../_hooks/use-weather';
 
 export function WeatherSummary() {
+  const router = useRouter();
   const { data: weatherResponse, isLoading } = useWeather();
   const weatherData = weatherResponse?.data;
 
+  const handleClick = () => {
+    router.push('/weather');
+  };
+
   return (
-    <div className='flex w-full gap-3'>
+    <div
+      className='flex w-full gap-3 cursor-pointer transition-opacity hover:opacity-80'
+      onClick={handleClick}
+    >
       <div className='flex flex-1 flex-col items-center justify-center rounded-[20px] bg-white/20 px-4 pt-4 pb-3 backdrop-blur-xs'>
         <p className='text-[14px] font-light text-white/100'>날씨</p>
         <p className='text-[20px] font-bold text-white/100'>

@@ -22,6 +22,7 @@ export function PopularCourse({ courses, isLoading }: PopularCourseProps) {
               title={course.crsKorNm}
               location={course.sigun}
               imageUrl={course.crsImgUrl}
+              crsIdx={course.crsIdx}
             />
           ))}
         </div>

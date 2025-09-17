@@ -103,6 +103,7 @@ export default function ContestDetailPage({ params }: ContestDetailPageProps) {
             title: course.crsKorNm,
             location: course.sigun,
             imageUrl: course.crsImgUrl,
+            crsIdx: course.crsIdx,
           }))}
         />
 
