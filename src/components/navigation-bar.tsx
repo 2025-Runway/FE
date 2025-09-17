@@ -15,7 +15,7 @@ import MyPageActive from '@/public/svg/navigation/mypage-active.svg';
 import MyPageInactive from '@/public/svg/navigation/mypage-inactive.svg';
 import HeartActive from '@/public/svg/course/heart-black.svg';
 import HeartInactive from '@/public/svg/course/heart-blank.svg';
-import { CourseSurrondInfo } from '@/app/(pages)/course/_components/course-surrond-info';
+import { CourseSurrondInfo } from '@/app/(pages)/course/_components/course-surrond-tour/course-surrond-info';
 import React from 'react';
 import { toast } from 'sonner';
 

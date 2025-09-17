@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNaverMap } from '../_hooks/use-naver-map';
-import { GPXParser, GPXTrack, GPXPoint } from '../utils/gpx-parser';
+import { GPXParser, GPXTrack, GPXPoint } from '../_utils/gpx-parser';
 
 interface GPXRouteMapProps {
   /** GPX 파일 내용 */
@@ -233,13 +233,14 @@ const GPXRouteMap = ({
     if (points.length === 0) return;
 
     const startPoint = points[0];
-    const endPoint = points[points.length - 1];
+    const { lat, lng } = startPoint;
 
     // 네이버지도 길찾기 URL 생성
-    const naverMapUrl = `https://map.naver.com/v5/directions?c=${startPoint.lng},${startPoint.lat},15,0,0,0,dh&f=${startPoint.lng},${startPoint.lat},,,,&t=${endPoint.lng},${endPoint.lat},,,,`;
+    const naverMapUrl = `https://map.naver.com/v5/search/${lat},${lng}`;
 
-    // 모바일에서는 네이버지도 앱으로, 데스크톱에서는 웹으로 열기
-    window.open(naverMapUrl, '_blank');
+    if (window.confirm('네이버 지도로 이동하시겠습니까?')) {
+      window.open(naverMapUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
   if (error) {

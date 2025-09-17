@@ -89,9 +89,9 @@ export default function RootLayout({
         />
         <link rel='icon' href='/favicon.ico' />
       </head>
-      <body className='mobile-area bg-gray-1 h-screen antialiased select-none'>
+      <body className='bg-gray-1 h-screen w-screen overflow-hidden antialiased'>
         <GlobalProvider>
-          <main className='bg-gray-bg h-full w-full pb-16'>
+          <main className='bg-gray-bg mobile-area h-full pb-16'>
             {children}
             <NavigationBar />
           </main>

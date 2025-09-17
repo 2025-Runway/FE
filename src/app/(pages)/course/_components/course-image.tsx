@@ -8,13 +8,13 @@ interface CourseImageProps {
   imageUrl: string;
 }
 
-export function CourseImage() {
+export function CourseImage({ imageUrl }: CourseImageProps) {
   const router = useRouter();
 
   return (
-    <div className='relative w-full h-auto aspect-[402/280] overflow-hidden'>
+    <div className='bg-gray-1 relative aspect-[402/280] h-auto w-full overflow-hidden'>
       <Image
-        src={'/img/course/course-detail-preview.png'}
+        src={imageUrl}
         alt='course-image'
         fill
         sizes='100%'
@@ -22,7 +22,7 @@ export function CourseImage() {
         className='object-cover'
       />
       <span
-        className='absolute top-3 left-4 size-13 rounded-full bg-white/20 flex-center'
+        className='flex-center bg-point-400/50 absolute top-3 left-4 size-13 cursor-pointer rounded-full'
         onClick={() => router.back()}
       >
         <LeftArrowIcon />

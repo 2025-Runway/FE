@@ -48,7 +48,7 @@ export async function fetchQuery<T>(
   const config: RequestInit = {
     method: 'GET',
     headers: {
-      ...API_CONFIG.defaultHeaders,
+      // ...API_CONFIG.defaultHeaders,
       ...options.headers,
     },
     cache: options.cache ?? API_CONFIG.query.defaultCache,
@@ -62,26 +62,9 @@ export async function fetchQuery<T>(
 
   try {
     const response = await fetch(url, config);
-
-    const contentType = response.headers.get('content-type');
-    const isJsonResponse = contentType?.includes('application/json') ?? false;
-
-    let responseData: ApiResponse<T>;
-
-    if (isJsonResponse) {
-      responseData = await response.json();
-    } else {
-      responseData = {
-        data: {} as T,
-        success: response.ok,
-        message: response.statusText,
-      };
-    }
-
+    const responseData: ApiResponse<T> = await response.json();
     return responseData;
   } catch (error: unknown) {
-    console.error(`Query Error - ${endpoint}:`, error);
-
     if (error instanceof ApiError) {
       return {
         data: null as T,
