@@ -1,0 +1,84 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import GPXRouteMap from '../../../course/_components/gpx-parser-map';
+
+export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
+  const [gpxContent, setGpxContent] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchGpxContent = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // GPX 파일 다운로드
+        const response = await fetch(
+          `/api/gpx-proxy?url=${encodeURIComponent(gpxUrl)}`,
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const content = await response.text();
+        setGpxContent(content);
+      } catch (err) {
+        console.error('GPX 파일 로드 실패:', err);
+        setError('GPX 파일을 불러올 수 없습니다.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (gpxUrl) {
+      void fetchGpxContent();
+    }
+  }, [gpxUrl]);
+
+  if (isLoading) {
+    return (
+      <div className='flex-1 flex items-center justify-center bg-gray-100'>
+        <div className='text-center'>
+          <div className='mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent'></div>
+          <p className='text-gray-600'>경로를 불러오는 중...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className='flex-1 flex items-center justify-center bg-gray-100'>
+        <div className='text-center text-red-500'>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className='flex-1 w-full h-full relative'>
+      {gpxContent && (
+        <GPXRouteMap
+          gpxContent={gpxContent}
+          routeStyle={{
+            strokeColor: '#00C851',
+            strokeWeight: 6,
+            strokeOpacity: 0.8,
+          }}
+          markerStyle={{
+            startColor: '#00C851',
+            endColor: '#FF6B6B',
+            waypointColor: '#00C851',
+            size: 20,
+          }}
+          waypointInterval={5}
+          showInfo={false}
+        />
+      )}
+    </div>
+  );
+}

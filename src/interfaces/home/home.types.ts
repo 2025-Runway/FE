@@ -79,3 +79,13 @@ export interface SearchResponse {
   first: boolean;
   empty: boolean;
 }
+
+/**
+ * 코스 상세 정보 타입
+ */
+export interface CourseDetail {
+  crsIdx: string;
+  crsName: string;
+  gpxPath: string;
+  content: string;
+}

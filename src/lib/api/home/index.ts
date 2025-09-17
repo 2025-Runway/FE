@@ -5,6 +5,7 @@ import {
   WeatherInfo,
   UserInfo,
   SearchResponse,
+  CourseDetail,
 } from '@/interfaces/home/home.types';
 import { api } from '@/lib/api';
 import { fetchQuery } from '@/lib/api/fetch-query';
@@ -91,4 +92,13 @@ export const getRecommendedCoursesByRegion = async (region: string): Promise<
   ApiResponse<PopularCourse[]>
 > => {
   return await api.get(`/courses/recommendations/region?region=${encodeURIComponent(region)}`);
+};
+
+/**
+ * 코스 상세 정보 가져오는 API
+ */
+export const getCourseDetail = async (crsIdx: string): Promise<
+  ApiResponse<CourseDetail>
+> => {
+  return await api.get(`/public/search/${crsIdx}`);
 };
