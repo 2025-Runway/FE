@@ -44,9 +44,7 @@ const RECOMMENDED_COURSES = [
 ];
 
 interface ContestDetailPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default function ContestDetailPage({ params }: ContestDetailPageProps) {

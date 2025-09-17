@@ -17,7 +17,17 @@ import {
   ProvinceKey,
 } from '../_constants/region.constant';
 import { toast } from 'sonner';
+import { setDestination } from '@/lib/api/mypage';
 
+const findPlaceByName = (placeName: string): Place | null => {
+  for (const province of Object.values(KOREA_REGIONS)) {
+    const foundPlace = province.find(place => place.name === placeName);
+    if (foundPlace) {
+      return foundPlace;
+    }
+  }
+  return null;
+};
 const REGION_LIST = [
   '강원',
   '경북',
@@ -38,9 +48,22 @@ const REGION_LIST = [
   '충북',
 ] as ProvinceKey[];
 
-export function PlacePickSheet() {
+export function PlacePickSheet({
+  sheetState,
+  refetch,
+  defaultIsPickPlace,
+}: {
+  sheetState: 'edit' | 'create';
+  refetch: () => void;
+  defaultIsPickPlace: string | null;
+}) {
   const [isActive, setIsActive] = useState<ProvinceKey>('강원');
-  const [isPickPlace, setIsPickPlace] = useState<Place | null>(null);
+  const [isPickPlace, setIsPickPlace] = useState<Place | null>(() => {
+    if (!defaultIsPickPlace) return null;
+
+    const foundPlace = findPlaceByName(defaultIsPickPlace);
+    return foundPlace ?? { name: defaultIsPickPlace, type: '시' };
+  });
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleRegionClick = (item: ProvinceKey) => {
@@ -59,39 +82,62 @@ export function PlacePickSheet() {
     }
   };
 
-  const handlePlaceSubmit = (e: React.MouseEvent<HTMLSpanElement>) => {
+  const handlePlaceSubmit = async (e: React.MouseEvent<HTMLSpanElement>) => {
     if (isPickPlace === null) {
       toast.error('여행지를 선택해주세요.');
       e.preventDefault();
       e.stopPropagation();
       return;
     }
-    toast.success('여행지 설정이 완료되었습니다.');
-    setIsPickPlace(null);
+    try {
+      await setDestination(isPickPlace?.name);
+      refetch();
+      toast.success('여행지 설정이 완료되었습니다.');
+      setIsPickPlace(null);
+      setIsActive('강원');
+    } catch (error) {
+      toast.error('여행지 설정에 실패했습니다.');
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
   };
-
   return (
     <Sheet>
-      <SheetTrigger className='px-7 w-fit h-11 text-[16px] font-bold text-white000 leading-[22.4px] flex-center  rounded-[12px] bg-point-400'>
-        여행지 설정하기
+      <SheetTrigger
+        className={`${
+          sheetState === 'create'
+            ? 'text-white000 flex-center bg-point-400 h-11 w-fit rounded-[12px] px-7 text-[16px] leading-[22.4px] font-bold'
+            : 'border-white000 flex-center text-title4 text-white000 bg-[rgba(255, 255, 255, 0.20)] absolute top-12 right-5 h-11 w-fit rounded-[12px] border bg-transparent px-7 backdrop-blur-[4px]'
+        }`}
+      >
+        {sheetState === 'create' ? '여행지 설정하기' : '수정하기'}
       </SheetTrigger>
       <SheetContent
         side='bottom'
-        className='mobile-area max-w-[600px] h-screen flex flex-col'
+        className='mobile-area flex h-screen max-w-[600px] flex-col'
       >
-        <SheetHeader className='flex-shrink-0 border-b-8 border-gray-0'>
-          <SheetTitle className='px-4 py-2 w-full h-13 flex justify-between items-center'>
-            <SheetClose>
-              <span className='px-2 size-13 flex-center'>
+        <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8'>
+          <SheetTitle className='flex h-13 w-full items-center justify-between px-4 py-2'>
+            <SheetClose
+              onClick={() => {
+                setIsPickPlace(
+                  defaultIsPickPlace
+                    ? findPlaceByName(defaultIsPickPlace)
+                    : null,
+                );
+              }}
+            >
+              <span className='flex-center size-13 px-2'>
                 <XIcon className='size-6' />
               </span>
             </SheetClose>
-            <span className='text-[20px] font-bold text-gray-bk leading-7'>
+            <span className='text-gray-bk text-[20px] leading-7 font-bold'>
               여행지 설정하기
             </span>
             <SheetClose>
               <span
-                className='text-point-400 text-[14px] font-bold leading-[19.6px]'
+                className='text-point-400 text-[14px] leading-[19.6px] font-bold'
                 onClick={handlePlaceSubmit}
               >
                 완료하기
@@ -100,33 +146,33 @@ export function PlacePickSheet() {
           </SheetTitle>
         </SheetHeader>
 
-        <div className='flex-shrink-0 pl-6 pt-11 pb-7.5 w-full h-auto flex flex-col itmes-end gap-3.5 border-b-8 border-gray-0'>
-          <h1 className='text-[24px] font-extralight-medium text-gray-bk leading-[33.6px]'>
+        <div className='itmes-end border-gray-0 flex h-auto w-full flex-shrink-0 flex-col gap-3.5 border-b-8 pt-11 pb-7.5 pl-6'>
+          <h1 className='font-extralight-medium text-gray-bk text-[24px] leading-[33.6px]'>
             여행, 어디로 떠나시나요?
           </h1>
-          <div className='pb-3 flex items-center gap-2 overflow-x-auto custom-scrollbar'>
+          <div className='custom-scrollbar flex items-center gap-2 overflow-x-auto pb-3'>
             {isPickPlace !== null ? (
               <span
-                className='flex-shrink-0 px-4 py-2 w-fit h-10 bg-point-000 border-2 border-point-400 rounded-[20px] text-[14px] font-bold text-point-400 leading-[19.6px]'
+                className='bg-point-000 border-point-400 text-point-400 h-10 w-fit flex-shrink-0 rounded-[20px] border-2 px-4 py-2 text-[14px] leading-[19.6px] font-bold'
                 onClick={() => handlePlaceClick(isPickPlace)}
               >
                 {isPickPlace.name}
               </span>
             ) : (
-              <div className='py-2 w-fit h-10 text-[14px] font-medium text-point-400 leading-[19.6px]'>
+              <div className='text-point-400 h-10 w-fit py-2 text-[14px] leading-[19.6px] font-medium'>
                 선택된 여행지가 없습니다.
               </div>
             )}
           </div>
         </div>
 
-        <section className='w-full h-[calc(100vh-60px-177.6px)] flex'>
-          <aside className='py-5 px-3 max-w-28 h-auto flex flex-col items-center bg-gray-0 overflow-y-auto scrollbar-hide'>
+        <section className='flex h-[calc(100vh-60px-177.6px)] w-full'>
+          <aside className='bg-gray-0 scrollbar-hide flex h-auto max-w-28 flex-col items-center overflow-y-auto px-3 py-5'>
             {REGION_LIST.map(item => (
               <span
                 key={item}
                 className={cn(
-                  'flex-shrink-0 w-22 h-9 flex-center text-[16px] font-medium text-gray-bk leading-[22.4px] bg-transparent',
+                  'flex-center text-gray-bk h-9 w-22 flex-shrink-0 bg-transparent text-[16px] leading-[22.4px] font-medium',
                   isActive === item && 'bg-white000 rounded-full font-bold',
                 )}
                 onClick={() => handleRegionClick(item)}
@@ -137,9 +183,9 @@ export function PlacePickSheet() {
           </aside>
           <div
             ref={scrollRef}
-            className='flex-1 py-7 pl-7 w-full h-auto overflow-y-auto custom-scrollbar flex flex-col gap-4'
+            className='custom-scrollbar flex h-auto w-full flex-1 flex-col gap-4 overflow-y-auto py-7 pl-7'
           >
-            <h4 className='pl-2 text-[16px] font-bold text-gray-bk leading-[22.4px]'>
+            <h4 className='text-gray-bk pl-2 text-[16px] leading-[22.4px] font-bold'>
               {isActive} 전체
             </h4>
 
@@ -147,9 +193,9 @@ export function PlacePickSheet() {
               <span
                 key={item.name}
                 className={cn(
-                  'w-fit h-auto px-3 py-1 text-[16px] font-medium text-gray-bk leading-[22.4px] border border-transparent rounded-full bg-transparent transition-all duration-300 cursor-pointer',
+                  'text-gray-bk h-auto w-fit cursor-pointer rounded-full border border-transparent bg-transparent px-3 py-1 text-[16px] leading-[22.4px] font-medium transition-all duration-300',
                   isPickPlace === item &&
-                    'text-point-400  border-point-400 bg-point-000',
+                    'text-point-400 border-point-400 bg-point-000',
                 )}
                 onClick={() => handlePlaceClick(item)}
               >

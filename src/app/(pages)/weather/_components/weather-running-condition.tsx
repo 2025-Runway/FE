@@ -18,11 +18,10 @@ interface RunningIndexProps {
 
 export function WeatherRunningCondition({ weatherData }: RunningIndexProps) {
   const runningCondition = useRunningCondition(weatherData);
-  console.log(runningCondition);
   return (
     <div
       className={cn(
-        'px-8 py-3 w-full h-auto flex flex-col gap-1 border  rounded-[20px] shadow-[0_0_8px_0_rgba(103,236,180,0.20)]',
+        'flex h-auto w-full flex-col gap-1 rounded-[20px] border px-8 py-3 shadow-[0_0_8px_0_rgba(103,236,180,0.20)]',
         runningCondition.index === '좋음' && 'border-weather-bl-02',
         runningCondition.index === '보통' && 'border-point-400',
         runningCondition.index === '나쁨' && 'border-weather-or-02',
@@ -32,7 +31,7 @@ export function WeatherRunningCondition({ weatherData }: RunningIndexProps) {
         <span className='text-caption2 text-gray-3'>러닝 지수</span>
         <RunningAlertIcon />
       </span>
-      <div className='flex justify-start items-center gap-7'>
+      <div className='flex items-center justify-start gap-7'>
         <span className='flex-col-center gap-1'>
           {runningCondition.index === '좋음' ? (
             <RunningGoodIcon />
@@ -53,8 +52,8 @@ export function WeatherRunningCondition({ weatherData }: RunningIndexProps) {
           </span>
         </span>
 
-        <span className='w-full h-auto flex flex-col gap-4'>
-          <span className='px-3 py-1 w-fit h-6 text-body4 text-gray-3 rounded-[16px] bg-gray-0'>
+        <span className='flex h-auto w-full flex-col gap-4'>
+          <span className='text-body4 text-gray-3 bg-gray-0 h-6 w-fit rounded-[16px] px-3 py-1'>
             TIP
           </span>
           <p className='text-title3 text-gray-bk'>{runningCondition.tip}</p>
