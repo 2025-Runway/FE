@@ -32,6 +32,8 @@ interface GPXRouteMapProps {
   waypointInterval?: number;
   /** 경로 정보 표시 여부 */
   showInfo?: boolean;
+  /** 커스텀 시작 마커 위치 */
+  customStartMarker?: { lat: number; lng: number } | null;
 }
 
 const GPXRouteMap = ({
@@ -53,6 +55,7 @@ const GPXRouteMap = ({
   },
   waypointInterval = 20,
   showInfo = true,
+  customStartMarker = null,
 }: GPXRouteMapProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
@@ -227,7 +230,22 @@ const GPXRouteMap = ({
       });
       markersRef.current.push(endMarker);
     }
-  }, [map, track, routeStyle, markerStyle, waypointInterval]);
+
+    // 커스텀 시작점 마커
+    if (customStartMarker) {
+      console.log('커스텀 마커 생성:', customStartMarker);
+      const customMarker = new window.naver.maps.Marker({
+        position: new window.naver.maps.LatLng(customStartMarker.lat, customStartMarker.lng),
+        map: map,
+        icon: {
+          content: '<div style="background-color: #00C851; width: 40px; height: 40px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"><div style="transform: rotate(45deg); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">출발</div></div>',
+          anchor: new window.naver.maps.Point(20, 40),
+        },
+        zIndex: 1000,
+      });
+      markersRef.current.push(customMarker);
+    }
+  }, [map, track, routeStyle, markerStyle, waypointInterval, customStartMarker]);
 
   const handleNaverMap = (points: GPXPoint[]) => {
     if (points.length === 0) return;

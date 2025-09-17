@@ -1,12 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import GPXRouteMap from '../../../course/_components/gpx-parser-map';
+import { GPXParser } from '../../../course/_utils/gpx-parser';
 
 export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
   const [gpxContent, setGpxContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [startPosition, setStartPosition] = useState<{ lat: number; lng: number } | null>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchGpxContent = async () => {
@@ -25,6 +28,21 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
 
         const content = await response.text();
         setGpxContent(content);
+
+        // GPX 파싱해서 시작점 좌표 추출
+        try {
+          const track = GPXParser.parseGPX(content);
+          console.log('GPX 파싱 결과:', track);
+
+          if (track && track.points && track.points.length > 0) {
+            const firstPoint = track.points[0];
+            const position = { lat: firstPoint.lat, lng: firstPoint.lng };
+            console.log('시작점 좌표:', position);
+            setStartPosition(position);
+          }
+        } catch (parseError) {
+          console.error('GPX 파싱 실패:', parseError);
+        }
       } catch (err) {
         console.error('GPX 파일 로드 실패:', err);
         setError('GPX 파일을 불러올 수 없습니다.');
@@ -73,12 +91,14 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
             startColor: '#00C851',
             endColor: '#FF6B6B',
             waypointColor: '#00C851',
-            size: 20,
+            size: 30,
           }}
           waypointInterval={5}
           showInfo={false}
+          customStartMarker={startPosition}
         />
       )}
+
     </div>
   );
 }
