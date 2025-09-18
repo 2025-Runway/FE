@@ -4,7 +4,7 @@ import { ApiResponse } from '@/interfaces/api/response.types';
 import { SearchResponse } from '@/interfaces/home/home.types';
 import { useDebounce } from './use-debounce';
 
-export const useSearch = (query: string, page: number = 1) => {
+export const useSearch = (query: string, page = 1) => {
   const debouncedQuery = useDebounce(query, 100);
 
   return useQuery<ApiResponse<SearchResponse>>({

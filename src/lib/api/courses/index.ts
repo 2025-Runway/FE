@@ -48,3 +48,12 @@ export function getCourseTourInfo(
     );
   }
 }
+
+/**
+ * @description 코스 찜 추가
+ * @param crsIdx 코스 고유번호
+ * @returns 코스 찜 추가 정보
+ */
+export function addCourseSave(crsIdx: string): Promise<ApiResponse<void>> {
+  return api.post(`/courses/${crsIdx}/favorite`);
+}

@@ -25,7 +25,7 @@ export function SearchSheet() {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const { data: searchResponse, isLoading } = useSearch(searchQuery);
-  const searchResults = searchResponse?.data?.content || [];
+  const searchResults = searchResponse?.data?.content ?? [];
 
   /**
    * 최근 검색어 관련 훅
@@ -81,7 +81,7 @@ export function SearchSheet() {
           </div>
         </SheetHeader>
 
-        <div className='p-5'>
+        <div className='custom-scrollbar h-full overflow-y-auto p-5'>
           {!searchQuery ? (
             <SearchRecentList
               searches={recentSearches}

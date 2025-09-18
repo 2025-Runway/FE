@@ -12,7 +12,9 @@ export default function WeatherPage() {
         <WeatherLocationTab />
       </Suspense>
       <main className='flex h-auto w-full flex-1 flex-col gap-7 overflow-y-auto pb-5'>
-        <WeatherSection />
+        <Suspense fallback={<></>}>
+          <WeatherSection />
+        </Suspense>
       </main>
     </div>
   );

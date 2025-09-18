@@ -1,12 +1,15 @@
 import { ApiResponse } from '@/interfaces/api/response.types';
-import { MarathonResponse, MarathonDetail } from '@/interfaces/contest/contest.types';
+import {
+  MarathonResponse,
+  MarathonDetail,
+} from '@/interfaces/contest/contest.types';
 import { api } from '@/lib/api';
 
 /**
  * 대회 정보 가져오는 API
  */
 export const getMarathons = async (
-  page: number = 1,
+  page = 1,
 ): Promise<ApiResponse<MarathonResponse>> => {
   return await api.get(`/public/marathons?page=${page}`);
 };

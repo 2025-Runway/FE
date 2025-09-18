@@ -8,7 +8,10 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
   const [gpxContent, setGpxContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [startPosition, setStartPosition] = useState<{ lat: number; lng: number } | null>(null);
+  const [startPosition, setStartPosition] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,7 +37,7 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
           const track = GPXParser.parseGPX(content);
           console.log('GPX 파싱 결과:', track);
 
-          if (track && track.points && track.points.length > 0) {
+          if (track?.points && track.points.length > 0) {
             const firstPoint = track.points[0];
             const position = { lat: firstPoint.lat, lng: firstPoint.lng };
             console.log('시작점 좌표:', position);
@@ -58,7 +61,7 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
 
   if (isLoading) {
     return (
-      <div className='flex-1 flex items-center justify-center bg-gray-100'>
+      <div className='flex flex-1 items-center justify-center bg-gray-100'>
         <div className='text-center'>
           <div className='mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent'></div>
           <p className='text-gray-600'>경로를 불러오는 중...</p>
@@ -69,7 +72,7 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
 
   if (error) {
     return (
-      <div className='flex-1 flex items-center justify-center bg-gray-100'>
+      <div className='flex flex-1 items-center justify-center bg-gray-100'>
         <div className='text-center text-red-500'>
           <p>{error}</p>
         </div>
@@ -78,7 +81,7 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
   }
 
   return (
-    <div className='flex-1 w-full h-full relative'>
+    <div className='relative h-full w-full flex-1'>
       {gpxContent && (
         <GPXRouteMap
           gpxContent={gpxContent}
@@ -98,7 +101,6 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
           customStartMarker={startPosition}
         />
       )}
-
     </div>
   );
 }

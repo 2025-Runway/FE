@@ -36,7 +36,12 @@ export interface MarathonDetail {
 
 export interface MarathonContent {
   data: Marathon;
-  pageInfo: any;
+  pageInfo: {
+    page: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
+  };
 }
 
 export interface MarathonSort {

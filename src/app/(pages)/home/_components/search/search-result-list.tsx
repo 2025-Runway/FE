@@ -29,7 +29,7 @@ export function SearchResultList({
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='custom-scrollbar flex flex-col overflow-y-auto'>
       {results.map(item => (
         <SearchItem key={item.crsIdx} item={item} onClick={onCourseClick} />
       ))}

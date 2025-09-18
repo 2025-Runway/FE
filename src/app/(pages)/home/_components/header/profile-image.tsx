@@ -1,4 +1,5 @@
 import { getUserDataCached } from '@/lib/api/home';
+import { UserIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -7,8 +8,8 @@ export async function ProfileImage() {
   const profileImageUrl = userResponse?.data?.profileImageUrl;
 
   return (
-    <Link href="/mypage" className='block'>
-      <div className='h-11 w-11 rounded-full overflow-hidden bg-gray-200 cursor-pointer hover:opacity-80 transition-opacity'>
+    <Link href='/mypage' className='block'>
+      <div className='h-11 w-11 cursor-pointer overflow-hidden rounded-full bg-gray-200 transition-opacity hover:opacity-80'>
         {profileImageUrl ? (
           <Image
             src={profileImageUrl}
@@ -18,7 +19,9 @@ export async function ProfileImage() {
             className='h-full w-full object-cover'
           />
         ) : (
-          <div className='bg-black000 h-full w-full' />
+          <div className='h-full w-full bg-gray-200 p-2'>
+            <UserIcon className='text-gray-4 h-full w-full' />
+          </div>
         )}
       </div>
     </Link>

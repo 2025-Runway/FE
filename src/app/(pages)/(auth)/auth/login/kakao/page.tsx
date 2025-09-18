@@ -3,9 +3,9 @@
 import { LoadingSpinner } from '@/components/loading-spinner';
 import { api } from '@/lib/api';
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 
-export default function LoginKakaoPage() {
+function LoginKakaoContent() {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
   const [isLoading, setIsLoading] = useState(false);
@@ -51,4 +51,12 @@ export default function LoginKakaoPage() {
   }, [code]);
 
   return <LoadingSpinner />;
+}
+
+export default function LoginKakaoPage() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <LoginKakaoContent />
+    </Suspense>
+  );
 }
