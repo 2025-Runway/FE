@@ -36,6 +36,7 @@
     "@eslint/eslintrc": "^3",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4",
+    "@types/minimatch": "^6.0.0",
     "@types/navermaps": "^3.9.1",
     "@types/next-pwa": "^5",
     "@types/node": "^20",
