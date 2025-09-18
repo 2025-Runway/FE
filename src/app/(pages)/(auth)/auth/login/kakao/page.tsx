@@ -29,7 +29,9 @@ function LoginKakaoContent() {
       localStorage.setItem('nickname', result.data.nickname);
       localStorage.setItem('accessToken', result.data.accessToken);
       localStorage.setItem('role', 'user');
-      router.push('/home');
+      setTimeout(() => {
+        router.push('/home');
+      }, 1500);
     }
     return result.data?.accessToken ?? '';
   };
