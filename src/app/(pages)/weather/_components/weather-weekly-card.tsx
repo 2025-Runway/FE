@@ -72,7 +72,7 @@ export function WeatherWeeklyCard({
     <div className='flex items-center justify-around gap-1 p-4'>
       {/* 날씨 아이콘 */}
       <span className='flex-center size-18 flex-shrink-0'>
-        {data.weatherAm}
+        {getWeatherIcon(data.weatherAm)}
       </span>
 
       {/* 날짜와 온도 */}
