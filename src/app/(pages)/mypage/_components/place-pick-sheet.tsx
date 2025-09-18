@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/sheet';
 import { cn } from '@/utils/cn';
 import { XIcon } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   KOREA_REGIONS,
   Place,
@@ -57,6 +57,18 @@ export function PlacePickSheet({
   refetch: () => void;
   defaultIsPickPlace: string | null;
 }) {
+  const [viewportHeight, setViewportHeight] = useState(0);
+
+  useEffect(() => {
+    const updateViewportHeight = () => {
+      setViewportHeight(window.innerHeight);
+    };
+
+    updateViewportHeight();
+    window.addEventListener('resize', updateViewportHeight);
+
+    return () => window.removeEventListener('resize', updateViewportHeight);
+  }, []);
   const [isActive, setIsActive] = useState<ProvinceKey>('강원');
   const [isPickPlace, setIsPickPlace] = useState<Place | null>(() => {
     if (!defaultIsPickPlace) return null;
@@ -90,7 +102,8 @@ export function PlacePickSheet({
       return;
     }
     try {
-      await setDestination(isPickPlace?.name);
+      const destinationName = `${isActive} ${isPickPlace.name}`;
+      await setDestination(destinationName);
       refetch();
       toast.success('여행지 설정이 완료되었습니다.');
       setIsPickPlace(null);
@@ -115,7 +128,7 @@ export function PlacePickSheet({
       </SheetTrigger>
       <SheetContent
         side='bottom'
-        className='mobile-area flex h-screen max-w-[600px] flex-col'
+        className={`mobile-area flex h-[${viewportHeight}px] max-w-[600px] flex-col`}
       >
         <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8'>
           <SheetTitle className='flex h-13 w-full items-center justify-between px-4 py-2'>

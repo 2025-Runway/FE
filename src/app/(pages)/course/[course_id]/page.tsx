@@ -42,7 +42,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <div className='flex h-auto w-full flex-col'>
         <CourseImage imageUrl={courseDetail.crsImg ?? ''} />
         <CourseDetail course={courseDetail} />
-        <CourseMap gpxUrl={courseDetail.gpxFilePath} />
+        <CourseMap
+          gpxUrl={courseDetail.gpxFilePath}
+          crsKorNm={courseDetail.crsKorNm}
+        />
         <CourseDescription description={courseDetail.crsContents} />
         <div className='flex-center px-5 pt-5'>
           <div className='border-point-300 flex h-auto w-full flex-col items-start gap-3 rounded-[20px] border px-6 py-5 shadow-[0_0_8px_0_rgba(103,236,180,0.20)]'>

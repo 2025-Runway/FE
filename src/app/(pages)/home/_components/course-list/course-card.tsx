@@ -22,13 +22,15 @@ export function CourseCard({
 
   return (
     <div
-      className='relative h-[196px] w-[168px] flex-shrink-0 overflow-hidden rounded-[20px] cursor-pointer transition-transform hover:scale-105'
+      className='relative h-[196px] w-[168px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[20px] transition-transform hover:scale-105'
       onClick={handleClick}
     >
       <Image
         src={imageUrl}
         alt={`${title} 코스 이미지`}
         fill
+        priority
+        sizes='100%'
         className='object-cover'
       />
 

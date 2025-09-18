@@ -28,7 +28,7 @@ export function AICourse({ courses, isLoading }: AICourseProps) {
       {isLoading ? (
         <CourseSkeleton />
       ) : (
-        <div className='scrollbar-hide flex gap-3 overflow-x-auto'>
+        <div className='scrollbar-hide flex gap-3 overflow-x-auto overflow-y-hidden'>
           {courses.map(course => (
             <CourseCard
               key={course.crsIdx}

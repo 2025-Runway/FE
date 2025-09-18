@@ -29,11 +29,12 @@ function SavePageContent() {
 export default function SavePage() {
   return (
     <div className='flex h-screen flex-col'>
-      <header className='mt-[6px] mb-1 flex h-[52px] items-center justify-center'>
+      <header className='border-gray-0 bg-gray-bg fixed top-0 right-0 left-0 mt-[6px] mb-1 flex h-[52px] flex-col items-center justify-center border-b-8'>
         <p className='text-title1'>찜</p>
       </header>
-      <nav className='bg-gray-0 h-2 w-full' />
-      <SavePageContent />
+      <div className='mt-14'>
+        <SavePageContent />
+      </div>
       <div className='h-25' />
     </div>
   );

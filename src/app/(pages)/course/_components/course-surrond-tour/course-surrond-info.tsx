@@ -25,6 +25,7 @@ export function CourseSurrondInfo() {
   const [allTourInfo, setAllTourInfo] = useState<TourInfoItem[]>([]);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [crsKorNm, setCrsKorNm] = useState('');
 
   const [cachedData, setCachedData] = useState<Record<string, TourInfoItem[]>>(
     {},
@@ -39,6 +40,8 @@ export function CourseSurrondInfo() {
   //
   // 새로운 관광 데이터가 로드될 때마다 상태 업데이트 및 캐싱 처리
   useEffect(() => {
+    const crsKorNm = localStorage.getItem('crsKorNm');
+    setCrsKorNm(crsKorNm ?? '');
     if (tourInfoData) {
       const cacheKey = `${course_id}-${activeTab}`;
 
@@ -59,7 +62,7 @@ export function CourseSurrondInfo() {
       setHasNextPage(!tourInfoData.last);
       setIsLoading(false);
     }
-  }, [tourInfoData, currentPage, course_id, activeTab]);
+  }, [tourInfoData, currentPage, course_id, activeTab, crsKorNm]);
 
   // 무한 스크롤을 위한 다음 페이지 로드 핸들러
   const handleLoadMore = useCallback(() => {
@@ -103,7 +106,7 @@ export function CourseSurrondInfo() {
       </SheetTrigger>
       <SheetContent
         side='right'
-        className='mobile-area bg-gray-bg flex h-screen w-screen flex-col'
+        className='mobile-area bg-gray-bg flex h-screen flex-col'
       >
         <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8'>
           <SheetTitle className='flex h-14 w-full items-center justify-between px-4 py-3'>
@@ -113,7 +116,7 @@ export function CourseSurrondInfo() {
               </span>
             </SheetClose>
             <span className='text-gray-bk text-[20px] leading-7 font-bold'>
-              일단 아무 코스
+              {crsKorNm}
             </span>
             <span className='size-13' />
           </SheetTitle>

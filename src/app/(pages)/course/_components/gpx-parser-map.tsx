@@ -235,17 +235,28 @@ const GPXRouteMap = ({
     if (customStartMarker) {
       console.log('커스텀 마커 생성:', customStartMarker);
       const customMarker = new window.naver.maps.Marker({
-        position: new window.naver.maps.LatLng(customStartMarker.lat, customStartMarker.lng),
+        position: new window.naver.maps.LatLng(
+          customStartMarker.lat,
+          customStartMarker.lng,
+        ),
         map: map,
         icon: {
-          content: '<div style="background-color: #00C851; width: 40px; height: 40px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"><div style="transform: rotate(45deg); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">출발</div></div>',
+          content:
+            '<div style="background-color: #00C851; width: 40px; height: 40px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"><div style="transform: rotate(45deg); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">출발</div></div>',
           anchor: new window.naver.maps.Point(20, 40),
         },
         zIndex: 1000,
       });
       markersRef.current.push(customMarker);
     }
-  }, [map, track, routeStyle, markerStyle, waypointInterval, customStartMarker]);
+  }, [
+    map,
+    track,
+    routeStyle,
+    markerStyle,
+    waypointInterval,
+    customStartMarker,
+  ]);
 
   const handleNaverMap = (points: GPXPoint[]) => {
     if (points.length === 0) return;
@@ -254,10 +265,19 @@ const GPXRouteMap = ({
     const { lat, lng } = startPoint;
 
     // 네이버지도 길찾기 URL 생성
-    const naverMapUrl = `https://map.naver.com/v5/search/${lat},${lng}`;
+    const webUrl = `https://map.naver.com/v5/search/${lat},${lng}`;
+    const appUrl = `nmap://place?lat=${lat}&lng=${lng}`;
 
     if (window.confirm('네이버 지도로 이동하시겠습니까?')) {
-      window.open(naverMapUrl, '_blank', 'noopener,noreferrer');
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.location.href = appUrl;
+
+        setTimeout(() => {
+          window.open(webUrl, '_blank', 'noopener,noreferrer');
+        }, 2000);
+      } else {
+        window.open(webUrl, '_blank', 'noopener,noreferrer');
+      }
     }
   };
 

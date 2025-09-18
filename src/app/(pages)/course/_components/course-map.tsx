@@ -3,12 +3,19 @@
 import { useState, useEffect } from 'react';
 import GPXRouteMap from './gpx-parser-map';
 
-export function CourseMap({ gpxUrl }: { gpxUrl: string }) {
+export function CourseMap({
+  gpxUrl,
+  crsKorNm,
+}: {
+  gpxUrl: string;
+  crsKorNm: string;
+}) {
   const [gpxContent, setGpxContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    localStorage.setItem('crsKorNm', crsKorNm);
     const fetchGpxContent = async () => {
       try {
         setIsLoading(true);

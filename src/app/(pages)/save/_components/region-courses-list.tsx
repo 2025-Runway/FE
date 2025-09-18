@@ -1,5 +1,8 @@
 import { CourseCard } from './course-card';
-import { FavoriteCoursesByRegion, FavoriteCourse } from '@/interfaces/save/save.types';
+import {
+  FavoriteCoursesByRegion,
+  FavoriteCourse,
+} from '@/interfaces/save/save.types';
 
 interface RegionSectionProps {
   region: string;

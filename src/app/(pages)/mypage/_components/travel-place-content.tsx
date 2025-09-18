@@ -30,7 +30,7 @@ export function TravelPlaceContent() {
           fill
           className='object-fill'
         />
-        <span className='absolute top-6 left-5 flex flex-col items-start'>
+        <span className='absolute top-6 left-5 flex flex-col items-start rounded-[20px] backdrop-blur-[3px]'>
           <span className='text-title2 text-white000'>나의 여행지</span>
           <span className='text-heading1 text-white000'>
             {mypageInfo?.destination}

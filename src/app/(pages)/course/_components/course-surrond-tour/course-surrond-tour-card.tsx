@@ -5,12 +5,19 @@ import { memo } from 'react';
 
 function CourseSurrondTourCard({ item }: { item: TourInfoItem }) {
   const handleNaverMapMove = (mapX: number, mapY: number) => {
-    // 네이버지도 직접 좌표 이동 URL
-    const naverMapUrl = `https://map.naver.com/v5/search/${mapY},${mapX}`;
+    const webUrl = `https://map.naver.com/v5/search/${mapY},${mapX}`;
+    const appUrl = `nmap://place?lat=${mapY}&lng=${mapX}`;
 
     if (window.confirm('네이버 지도로 이동하시겠습니까?')) {
-      // 새 탭에서 열기
-      window.open(naverMapUrl, '_blank', 'noopener,noreferrer');
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        window.location.href = appUrl;
+
+        setTimeout(() => {
+          window.open(webUrl, '_blank', 'noopener,noreferrer');
+        }, 2000);
+      } else {
+        window.open(webUrl, '_blank', 'noopener,noreferrer');
+      }
     }
   };
   return (
