@@ -34,7 +34,7 @@ export default function ContestDetailPage({ params }: ContestDetailPageProps) {
       }
     };
 
-    fetchContestDetail();
+    void fetchContestDetail();
   }, [resolvedParams.id]);
 
   if (loading) {

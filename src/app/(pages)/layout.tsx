@@ -91,7 +91,7 @@ export default function RootLayout({
       </head>
       <body className='bg-gray-bg h-screen w-screen antialiased'>
         <GlobalProvider>
-          <main className='bg-gray-bg mobile-area h-full pb-16'>
+          <main className='bg-gray-bg mobile-area scrollbar-hide h-full overflow-y-auto pb-16'>
             {children}
             <NavigationBar />
           </main>

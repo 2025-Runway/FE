@@ -18,6 +18,7 @@ import HeartInactive from '@/public/svg/course/heart-blank.svg';
 import { CourseSurrondInfo } from '@/app/(pages)/course/_components/course-surrond-tour/course-surrond-info';
 import React from 'react';
 import { toast } from 'sonner';
+import { addCourseSave } from '@/lib/api/courses';
 
 interface NavItem {
   href: string;
@@ -73,8 +74,10 @@ export default function NavigationBar() {
     return pathname.startsWith(href);
   };
   const isCourseDetail = pathname.startsWith('/course');
+  const crsIdx = pathname.split('/course/')[1] ?? '';
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
+    await addCourseSave(crsIdx);
     setIsSaveActive(!isSaveActive);
     toast.success('찜 완료');
   };

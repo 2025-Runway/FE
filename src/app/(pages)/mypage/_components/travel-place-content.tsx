@@ -1,13 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { PlacePickSheet } from './place-pick-sheet';
 import { getMypageInfo } from '@/lib/api/mypage';
-import { MypageInfo } from '@/interfaces/mypage.types';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { LoadingSpinner } from '@/components/loading-spinner';
-import { Place } from '../_constants/region.constant';
 
 export function TravelPlaceContent() {
   const {

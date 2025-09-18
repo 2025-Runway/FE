@@ -46,6 +46,8 @@ const getAuthToken = async (): Promise<string | null> => {
   if (typeof window === 'undefined') {
     try {
       const { cookies } = require('next/headers');
+      const { unstable_noStore } = require('next/cache');
+      unstable_noStore(); // 정적 생성 비활성화
       const cookieStore = await cookies();
       const token = cookieStore.get('auth-token')?.value;
       return token ?? null;
@@ -77,11 +79,6 @@ const addAuthHeaders = async (
   }
 
   const token = await getAuthToken();
-
-  if (!token) {
-    console.warn(`토큰이 필요한 API이지만 토큰이 없습니다: ${endpoint}`);
-    // 토큰이 없어도 요청은 보냄 (서버에서 401 처리)
-  }
 
   return {
     ...options,

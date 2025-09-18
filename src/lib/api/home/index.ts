@@ -60,7 +60,7 @@ export const getUserInfo = async (): Promise<ApiResponse<UserInfo>> => {
  */
 export const searchCourses = async (
   query: string,
-  page: number = 1,
+  page = 1,
 ): Promise<ApiResponse<SearchResponse>> => {
   return await api.get(
     `/public/search?q=${encodeURIComponent(query)}&page=${page}`,
@@ -79,26 +79,30 @@ export const getUserDataCached = cache(
 /**
  * 지역별 인기 코스 가져오는 API
  */
-export const getPopularCoursesByRegion = async (region: string): Promise<
-  ApiResponse<PopularCourse[]>
-> => {
-  return await api.get(`/courses/popular/region?region=${encodeURIComponent(region)}`);
+export const getPopularCoursesByRegion = async (
+  region: string,
+): Promise<ApiResponse<PopularCourse[]>> => {
+  return await api.get(
+    `/courses/popular/region?region=${encodeURIComponent(region)}`,
+  );
 };
 
 /**
  * 지역별 AI 추천 코스 가져오는 API
  */
-export const getRecommendedCoursesByRegion = async (region: string): Promise<
-  ApiResponse<PopularCourse[]>
-> => {
-  return await api.get(`/courses/recommendations/region?region=${encodeURIComponent(region)}`);
+export const getRecommendedCoursesByRegion = async (
+  region: string,
+): Promise<ApiResponse<PopularCourse[]>> => {
+  return await api.get(
+    `/courses/recommendations/region?region=${encodeURIComponent(region)}`,
+  );
 };
 
 /**
  * 코스 상세 정보 가져오는 API
  */
-export const getCourseDetail = async (crsIdx: string): Promise<
-  ApiResponse<CourseDetail>
-> => {
+export const getCourseDetail = async (
+  crsIdx: string,
+): Promise<ApiResponse<CourseDetail>> => {
   return await api.get(`/public/search/${crsIdx}`);
 };

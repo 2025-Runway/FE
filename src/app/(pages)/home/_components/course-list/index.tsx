@@ -11,7 +11,9 @@ import { useRecommendedCourses } from '../../_hooks/use-recommended-courses';
 import { getUserDataCached } from '@/lib/api/home';
 
 export function CourseSection() {
-  const [activeTab, setActiveTab] = useState<'nationwide' | 'destinations'>('nationwide');
+  const [activeTab, setActiveTab] = useState<'nationwide' | 'destinations'>(
+    'nationwide',
+  );
 
   // 사용자 정보 조회
   const { data: userDataResponse } = useQuery({
@@ -20,7 +22,7 @@ export function CourseSection() {
   });
 
   // 목적지 정보 추출
-  const destination = userDataResponse?.data?.destination || '';
+  const destination = userDataResponse?.data?.destination ?? '';
   const hasDestination = destination.trim() !== '';
 
   // API 호출 조건 결정
@@ -36,8 +38,8 @@ export function CourseSection() {
     useRecommendedCourses(true, regionParam);
 
   // 데이터 추출
-  const popularCourses = popularCoursesResponse?.data || [];
-  const recommendedCourses = recommendedCoursesResponse?.data || [];
+  const popularCourses = popularCoursesResponse?.data ?? [];
+  const recommendedCourses = recommendedCoursesResponse?.data ?? [];
 
   // 이벤트 핸들러
   const handleTabChange = (tab: 'nationwide' | 'destinations') => {
@@ -59,11 +61,17 @@ export function CourseSection() {
       ) : shouldShowCourses ? (
         <>
           <div className='mt-8 pl-5'>
-            <PopularCourse courses={popularCourses} isLoading={popularLoading} />
+            <PopularCourse
+              courses={popularCourses}
+              isLoading={popularLoading}
+            />
           </div>
 
           <div className='mt-8 pl-5'>
-            <AICourse courses={recommendedCourses} isLoading={recommendedLoading} />
+            <AICourse
+              courses={recommendedCourses}
+              isLoading={recommendedLoading}
+            />
           </div>
         </>
       ) : null}

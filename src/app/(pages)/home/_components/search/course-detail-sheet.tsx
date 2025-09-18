@@ -46,7 +46,7 @@ export function CourseDetailSheet({
       }
     };
 
-    fetchCourseDetail();
+    void fetchCourseDetail();
   }, [isOpen, course.crsIdx]);
 
   const handleDetailView = () => {
@@ -85,9 +85,9 @@ export function CourseDetailSheet({
     );
   };
 
-  const courseTitle = courseDetail?.crsName || course.crsName;
+  const courseTitle = courseDetail?.crsName ?? course.crsName;
   const courseDescription =
-    courseDetail?.content || '남쪽의 쪽빛 바다와 함께 걷는 길';
+    courseDetail?.content ?? '남쪽의 쪽빛 바다와 함께 걷는 길';
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
