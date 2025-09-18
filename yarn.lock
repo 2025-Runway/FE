@@ -3035,15 +3035,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/minimatch@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@types/minimatch@npm:6.0.0"
-  dependencies:
-    minimatch: "npm:*"
-  checksum: 10c0/901fc4208cf6f5ab0e86bf86504055fb387f76092e06e604a3f2403db1c20e613c42104b235fde05552e0632d8f82e4ceacb83351d8700c7ffc5c31010a80804
-  languageName: node
-  linkType: hard
-
 "@types/navermaps@npm:^3.9.1":
   version: 3.9.1
   resolution: "@types/navermaps@npm:3.9.1"
@@ -5105,7 +5096,6 @@ __metadata:
     "@tailwindcss/postcss": "npm:^4"
     "@tanstack/react-query": "npm:^5.83.0"
     "@tanstack/react-query-devtools": "npm:^5.87.3"
-    "@types/minimatch": "npm:^6.0.0"
     "@types/navermaps": "npm:^3.9.1"
     "@types/next-pwa": "npm:^5"
     "@types/node": "npm:^20"
@@ -5119,6 +5109,7 @@ __metadata:
     eslint: "npm:^9"
     eslint-config-next: "npm:15.3.5"
     lucide-react: "npm:^0.525.0"
+    minimatch: "npm:^10.0.3"
     motion: "npm:^12.23.12"
     next: "npm:15.3.5"
     next-pwa: "npm:^5.6.0"
@@ -6623,7 +6614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:*":
+"minimatch@npm:^10.0.3":
   version: 10.0.3
   resolution: "minimatch@npm:10.0.3"
   dependencies:
