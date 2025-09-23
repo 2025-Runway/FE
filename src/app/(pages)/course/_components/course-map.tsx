@@ -6,9 +6,11 @@ import GPXRouteMap from './gpx-parser-map';
 export function CourseMap({
   gpxUrl,
   crsKorNm,
+  isFavorite,
 }: {
   gpxUrl: string;
   crsKorNm: string;
+  isFavorite: boolean;
 }) {
   const [gpxContent, setGpxContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +18,7 @@ export function CourseMap({
 
   useEffect(() => {
     localStorage.setItem('crsKorNm', crsKorNm);
+    localStorage.setItem('isFavorite', isFavorite.toString());
     const fetchGpxContent = async () => {
       try {
         setIsLoading(true);

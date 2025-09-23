@@ -128,40 +128,29 @@ export function PlacePickSheet({
       </SheetTrigger>
       <SheetContent
         side='bottom'
-        className={`mobile-area flex h-[${viewportHeight}px] max-w-[600px] flex-col`}
+        className={`mobile-area flex h-[80%] max-w-[600px] flex-col rounded-t-[28px]`}
       >
-        <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8'>
-          <SheetTitle className='flex h-13 w-full items-center justify-between px-4 py-2'>
-            <SheetClose
-              onClick={() => {
-                setIsPickPlace(
-                  defaultIsPickPlace
-                    ? findPlaceByName(defaultIsPickPlace)
-                    : null,
-                );
-              }}
-            >
-              <span className='flex-center size-13 px-2'>
-                <XIcon className='size-6' />
-              </span>
-            </SheetClose>
+        <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8 pt-4'>
+          <span className='bg-gray-1 mx-auto h-2 w-[30%] rounded-full' />
+
+          <SheetTitle className='flex-center h-13 w-full px-4 py-2 pt-4'>
             <span className='text-gray-bk text-[20px] leading-7 font-bold'>
               여행지 설정하기
             </span>
+          </SheetTitle>
+        </SheetHeader>
+
+        <div className='itmes-end border-gray-0 flex h-auto w-full flex-shrink-0 flex-col gap-3.5 border-b-8 px-6 pt-11 pb-7.5'>
+          <h1 className='font-extralight-medium text-gray-bk flex items-center justify-between text-[24px] leading-[33.6px]'>
+            여행, 어디로 떠나시나요?
             <SheetClose>
               <span
-                className='text-point-400 text-[14px] leading-[19.6px] font-bold'
+                className='text-point-400 text-[18px] leading-[19.6px] font-bold'
                 onClick={handlePlaceSubmit}
               >
                 완료하기
               </span>
             </SheetClose>
-          </SheetTitle>
-        </SheetHeader>
-
-        <div className='itmes-end border-gray-0 flex h-auto w-full flex-shrink-0 flex-col gap-3.5 border-b-8 pt-11 pb-7.5 pl-6'>
-          <h1 className='font-extralight-medium text-gray-bk text-[24px] leading-[33.6px]'>
-            여행, 어디로 떠나시나요?
           </h1>
           <div className='custom-scrollbar flex items-center gap-2 overflow-x-auto pb-3'>
             {isPickPlace !== null ? (

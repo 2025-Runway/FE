@@ -18,14 +18,11 @@ export function WeatherWeeklyCard({
   type,
   index,
 }: WeatherWeeklyCardProps) {
-  const mockWeatherData = {
-    temperature: (data.tempMin + data.tempMax) / 2, // 평균 온도
-    windSpeed: 3, // 기본값 (실제로는 API에서 받아야 함)
-    fineDust: '보통' as const,
-    uvIndex: '보통' as const,
-  };
-
-  const runningCondition = useRunningCondition(mockWeatherData);
+  const runningCondition = useRunningCondition({
+    temperature: (data.tempMin + data.tempMax) / 2,
+    airQuality: data.airQuality,
+  });
+  console.log(runningCondition);
 
   // 날짜 포맷팅
   const formatDate = (
@@ -90,7 +87,7 @@ export function WeatherWeeklyCard({
       {/* 대기질 */}
       <div className='flex-col-center flex-shrink-0'>
         <div className='text-caption2 text-gray-4'>대기</div>
-        <div className='text-title3 text-gray-bk'>매우 좋음</div>
+        <div className='text-title3 text-gray-bk'>{data.airQuality}</div>
       </div>
 
       {/* 러닝 지수 */}

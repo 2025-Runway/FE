@@ -16,16 +16,12 @@ export function WeatherCurrentSection({
   lon,
   location,
 }: WeatherCurrentSectionProps) {
-  console.log('lat', lat);
-  console.log('lon', lon);
-  console.log('location', location);
   // 현재 위치 날씨 정보
   const {
     data: weatherData,
     isLoading,
     error,
   } = useWeather(lat, lon, location);
-  console.log('weatherData', weatherData);
 
   // 현재 위치 주간 날씨 정보
   const {

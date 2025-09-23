@@ -105,7 +105,7 @@ export function CourseSurrondInfo() {
         주변 정보 보기
       </SheetTrigger>
       <SheetContent
-        side='right'
+        side='bottom'
         className='mobile-area bg-gray-bg flex h-screen flex-col'
       >
         <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8'>

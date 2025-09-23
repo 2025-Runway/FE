@@ -1,23 +1,8 @@
 'use client';
 
-import { MOCK_WEEKLY_WEATHER_DATA } from '@/utils/mockdata/weather-weekly.mock';
 import { useGeoLocation } from '../_hooks/use-geo-location';
 import { useWeatherTabQuery } from '../_hooks/weather-tab-query.hook';
-import { WeatherNow } from './weather-now';
-import { WeatherWeeklyForecast } from './weather-weekly-forecast';
-import {
-  FineDust,
-  UvIndex,
-  Weather,
-  WeatherNowData,
-} from '@/interfaces/weather.types';
 import { Loader2, MapPinOff } from 'lucide-react';
-import {
-  useWeather,
-  useWeatherWeekly,
-  useDestinationWeather,
-  useDestinationWeatherWeekly,
-} from '../_hooks/use-weather-data';
 import { WeatherCurrentSection } from './weather-current-section';
 import { WeatherDestinationSection } from './weather-destination-section';
 

@@ -18,7 +18,7 @@ import HeartInactive from '@/public/svg/course/heart-blank.svg';
 import { CourseSurrondInfo } from '@/app/(pages)/course/_components/course-surrond-tour/course-surrond-info';
 import React from 'react';
 import { toast } from 'sonner';
-import { addCourseSave } from '@/lib/api/courses';
+import { addCourseSave, removeCourseSave } from '@/lib/api/courses';
 
 interface NavItem {
   href: string;
@@ -76,7 +76,18 @@ export default function NavigationBar() {
   const isCourseDetail = pathname.startsWith('/course');
   const crsIdx = pathname.split('/course/')[1] ?? '';
 
+  React.useEffect(() => {
+    const isFavorite = localStorage.getItem('isFavorite');
+    setIsSaveActive(isFavorite === 'true');
+  }, []);
+
   const handleSaveClick = async () => {
+    if (isSaveActive) {
+      await removeCourseSave(crsIdx);
+      setIsSaveActive(false);
+      toast.success('찜 삭제');
+      return;
+    }
     await addCourseSave(crsIdx);
     setIsSaveActive(!isSaveActive);
     toast.success('찜 완료');

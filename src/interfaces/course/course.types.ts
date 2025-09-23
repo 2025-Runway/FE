@@ -30,6 +30,9 @@ export interface Course {
   // 시간 정보
   createdAt: string; // 등록일 (ISO 8601 형식)
   updatedAt: string; // 수정일 (ISO 8601 형식)
+
+  // 찜 여부
+  isFavorite?: boolean; // 찜 여부
 }
 
 // API 응답 래퍼 타입

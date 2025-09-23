@@ -13,7 +13,7 @@ function RegionSection({ region, courses }: RegionSectionProps) {
   return (
     <div className='mb-8'>
       <h2 className='text-title2 mb-3'>{region}</h2>
-      <div className='scrollbar-hide flex gap-3 overflow-x-auto'>
+      <div className='scrollbar-hide flex gap-3 overflow-x-auto overflow-y-hidden pr-6'>
         {courses.map(course => (
           <CourseCard
             key={course.crsIdx}
