@@ -22,7 +22,6 @@ export function WeatherWeeklyCard({
     temperature: (data.tempMin + data.tempMax) / 2,
     airQuality: data.airQuality,
   });
-  console.log(runningCondition);
 
   // 날짜 포맷팅
   const formatDate = (
