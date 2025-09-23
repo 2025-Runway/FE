@@ -57,23 +57,10 @@ export function PlacePickSheet({
   refetch: () => void;
   defaultIsPickPlace: string | null;
 }) {
-  const [viewportHeight, setViewportHeight] = useState(0);
-
-  useEffect(() => {
-    const updateViewportHeight = () => {
-      setViewportHeight(window.innerHeight);
-    };
-
-    updateViewportHeight();
-    window.addEventListener('resize', updateViewportHeight);
-
-    return () => window.removeEventListener('resize', updateViewportHeight);
-  }, []);
   const [isActive, setIsActive] = useState<ProvinceKey>('강원');
   const [isPickPlace, setIsPickPlace] = useState<Place | null>(() => {
     if (!defaultIsPickPlace) return null;
-
-    const foundPlace = findPlaceByName(defaultIsPickPlace);
+    const foundPlace = findPlaceByName(defaultIsPickPlace.split(' ')[1]);
     return foundPlace ?? { name: defaultIsPickPlace, type: '시' };
   });
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -106,7 +93,7 @@ export function PlacePickSheet({
       await setDestination(destinationName);
       refetch();
       toast.success('여행지 설정이 완료되었습니다.');
-      setIsPickPlace(null);
+      setIsPickPlace(isPickPlace);
       setIsActive('강원');
     } catch (error) {
       toast.error('여행지 설정에 실패했습니다.');
@@ -168,7 +155,7 @@ export function PlacePickSheet({
           </div>
         </div>
 
-        <section className='flex h-[calc(100vh-60px-177.6px)] w-full'>
+        <section className='flex h-[calc(100%-270px)] w-full'>
           <aside className='bg-gray-0 scrollbar-hide flex h-auto max-w-28 flex-col items-center overflow-y-auto px-3 py-5'>
             {REGION_LIST.map(item => (
               <span
