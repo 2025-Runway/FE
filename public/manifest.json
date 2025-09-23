@@ -6,7 +6,6 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffeeea",
-  "orientation": "portrait",
   "categories": [
     "travel",
     "map",
@@ -25,13 +24,6 @@
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "maskable any"
-    }
-  ],
-  "prefer_related_applications": false,
-  "related_applications": [
-    {
-      "platform": "webapp",
-      "url": "/manifest.json"
     }
   ]
 }
