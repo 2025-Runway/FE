@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import GPXRouteMap from './gpx-parser-map';
+import { GPXParser } from '../_utils/gpx-parser';
 
 export function CourseMap({
   gpxUrl,
@@ -15,7 +16,10 @@ export function CourseMap({
   const [gpxContent, setGpxContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [startPosition, setStartPosition] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
   useEffect(() => {
     localStorage.setItem('crsKorNm', crsKorNm);
     localStorage.setItem('isFavorite', isFavorite.toString());
@@ -35,8 +39,20 @@ export function CourseMap({
 
         const content = await response.text();
         setGpxContent(content);
+
+        // GPX 파싱해서 시작점 좌표 추출
+        try {
+          const track = GPXParser.parseGPX(content);
+
+          if (track?.points && track.points.length > 0) {
+            const firstPoint = track.points[0];
+            const position = { lat: firstPoint.lat, lng: firstPoint.lng };
+            setStartPosition(position);
+          }
+        } catch (parseError) {
+          setError('GPX 파싱 오류');
+        }
       } catch (err) {
-        console.error('GPX 파일 로드 실패:', err);
         setError('GPX 파일을 불러올 수 없습니다.');
       } finally {
         setIsLoading(false);
@@ -86,10 +102,11 @@ export function CourseMap({
               startColor: '#00C851',
               endColor: '#FF6B6B',
               waypointColor: '#00C851',
-              size: 15,
+              size: 30,
             }}
-            waypointInterval={3}
-            showInfo={true}
+            waypointInterval={5}
+            showInfo={false}
+            customStartMarker={startPosition}
           />
         )}
       </div>

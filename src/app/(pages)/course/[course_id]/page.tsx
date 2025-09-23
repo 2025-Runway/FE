@@ -14,6 +14,7 @@ import { LoadingSpinner } from '@/components/loading-spinner';
 import MainPointLogo from '@/public/svg/logo/main-point-logo.svg';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import { Loader2 } from 'lucide-react';
 
 interface CoursePageProps {
   params: Promise<{ course_id: string }>;
@@ -67,7 +68,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             <Suspense
               fallback={
                 <div className='flex-col-center h-full min-h-[160px] w-full min-w-[160px] gap-2'>
-                  <LoadingSpinner />
+                  <Loader2 className='text-point-400 size-12 animate-spin rounded-full' />
                   <p>코스 분석 요약을 불러오고 있어요.</p>
                 </div>
               }

@@ -85,11 +85,13 @@ export default function NavigationBar() {
     if (isSaveActive) {
       await removeCourseSave(crsIdx);
       setIsSaveActive(false);
+      localStorage.setItem('isFavorite', 'false');
       toast.success('찜 삭제');
       return;
     }
     await addCourseSave(crsIdx);
     setIsSaveActive(!isSaveActive);
+    localStorage.setItem('isFavorite', 'true');
     toast.success('찜 완료');
   };
   if (isCourseDetail) {
