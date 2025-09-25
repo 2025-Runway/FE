@@ -57,23 +57,10 @@ export function PlacePickSheet({
   refetch: () => void;
   defaultIsPickPlace: string | null;
 }) {
-  const [viewportHeight, setViewportHeight] = useState(0);
-
-  useEffect(() => {
-    const updateViewportHeight = () => {
-      setViewportHeight(window.innerHeight);
-    };
-
-    updateViewportHeight();
-    window.addEventListener('resize', updateViewportHeight);
-
-    return () => window.removeEventListener('resize', updateViewportHeight);
-  }, []);
   const [isActive, setIsActive] = useState<ProvinceKey>('강원');
   const [isPickPlace, setIsPickPlace] = useState<Place | null>(() => {
     if (!defaultIsPickPlace) return null;
-
-    const foundPlace = findPlaceByName(defaultIsPickPlace);
+    const foundPlace = findPlaceByName(defaultIsPickPlace.split(' ')[1]);
     return foundPlace ?? { name: defaultIsPickPlace, type: '시' };
   });
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -106,7 +93,7 @@ export function PlacePickSheet({
       await setDestination(destinationName);
       refetch();
       toast.success('여행지 설정이 완료되었습니다.');
-      setIsPickPlace(null);
+      setIsPickPlace(isPickPlace);
       setIsActive('강원');
     } catch (error) {
       toast.error('여행지 설정에 실패했습니다.');
@@ -128,40 +115,29 @@ export function PlacePickSheet({
       </SheetTrigger>
       <SheetContent
         side='bottom'
-        className={`mobile-area flex h-[${viewportHeight}px] max-w-[600px] flex-col`}
+        className={`mobile-area flex h-[80%] max-w-[600px] flex-col rounded-t-[28px]`}
       >
-        <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8'>
-          <SheetTitle className='flex h-13 w-full items-center justify-between px-4 py-2'>
-            <SheetClose
-              onClick={() => {
-                setIsPickPlace(
-                  defaultIsPickPlace
-                    ? findPlaceByName(defaultIsPickPlace)
-                    : null,
-                );
-              }}
-            >
-              <span className='flex-center size-13 px-2'>
-                <XIcon className='size-6' />
-              </span>
-            </SheetClose>
+        <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8 pt-4'>
+          <span className='bg-gray-1 mx-auto h-2 w-[30%] rounded-full' />
+
+          <SheetTitle className='flex-center h-13 w-full px-4 py-2 pt-4'>
             <span className='text-gray-bk text-[20px] leading-7 font-bold'>
               여행지 설정하기
             </span>
+          </SheetTitle>
+        </SheetHeader>
+
+        <div className='itmes-end border-gray-0 flex h-auto w-full flex-shrink-0 flex-col gap-3.5 border-b-8 px-6 pt-11 pb-7.5'>
+          <h1 className='font-extralight-medium text-gray-bk flex items-center justify-between text-[24px] leading-[33.6px]'>
+            여행, 어디로 떠나시나요?
             <SheetClose>
               <span
-                className='text-point-400 text-[14px] leading-[19.6px] font-bold'
+                className='text-point-400 text-[18px] leading-[19.6px] font-bold'
                 onClick={handlePlaceSubmit}
               >
                 완료하기
               </span>
             </SheetClose>
-          </SheetTitle>
-        </SheetHeader>
-
-        <div className='itmes-end border-gray-0 flex h-auto w-full flex-shrink-0 flex-col gap-3.5 border-b-8 pt-11 pb-7.5 pl-6'>
-          <h1 className='font-extralight-medium text-gray-bk text-[24px] leading-[33.6px]'>
-            여행, 어디로 떠나시나요?
           </h1>
           <div className='custom-scrollbar flex items-center gap-2 overflow-x-auto pb-3'>
             {isPickPlace !== null ? (
@@ -179,7 +155,7 @@ export function PlacePickSheet({
           </div>
         </div>
 
-        <section className='flex h-[calc(100vh-60px-177.6px)] w-full'>
+        <section className='flex h-[calc(100%-270px)] w-full'>
           <aside className='bg-gray-0 scrollbar-hide flex h-auto max-w-28 flex-col items-center overflow-y-auto px-3 py-5'>
             {REGION_LIST.map(item => (
               <span

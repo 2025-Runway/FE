@@ -14,6 +14,16 @@ export function getCourseDetail(
   return api.get(`/public/courses/${course_id}`);
 }
 /**
+ * @description 코스 상세 조회 - 토큰o - 로그인 상태
+ * @param course_id 코스 고유번호
+ * @returns 코스 상세 정보
+ */
+export function getUserCourseDetail(
+  course_id: string,
+): Promise<ApiResponse<Course>> {
+  return api.get(`/courses/${course_id}`);
+}
+/**
  * @description 코스 분석 요약 조회 - 토큰x
  * @param course_id 코스 고유번호
  * @returns 코스 분석 요약 정보
@@ -56,4 +66,12 @@ export function getCourseTourInfo(
  */
 export function addCourseSave(crsIdx: string): Promise<ApiResponse<void>> {
   return api.post(`/courses/${crsIdx}/favorite`);
+}
+/**
+ * @description 코스 찜 삭제
+ * @param crsIdx 코스 고유번호
+ * @returns 코스 찜 삭제 정보
+ */
+export function removeCourseSave(crsIdx: string): Promise<ApiResponse<void>> {
+  return api.delete(`/courses/${crsIdx}/favorite`);
 }

@@ -8,9 +8,6 @@ import {
 } from '@/lib/api/weather';
 
 export function useWeather(lat: number, lng: number, location: string) {
-  console.log('lat', lat);
-  console.log('lng', lng);
-  console.log('location', location);
   return useQuery({
     queryKey: ['weather', lat, lng],
     queryFn: async () => {

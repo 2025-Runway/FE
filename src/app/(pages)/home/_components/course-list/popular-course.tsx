@@ -15,7 +15,7 @@ export function PopularCourse({ courses, isLoading }: PopularCourseProps) {
       {isLoading ? (
         <CourseSkeleton />
       ) : (
-        <div className='scrollbar-hide flex gap-3 overflow-x-auto overflow-y-hidden'>
+        <div className='scrollbar-hide flex gap-3 overflow-x-auto overflow-y-hidden pr-4'>
           {courses.map(course => (
             <CourseCard
               key={course.crsIdx}

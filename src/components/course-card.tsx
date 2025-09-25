@@ -21,6 +21,8 @@ export default function CourseCard({
         alt={`${title} 코스 이미지`}
         fill
         className='object-cover'
+        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+        priority
       />
 
       <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />

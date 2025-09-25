@@ -49,7 +49,7 @@ const getAuthToken = async (): Promise<string | null> => {
       const { unstable_noStore } = require('next/cache');
       unstable_noStore(); // 정적 생성 비활성화
       const cookieStore = await cookies();
-      const token = cookieStore.get('auth-token')?.value;
+      const token = cookieStore.get('accessToken')?.value;
       return token ?? null;
     } catch (error) {
       console.warn('서버에서 토큰 가져오기 실패:', error);

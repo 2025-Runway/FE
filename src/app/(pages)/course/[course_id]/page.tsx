@@ -4,13 +4,17 @@ import { CourseDetail } from '../_components/course-detail';
 import { CourseMap } from '../_components/course-map';
 import { CourseDescription } from '../_components/course-description';
 import { CourseRunwayPoint } from '../_components/course-runway-point';
-import { api } from '@/lib/api';
-import { getCourseAISummary, getCourseDetail } from '@/lib/api/courses';
+import {
+  getCourseAISummary,
+  getCourseDetail,
+  getUserCourseDetail,
+} from '@/lib/api/courses';
 import { Suspense } from 'react';
-import { Divide } from 'lucide-react';
 import { LoadingSpinner } from '@/components/loading-spinner';
 import MainPointLogo from '@/public/svg/logo/main-point-logo.svg';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { Loader2 } from 'lucide-react';
 
 interface CoursePageProps {
   params: Promise<{ course_id: string }>;
@@ -19,7 +23,11 @@ interface CoursePageProps {
 export default async function CoursePage({ params }: CoursePageProps) {
   const { course_id } = await params;
 
-  const courseDetail = await getCourseDetail(course_id).then(res => res.data);
+  const cookieStore = await cookies();
+  const token = cookieStore.get('accessToken')?.value;
+  const courseDetail = token
+    ? await getUserCourseDetail(course_id).then(res => res.data)
+    : await getCourseDetail(course_id).then(res => res.data);
 
   if (!courseDetail) {
     return (
@@ -45,6 +53,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         <CourseMap
           gpxUrl={courseDetail.gpxFilePath}
           crsKorNm={courseDetail.crsKorNm}
+          isFavorite={courseDetail.isFavorite ?? false}
         />
         <CourseDescription description={courseDetail.crsContents} />
         <div className='flex-center px-5 pt-5'>
@@ -59,7 +68,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             <Suspense
               fallback={
                 <div className='flex-col-center h-full min-h-[160px] w-full min-w-[160px] gap-2'>
-                  <LoadingSpinner />
+                  <Loader2 className='text-point-400 size-12 animate-spin rounded-full' />
                   <p>코스 분석 요약을 불러오고 있어요.</p>
                 </div>
               }

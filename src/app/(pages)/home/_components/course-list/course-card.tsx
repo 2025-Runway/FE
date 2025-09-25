@@ -25,14 +25,18 @@ export function CourseCard({
       className='relative h-[196px] w-[168px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[20px] transition-transform hover:scale-105'
       onClick={handleClick}
     >
-      <Image
-        src={imageUrl}
-        alt={`${title} 코스 이미지`}
-        fill
-        priority
-        sizes='100%'
-        className='object-cover'
-      />
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={`${title} 코스 이미지`}
+          fill
+          priority
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+          className='object-cover'
+        />
+      ) : (
+        <div className='bg-gray-1 h-full w-full' />
+      )}
 
       <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
 

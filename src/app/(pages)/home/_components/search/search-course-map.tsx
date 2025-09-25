@@ -35,19 +35,16 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
         // GPX 파싱해서 시작점 좌표 추출
         try {
           const track = GPXParser.parseGPX(content);
-          console.log('GPX 파싱 결과:', track);
 
           if (track?.points && track.points.length > 0) {
             const firstPoint = track.points[0];
             const position = { lat: firstPoint.lat, lng: firstPoint.lng };
-            console.log('시작점 좌표:', position);
             setStartPosition(position);
           }
         } catch (parseError) {
-          console.error('GPX 파싱 실패:', parseError);
+          setError('GPX 파싱 오류');
         }
       } catch (err) {
-        console.error('GPX 파일 로드 실패:', err);
         setError('GPX 파일을 불러올 수 없습니다.');
       } finally {
         setIsLoading(false);
@@ -61,7 +58,7 @@ export function SearchCourseMap({ gpxUrl }: { gpxUrl: string }) {
 
   if (isLoading) {
     return (
-      <div className='flex flex-1 items-center justify-center bg-gray-100'>
+      <div className='bg-gray-1/80 flex h-full w-full flex-1 items-center justify-center'>
         <div className='text-center'>
           <div className='mx-auto mb-2 h-8 w-8 animate-spin rounded-full border-4 border-green-500 border-t-transparent'></div>
           <p className='text-gray-600'>경로를 불러오는 중...</p>

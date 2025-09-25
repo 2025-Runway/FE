@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { FineDust, UvIndex } from '@/interfaces/weather.types';
+import { AirQuality, FineDust, UvIndex } from '@/interfaces/weather.types';
 
 export type RunningIndex = '좋음' | '보통' | '나쁨';
 
@@ -18,9 +18,10 @@ export interface RunningCondition {
 
 export interface WeatherData {
   temperature: number;
-  windSpeed: number; // m/s
-  fineDust: FineDust;
-  uvIndex: UvIndex;
+  windSpeed?: number; // m/s
+  fineDust?: FineDust;
+  uvIndex?: UvIndex;
+  airQuality?: AirQuality;
 }
 
 /**
@@ -28,22 +29,26 @@ export interface WeatherData {
  * @param weatherData 날씨 데이터
  * @returns 러닝 지수 정보
  */
-export function useRunningCondition(weatherData: WeatherData): RunningCondition {
+export function useRunningCondition(
+  weatherData: WeatherData,
+): RunningCondition {
   return useMemo(() => {
-    const { temperature, windSpeed, fineDust, uvIndex } = weatherData;
+    const { temperature, windSpeed, fineDust, uvIndex, airQuality } =
+      weatherData;
 
     // 각 요소별 점수 계산
     const temperatureScore = calculateTemperatureScore(temperature);
-    const windSpeedScore = calculateWindSpeedScore(windSpeed);
-    const fineDustScore = calculateFineDustScore(fineDust);
-    const uvIndexScore = calculateUvIndexScore(uvIndex);
-
+    const windSpeedScore = calculateWindSpeedScore(windSpeed ?? 0);
+    const fineDustScore = calculateFineDustScore(fineDust ?? '보통');
+    const uvIndexScore = calculateUvIndexScore(uvIndex ?? '보통');
+    const airQualityScore = calculateAirQualityScore(airQuality ?? '보통');
     // 가중치 적용 (온도 40%, 풍속 20%, 미세먼지 25%, 자외선 15%)
     const totalScore = Math.round(
       temperatureScore.score * 0.4 +
-      windSpeedScore.score * 0.2 +
-      fineDustScore.score * 0.25 +
-      uvIndexScore.score * 0.15
+        windSpeedScore.score * 0.2 +
+        fineDustScore.score * 0.25 +
+        uvIndexScore.score * 0.15 +
+        airQualityScore.score * 0.1,
     );
 
     // 종합 지수 결정
@@ -57,11 +62,21 @@ export function useRunningCondition(weatherData: WeatherData): RunningCondition 
       description = '모든 조건이 러닝하기에 최적입니다.';
     } else if (totalScore >= 60) {
       index = '보통';
-      tip = getModerateTip(temperatureScore, windSpeedScore, fineDustScore, uvIndexScore);
+      tip = getModerateTip(
+        temperatureScore,
+        windSpeedScore,
+        fineDustScore,
+        uvIndexScore,
+      );
       description = '약간의 준비가 필요한 날씨입니다.';
     } else {
       index = '나쁨';
-      tip = getBadTip(temperatureScore, windSpeedScore, fineDustScore, uvIndexScore);
+      tip = getBadTip(
+        temperatureScore,
+        windSpeedScore,
+        fineDustScore,
+        uvIndexScore,
+      );
       description = '러닝에 주의가 필요한 날씨입니다.';
     }
 
@@ -81,13 +96,16 @@ export function useRunningCondition(weatherData: WeatherData): RunningCondition 
 }
 
 // 온도 점수 계산
-function calculateTemperatureScore(temperature: number): { score: number; status: string } {
+function calculateTemperatureScore(temperature: number): {
+  score: number;
+  status: string;
+} {
   if (temperature >= 10 && temperature <= 20) {
     return { score: 100, status: '최적' };
   } else if (temperature >= 5 && temperature < 10) {
-    return { score: 80, status: '쌀쌀' };
+    return { score: 70, status: '쌀쌀' };
   } else if (temperature > 20 && temperature <= 25) {
-    return { score: 75, status: '따뜻' };
+    return { score: 80, status: '따뜻' };
   } else if (temperature > 25 && temperature <= 30) {
     return { score: 60, status: '더움' };
   } else if (temperature > 30) {
@@ -98,7 +116,10 @@ function calculateTemperatureScore(temperature: number): { score: number; status
 }
 
 // 풍속 점수 계산
-function calculateWindSpeedScore(windSpeed: number): { score: number; status: string } {
+function calculateWindSpeedScore(windSpeed: number): {
+  score: number;
+  status: string;
+} {
   if (windSpeed <= 2) {
     return { score: 100, status: '무풍' };
   } else if (windSpeed <= 5) {
@@ -113,7 +134,10 @@ function calculateWindSpeedScore(windSpeed: number): { score: number; status: st
 }
 
 // 미세먼지 점수 계산
-function calculateFineDustScore(fineDust: FineDust): { score: number; status: string } {
+function calculateFineDustScore(fineDust: FineDust): {
+  score: number;
+  status: string;
+} {
   switch (fineDust) {
     case '좋음':
       return { score: 100, status: '좋음' };
@@ -131,7 +155,10 @@ function calculateFineDustScore(fineDust: FineDust): { score: number; status: st
 }
 
 // 자외선 지수 점수 계산
-function calculateUvIndexScore(uvIndex: UvIndex): { score: number; status: string } {
+function calculateUvIndexScore(uvIndex: UvIndex): {
+  score: number;
+  status: string;
+} {
   switch (uvIndex) {
     case '낮음':
       return { score: 100, status: '낮음' };
@@ -150,33 +177,53 @@ function calculateUvIndexScore(uvIndex: UvIndex): { score: number; status: strin
   }
 }
 
+// 공기 질 점수 계산
+function calculateAirQualityScore(airQuality: AirQuality): {
+  score: number;
+  status: string;
+} {
+  switch (airQuality) {
+    case '좋음':
+      return { score: 100, status: '좋음' };
+    case '보통':
+      return { score: 80, status: '보통' };
+    case '나쁨':
+      return { score: 40, status: '나쁨' };
+    case '매우나쁨':
+      return { score: 10, status: '매우나쁨' };
+    case '점검중':
+      return { score: 50, status: '점검중' };
+    default:
+      return { score: 50, status: '알 수 없음' };
+  }
+}
 // 보통 등급 팁 생성
 function getModerateTip(
   temp: { score: number; status: string },
   wind: { score: number; status: string },
   dust: { score: number; status: string },
-  uv: { score: number; status: string }
+  uv: { score: number; status: string },
 ): string {
   const tips = [];
-  
+
   if (temp.score < 70) {
     if (temp.status === '쌀쌀') tips.push('따뜻한 옷을 입으세요');
     if (temp.status === '따뜻') tips.push('가벼운 옷을 입으세요');
     if (temp.status === '더움') tips.push('충분한 수분을 섭취하세요');
   }
-  
+
   if (wind.score < 70) {
     tips.push('바람막이를 챙기세요');
   }
-  
+
   if (dust.score < 70) {
     tips.push('마스크를 착용하세요');
   }
-  
+
   if (uv.score < 70) {
     tips.push('자외선 차단제를 바르세요');
   }
-  
+
   return tips.length > 0 ? tips.join(', ') : '모자와 바람막이를 챙기세요!';
 }
 
@@ -185,25 +232,25 @@ function getBadTip(
   temp: { score: number; status: string },
   wind: { score: number; status: string },
   dust: { score: number; status: string },
-  uv: { score: number; status: string }
+  uv: { score: number; status: string },
 ): string {
   if (temp.score < 50) {
     if (temp.status === '매우 더움') return '실내 러닝을 권장합니다!';
     if (temp.status === '추움') return '따뜻한 옷을 입고 러닝하세요!';
   }
-  
+
   if (dust.score < 50) {
     return '미세먼지가 심하니 실내 러닝을 권장합니다!';
   }
-  
+
   if (wind.score < 50) {
     return '강한 바람으로 러닝이 어려울 수 있습니다!';
   }
-  
+
   if (uv.score < 50) {
     return '자외선이 강하니 실내 러닝을 권장합니다!';
   }
-  
+
   return '러닝에 주의가 필요한 날씨입니다!';
 }
 

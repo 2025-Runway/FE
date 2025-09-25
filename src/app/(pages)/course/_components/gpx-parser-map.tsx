@@ -104,9 +104,7 @@ const GPXRouteMap = ({
       try {
         const parsedTrack = GPXParser.parseGPX(gpxContent);
         setTrack(parsedTrack);
-      } catch (err) {
-        console.error('GPX 파싱 오류:', err);
-      }
+      } catch (err) {}
     } else if (routePoints) {
       setTrack({
         name: 'Custom Route',
@@ -154,6 +152,10 @@ const GPXRouteMap = ({
         logoControl: false,
         minZoom: 8, // 최소 줌 레벨 설정
         maxZoom: 18, // 최대 줌 레벨 설정
+        disableDoubleTapZoom: true, // 더블탭 줌 비활성화
+        draggable: false, // 드래그 비활성화
+        clickable: false, // 클릭 비활성화
+        touchEnabled: false, // 터치 비활성화
       };
 
       const naverMap = new window.naver.maps.Map(mapRef.current, mapOptions);
@@ -233,7 +235,6 @@ const GPXRouteMap = ({
 
     // 커스텀 시작점 마커
     if (customStartMarker) {
-      console.log('커스텀 마커 생성:', customStartMarker);
       const customMarker = new window.naver.maps.Marker({
         position: new window.naver.maps.LatLng(
           customStartMarker.lat,

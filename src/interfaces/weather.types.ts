@@ -8,6 +8,7 @@ export type Weather =
   | '흐림+소나기';
 export type FineDust = '좋음' | '보통' | '나쁨' | '매우나쁨' | '점검중';
 export type UvIndex = '낮음' | '보통' | '높음' | '매우높음' | '위험' | '점검중';
+export type AirQuality = '좋음' | '보통' | '나쁨' | '매우나쁨' | '점검중';
 
 // 현재 날씨 데이터 타입
 export interface WeatherNowData {
@@ -27,6 +28,7 @@ export interface WeeklyWeatherData {
   weatherPm: Weather; // 오후 날씨
   tempMin: number; // 최저 기온
   tempMax: number; // 최고 기온
+  airQuality: AirQuality; // 공기 질 지수
 }
 
 // 주간 예보 API 응답 타입
