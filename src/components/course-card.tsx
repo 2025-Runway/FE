@@ -27,7 +27,7 @@ export default function CourseCard({
 
       <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
 
-      <div className='absolute bottom-4 left-4 text-white'>
+      <div className='absolute bottom-4 px-4 break-keep text-white'>
         <p className='text-white000 text-[18px] leading-[140%] font-bold'>
           {title}
         </p>
