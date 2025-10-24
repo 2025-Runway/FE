@@ -29,7 +29,7 @@ export function ContestCard({
     <div
       className={cn(
         'cursor-pointer rounded-[20px] bg-white px-6 py-5 transition-transform active:scale-95',
-        'shadow-[0_4px_16px_0_rgba(158,170,181,0.20)]',
+        'mb-8 shadow-[0_4px_16px_0_rgba(158,170,181,0.20)]',
         className,
       )}
       onClick={() => onClick?.(id)}

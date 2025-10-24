@@ -36,7 +36,7 @@ function ContestCourseCard({ course }: { course: Course }) {
 
       <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
 
-      <div className='absolute bottom-4 left-4 text-white'>
+      <div className='keep absolute bottom-4 px-4 text-white'>
         <p className='text-white000 text-[18px] leading-[140%] font-bold'>
           {course.title}
         </p>
