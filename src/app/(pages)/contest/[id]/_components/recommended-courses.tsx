@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { cn } from '@/utils/cn';
 
 interface Course {
   id: string;
@@ -27,7 +28,10 @@ function ContestCourseCard({ course }: { course: Course }) {
 
   return (
     <div
-      className={`relative h-[196px] w-[168px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[20px] transition-transform hover:scale-105 ${!hasValidImage ? 'bg-black' : ''}`}
+      className={cn(
+        'relative h-[196px] w-[168px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[20px] transition-transform hover:scale-105',
+        !hasValidImage && 'bg-black',
+      )}
       onClick={handleClick}
     >
       {hasValidImage && (
@@ -66,9 +70,9 @@ export function RecommendedCourses({ courses }: RecommendedCoursesProps) {
       <nav className='bg-gray-0 h-2 w-full' />
       <div className='h-7' />
 
-      <div className='px-4'>
+      <div className='pl-4'>
         <h2 className='text-title2 mb-4'>같이 달리기 좋은 코스</h2>
-        <div className='scrollbar-hide flex gap-3 overflow-x-auto'>
+        <div className='scrollbar-hide flex gap-3 overflow-x-auto pr-4'>
           {courses.map(course => (
             <ContestCourseCard key={course.id} course={course} />
           ))}
