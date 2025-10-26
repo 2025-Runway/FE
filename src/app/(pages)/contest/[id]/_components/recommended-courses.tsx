@@ -22,17 +22,22 @@ function ContestCourseCard({ course }: { course: Course }) {
     }
   };
 
+  // 이미지 URL 유효성 검사
+  const hasValidImage = course.imageUrl && course.imageUrl.trim() !== '';
+
   return (
     <div
-      className='relative h-[196px] w-[168px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[20px] transition-transform hover:scale-105'
+      className={`relative h-[196px] w-[168px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[20px] transition-transform hover:scale-105 ${!hasValidImage ? 'bg-black' : ''}`}
       onClick={handleClick}
     >
-      <Image
-        src={course.imageUrl}
-        alt={`${course.title} 코스 이미지`}
-        fill
-        className='object-cover'
-      />
+      {hasValidImage && (
+        <Image
+          src={course.imageUrl}
+          alt={`${course.title} 코스 이미지`}
+          fill
+          className='object-cover'
+        />
+      )}
 
       <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
 
