@@ -17,7 +17,7 @@ export function PageHeader({
   return (
     <header
       className={cn(
-        'relative mt-[6px] mb-1 flex h-[52px] shrink-0 items-center justify-center',
+        'border-gray-0 bg-gray-bg mobile-area fixed top-0 right-0 left-0 z-50 flex h-[62px] flex-col items-center justify-center border-b-4 pt-1.5 pb-1',
         className,
       )}
     >
