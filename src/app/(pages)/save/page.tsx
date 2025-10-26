@@ -10,8 +10,8 @@ export default async function SavePage() {
       </header>
       <div className='mt-14'>
         <SavePageContent favoriteCourses={favoriteCourses.data!} />
+        <div className='h-16' />
       </div>
-      <div className='h-25' />
     </div>
   );
 }
