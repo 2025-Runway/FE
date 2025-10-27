@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { cn } from '@/utils/cn';
 
 interface Course {
   id: string;
@@ -22,21 +23,29 @@ function ContestCourseCard({ course }: { course: Course }) {
     }
   };
 
+  // 이미지 URL 유효성 검사
+  const hasValidImage = course.imageUrl && course.imageUrl.trim() !== '';
+
   return (
     <div
-      className='relative h-[196px] w-[168px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[20px] transition-transform hover:scale-105'
+      className={cn(
+        'relative h-[196px] w-[168px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[20px] transition-transform hover:scale-105',
+        !hasValidImage && 'bg-black',
+      )}
       onClick={handleClick}
     >
-      <Image
-        src={course.imageUrl}
-        alt={`${course.title} 코스 이미지`}
-        fill
-        className='object-cover'
-      />
+      {hasValidImage && (
+        <Image
+          src={course.imageUrl}
+          alt={`${course.title} 코스 이미지`}
+          fill
+          className='object-cover'
+        />
+      )}
 
       <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent' />
 
-      <div className='absolute bottom-4 left-4 text-white'>
+      <div className='keep absolute bottom-4 px-4 text-white'>
         <p className='text-white000 text-[18px] leading-[140%] font-bold'>
           {course.title}
         </p>
@@ -61,9 +70,9 @@ export function RecommendedCourses({ courses }: RecommendedCoursesProps) {
       <nav className='bg-gray-0 h-2 w-full' />
       <div className='h-7' />
 
-      <div className='px-4'>
+      <div className='pl-4'>
         <h2 className='text-title2 mb-4'>같이 달리기 좋은 코스</h2>
-        <div className='scrollbar-hide flex gap-3 overflow-x-auto'>
+        <div className='scrollbar-hide flex gap-3 overflow-x-auto pr-4'>
           {courses.map(course => (
             <ContestCourseCard key={course.id} course={course} />
           ))}

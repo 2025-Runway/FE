@@ -45,7 +45,7 @@ export default function ContestDetailPage({ params }: ContestDetailPageProps) {
           isLeftIcon
           onClickLeftIcon={() => router.back()}
         />
-        <div className='flex flex-1 items-center justify-center'>
+        <div className='mt-14 flex flex-1 items-center justify-center'>
           <div>로딩 중...</div>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function ContestDetailPage({ params }: ContestDetailPageProps) {
           isLeftIcon
           onClickLeftIcon={() => router.back()}
         />
-        <div className='flex flex-1 items-center justify-center'>
+        <div className='mt-14 flex flex-1 items-center justify-center'>
           <div>대회 정보를 찾을 수 없습니다.</div>
         </div>
       </div>
@@ -74,55 +74,54 @@ export default function ContestDetailPage({ params }: ContestDetailPageProps) {
         isLeftIcon
         onClickLeftIcon={() => router.back()}
       />
+      <div className='mt-14'>
+        <nav className='bg-gray-0 h-2 w-full' />
 
-      <nav className='bg-gray-0 h-2 w-full' />
+        <div className='flex-1 overflow-y-auto'>
+          <ContestInfo
+            date={`${contestData.month}. ${contestData.day}.`}
+            day={contestData.dayOfWeek}
+            title={contestData.title}
+            location={contestData.addr}
+            distances={contestData.prices.map(price => price.type)}
+          />
 
-      <div className='flex-1 overflow-y-auto'>
-        <ContestInfo
-          date={`${contestData.month}. ${contestData.day}.`}
-          day={contestData.dayOfWeek}
-          title={contestData.title}
-          location={contestData.addr}
-          distances={contestData.prices.map(price => price.type)}
-        />
+          <ContestDetails
+            organizer={contestData.host}
+            fees={contestData.prices.map(price => ({
+              distance: price.type,
+              price: price.price,
+              label: `(${price.type})`,
+            }))}
+          />
 
-        <ContestDetails
-          organizer={contestData.host}
-          fees={contestData.prices.map(price => ({
-            distance: price.type,
-            price: price.price,
-            label: `(${price.type})`,
-          }))}
-        />
+          <div className='h-9' />
 
-        <div className='h-9' />
+          <RecommendedCourses
+            courses={contestData.courseInfos.map(course => ({
+              id: course.crsIdx,
+              title: course.crsKorNm,
+              location: course.sigun,
+              imageUrl: course.crsImgUrl,
+              crsIdx: course.crsIdx,
+            }))}
+          />
 
-        <RecommendedCourses
-          courses={contestData.courseInfos.map(course => ({
-            id: course.crsIdx,
-            title: course.crsKorNm,
-            location: course.sigun,
-            imageUrl: course.crsImgUrl,
-            crsIdx: course.crsIdx,
-          }))}
-        />
-
-        <div className='h-12' />
-        <div
-          className={cn('px-5 pt-5', {
-            'border-gray-1 border-t': contestData.courseInfos.length > 0,
-          })}
-        >
-          <button
-            className='text-title2 bg-point-400 w-full rounded-[12px] py-3 text-white'
-            onClick={() => window.open(contestData.homepageUrl, '_blank')}
+          <div className='h-12' />
+          <div
+            className={cn('px-5 pt-5', {
+              'border-gray-1 border-t': contestData.courseInfos.length > 0,
+            })}
           >
-            홈페이지로 이동하기
-          </button>
+            <button
+              className='text-title2 bg-point-400 w-full rounded-[12px] py-3 text-white'
+              onClick={() => window.open(contestData.homepageUrl, '_blank')}
+            >
+              홈페이지로 이동하기
+            </button>
+          </div>
         </div>
       </div>
-
-      <div className='h-25' />
     </div>
   );
 }
