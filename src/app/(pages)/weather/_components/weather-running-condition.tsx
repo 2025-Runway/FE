@@ -11,6 +11,8 @@ import {
 } from '../_hooks/running-condition.hook';
 import clsx from 'clsx';
 import { cn } from '@/utils/cn';
+import { useState } from 'react';
+import { WeatherInfoModal } from './weather-info-modal';
 
 interface RunningIndexProps {
   weatherData: WeatherData;
@@ -18,10 +20,11 @@ interface RunningIndexProps {
 
 export function WeatherRunningCondition({ weatherData }: RunningIndexProps) {
   const runningCondition = useRunningCondition(weatherData);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div
       className={cn(
-        'flex h-auto w-full flex-col gap-1 rounded-[20px] border px-8 py-3 shadow-[0_0_8px_0_rgba(103,236,180,0.20)]',
+        'relative flex h-auto w-full flex-col gap-1 rounded-[20px] border px-8 py-3 shadow-[0_0_8px_0_rgba(103,236,180,0.20)]',
         runningCondition.index === '좋음' && 'border-weather-bl-02',
         runningCondition.index === '보통' && 'border-point-400',
         runningCondition.index === '나쁨' && 'border-weather-or-02',
@@ -29,7 +32,10 @@ export function WeatherRunningCondition({ weatherData }: RunningIndexProps) {
     >
       <span className='flex items-center gap-1'>
         <span className='text-caption2 text-gray-3'>러닝 지수</span>
-        <RunningAlertIcon />
+
+        <button onClick={() => setIsModalOpen(true)}>
+          <RunningAlertIcon />
+        </button>
       </span>
       <div className='flex items-center justify-start gap-7'>
         <span className='flex-col-center gap-1'>
@@ -59,6 +65,10 @@ export function WeatherRunningCondition({ weatherData }: RunningIndexProps) {
           <p className='text-title3 text-gray-bk'>{runningCondition.tip}</p>
         </span>
       </div>
+      <WeatherInfoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
