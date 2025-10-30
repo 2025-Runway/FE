@@ -1,6 +1,8 @@
 import { fetchQuery } from './fetch-query';
 import { fetchMutation, type MutationOptions } from './fetch-mutation';
 import { FetchOptions } from '@/interfaces/api/request.types';
+import { cache } from 'react';
+import { ApiResponse } from '@/interfaces/api/response.types';
 
 /**
  * 공개 URL 패턴 (토큰 불필요)
@@ -88,6 +90,23 @@ const addAuthHeaders = async (
     },
   };
 };
+
+/**
+ * @description 캐시된 GET 요청 함수
+ * @param endpoint API 엔드포인트
+ * @param options fetch 옵션 (캐싱 설정 포함)
+ * @returns Promise<ApiResponse<T>>
+ */
+export const cachedGet = cache(
+  async <T>(
+    endpoint: string,
+    options?: Omit<FetchOptions, 'method' | 'body'>,
+  ): Promise<ApiResponse<T>> => {
+    const enhancedOptions = await addAuthHeaders(endpoint, options);
+    return await fetchQuery<T>(endpoint, enhancedOptions);
+  },
+);
+
 /**
  * @description 편의를 위한 fetch API 래퍼 함수들
  * @example
