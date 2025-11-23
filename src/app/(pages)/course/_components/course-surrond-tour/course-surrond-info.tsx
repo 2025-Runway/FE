@@ -105,8 +105,8 @@ export function CourseSurrondInfo() {
         주변 정보 보기
       </SheetTrigger>
       <SheetContent
-        side='bottom'
-        className='mobile-area bg-gray-bg flex h-screen flex-col'
+        side='right'
+        className='bg-gray-bg flex h-screen w-full flex-col'
       >
         <SheetHeader className='border-gray-0 flex-shrink-0 border-b-8'>
           <SheetTitle className='flex h-14 w-full items-center justify-between px-4 py-3'>
@@ -130,7 +130,6 @@ export function CourseSurrondInfo() {
         >
           {allTourInfo.map((item, index) => {
             const shouldAttachObserver = index % 10 === 5; // 6번째 (0-based index 5)
-
             return (
               <div
                 key={`${item.contentId}-${index}`}
